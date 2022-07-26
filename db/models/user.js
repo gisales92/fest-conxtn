@@ -1,5 +1,7 @@
 "use strict";
-const { Validator } = require("sequelize");
+const { Validator, Op } = require("sequelize");
+const bcrypt = require("bcryptjs");
+
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -54,15 +56,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
         validate: {
-          len: [1, 50]
-        }
+          len: [1, 50],
+        },
       },
       state: {
         allowNull: true,
         type: DataTypes.STRING,
         validate: {
-          len: [1, 15]
-        }
+          len: [1, 15],
+        },
       },
       hashedPassword: {
         allowNull: false,
@@ -79,6 +81,65 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = function (models) {};
+
+  User.prototype.toSafeObject = function () {
+    // remember, no arrow functions
+    const {
+      id,
+      firstName,
+      lastName,
+      email,
+      username,
+      profilePicUrl,
+      city,
+      state,
+    } = this; // context will be the User instance
+    return {
+      id,
+      firstName,
+      lastName,
+      email,
+      username,
+      profilePicUrl,
+      city,
+      state,
+    };
+  };
+
+  User.prototype.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.hashedPassword.toString());
+  };
+
+  User.getCurrentUserById = async function (id) {
+    const user = await User.findByPk(id);
+    return user.toSafeObject();
+  };
+
+  User.login = async function (credential, password ) {
+    const user = await User.findOne({
+      where: {
+        [Op.or]: {
+          username: credential,
+          email: credential,
+        },
+      },
+    });
+    if (user && user.validatePassword(password)) {
+      return user.toSafeObject();
+    }
+  };
+
+  User.signup = async function ({ username, email, password, firstName, lastName }) {
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      username,
+      email,
+      hashedPassword,
+      firstName,
+      lastName,
+    });
+    return user.toSafeObject();
+  };
 
   return User;
 };
