@@ -1,7 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Genre = sequelize.define('Genre', {
-    type: DataTypes.STRING
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+      }
+    },
   }, {});
   Genre.associate = function(models) {
     // associations can be defined here
