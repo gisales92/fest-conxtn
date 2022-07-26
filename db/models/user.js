@@ -81,8 +81,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = function (models) {
-    User.belongsToMany(models.User, {through: models.Message, as: "sender", foreignKey: "senderId"});
-    User.belongsToMany(models.User, {through: models.Message, as: "recipient", foreignKey: "recipientId"})
+    // I'm not sure if I need this association, commenting out for now
+    // User.belongsToMany(models.User, {through: models.Message, as: "sender", foreignKey: "senderId"});
+    // User.belongsToMany(models.User, {through: models.Message, as: "recipient", foreignKey: "recipientId"});
   };
 
   User.prototype.toSafeObject = function () {
