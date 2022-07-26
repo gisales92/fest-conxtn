@@ -30,10 +30,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       city: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING(50),
       },
       state: {
-        type: Sequelize.STRING(40),
+        type: Sequelize.STRING(15),
       },
       hashedPassword: {
         allowNull: false,
