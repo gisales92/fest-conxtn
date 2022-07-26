@@ -80,7 +80,10 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  User.associate = function (models) {};
+  User.associate = function (models) {
+    User.belongsToMany(models.User, {through: models.Message, as: "sender", foreignKey: "senderId"});
+    User.belongsToMany(models.User, {through: models.Message, as: "recipient", foreignKey: "recipientId"})
+  };
 
   User.prototype.toSafeObject = function () {
     // remember, no arrow functions
