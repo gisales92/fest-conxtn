@@ -53,10 +53,16 @@ module.exports = (sequelize, DataTypes) => {
       city: {
         allowNull: true,
         type: DataTypes.STRING,
+        validate: {
+          len: [1, 50]
+        }
       },
       state: {
         allowNull: true,
         type: DataTypes.STRING,
+        validate: {
+          len: [1, 15]
+        }
       },
       hashedPassword: {
         allowNull: false,
