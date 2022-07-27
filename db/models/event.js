@@ -1,22 +1,101 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Event = sequelize.define('Event', {
-    name: DataTypes.STRING,
-    url: DataTypes.STRING,
-    ownerId: DataTypes.INTEGER,
-    genreId: DataTypes.INTEGER,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
-    venueName: DataTypes.STRING,
-    address: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    zipCode: DataTypes.STRING,
-    mainPicUrl: DataTypes.STRING,
-    description: DataTypes.STRING,
-    link: DataTypes.STRING
-  }, {});
-  Event.associate = function(models) {
+  const Event = sequelize.define(
+    "Event",
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          len: [1, 100],
+        },
+      },
+      url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      genreId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
+      startDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
+      endDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
+      venueName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      zipCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      mainPicUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      link: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    },
+    {}
+  );
+  Event.associate = function (models) {
     // associations can be defined here
   };
   return Event;
