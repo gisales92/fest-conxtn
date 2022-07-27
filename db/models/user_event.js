@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const User_Event = sequelize.define(
-    "User_Event",
+  const User_Events = sequelize.define(
+    "User_Events",
     {
       userId: {
         type: DataTypes.INTEGER,
@@ -27,8 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  User_Event.associate = function (models) {
+  User_Events.associate = function (models) {
     // associations can be defined here
+    User_Events.hasOne(models.RSVP, { foreignKey: "rsvpId" });
   };
-  return User_Event;
+  return User_Events;
 };

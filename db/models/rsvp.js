@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   RSVP.associate = function (models) {
     // associations can be defined here
+    RSVP.belongsTo(models.User_Events);
   };
   return RSVP;
 };

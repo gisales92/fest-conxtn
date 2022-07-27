@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  User_Genre.associate = function (models) {
+  User_Genres.associate = function (models) {
     // associations can be defined here
   };
   return User_Genres;

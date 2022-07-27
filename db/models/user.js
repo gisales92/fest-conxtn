@@ -2,7 +2,6 @@
 const { Validator, Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
@@ -84,7 +83,16 @@ module.exports = (sequelize, DataTypes) => {
     // I'm not sure if I need this association, commenting out for now
     // User.belongsToMany(models.User, {through: models.Message, as: "sender", foreignKey: "senderId"});
     // User.belongsToMany(models.User, {through: models.Message, as: "recipient", foreignKey: "recipientId"});
-    User.belongsToMany(models.Genre, {through: "User_Genres"})
+    User.belongsToMany(models.Genre, {
+      through: "User_Genres",
+      foreignKey: "userId",
+      otherKey: "genreId",
+    });
+    User.belongsToMany(models.Event, {
+      through: "User_Events",
+      foreignKey: "userId",
+      otherKey: "eventId",
+    });
   };
 
   User.prototype.toSafeObject = function () {
@@ -120,7 +128,7 @@ module.exports = (sequelize, DataTypes) => {
     return user.toSafeObject();
   };
 
-  User.login = async function (credential, password ) {
+  User.login = async function (credential, password) {
     const user = await User.findOne({
       where: {
         [Op.or]: {
@@ -134,7 +142,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password, firstName, lastName }) {
+  User.signup = async function ({
+    username,
+    email,
+    password,
+    firstName,
+    lastName,
+  }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
