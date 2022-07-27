@@ -1,20 +1,28 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Message = sequelize.define(
-    "Message",
+  const Post = sequelize.define(
+    "Post",
     {
-      senderId: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: true,
         },
       },
-      recipientId: {
+      eventId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: true,
+        },
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          len: [1, 100],
         },
       },
       body: {
@@ -22,19 +30,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: true,
-          len: [1, 2000],
-        }
-      },
-      read: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
+          len: [1, 1000],
+        },
       },
     },
     {}
   );
-  Message.associate = function (models) {
-    Message.belongsTo(models.User, {as: "sender", foreignKey: "senderId"});
-    Message.belongsTo(models.User, {as: "recipient", foreignKey: "recipientId"});
+  Post.associate = function (models) {
+    // associations can be defined here
   };
-  return Message;
+  return Post;
 };
