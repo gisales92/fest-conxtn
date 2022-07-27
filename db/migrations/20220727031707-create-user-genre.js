@@ -13,6 +13,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "Users",
+          key: "id",
         },
       },
       genreId: {
@@ -20,6 +21,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "Genres",
+          key: "id",
         },
       },
       createdAt: {

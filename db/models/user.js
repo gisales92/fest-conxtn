@@ -84,6 +84,7 @@ module.exports = (sequelize, DataTypes) => {
     // I'm not sure if I need this association, commenting out for now
     // User.belongsToMany(models.User, {through: models.Message, as: "sender", foreignKey: "senderId"});
     // User.belongsToMany(models.User, {through: models.Message, as: "recipient", foreignKey: "recipientId"});
+    User.belongsToMany(models.Genre, {through: "User_Genres"})
   };
 
   User.prototype.toSafeObject = function () {

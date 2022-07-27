@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Genre.associate = function(models) {
-    // Genre.belongsToMany(models.User, { through: })
+    Genre.belongsToMany(models.User, { through: "User_Genres"})
   };
   return Genre;
 };
