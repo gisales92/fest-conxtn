@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Genre.associate = function(models) {
-    Genre.belongsToMany(models.User, { through: "User_Genres"})
+    Genre.belongsToMany(models.User, { through: "User_Genres"});
+    Genre.hasMany(models.Event, {foreignKey: "genreId"});
   };
   return Genre;
 };
