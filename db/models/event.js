@@ -42,11 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       venueName: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
+        allowNull: true,
       },
       address: {
         type: DataTypes.STRING,
