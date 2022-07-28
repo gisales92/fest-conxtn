@@ -99,6 +99,7 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: "userId",
     });
     Event.hasMany(models.Image);
+    Event.hasMany(models.Post);
   };
   return Event;
 };

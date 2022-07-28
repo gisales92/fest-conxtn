@@ -93,6 +93,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
       otherKey: "eventId",
     });
+    User.hasMany(models.Post);
   };
 
   User.prototype.toSafeObject = function () {
