@@ -1,8 +1,6 @@
 const config = require('./');
-console.log("config", config)
 const db = config.db;
 const username = db.username;
-console.log("username", username)
 const password = db.password;
 const database = db.database;
 const host = db.host;
