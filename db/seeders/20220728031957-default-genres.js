@@ -8,7 +8,7 @@ function r(o) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("Messages", [
+    return queryInterface.bulkInsert("Genres", [
       r({
         type: "House",
       }),
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Messages");
+    return queryInterface.bulkDelete("Genres");
   },
 };
