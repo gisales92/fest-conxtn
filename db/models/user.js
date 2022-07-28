@@ -94,6 +94,7 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: "eventId",
     });
     User.hasMany(models.Post);
+    User.hasMany(models.Reply);
   };
 
   User.prototype.toSafeObject = function () {
