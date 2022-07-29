@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       url: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       genreId: {
@@ -33,23 +33,23 @@ module.exports = {
         allowNull: false,
       },
       venueName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: true,
       },
       address: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: true,
       },
       city: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
       },
       state: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
       },
       zipCode: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(5),
         allowNull: true,
       },
       mainPicUrl: {
@@ -57,7 +57,7 @@ module.exports = {
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(500),
         allowNull: false,
       },
       link: {

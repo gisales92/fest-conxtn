@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: true,
           notEmpty: true,
+          len: [1, 50]
         },
       },
       genreId: {
@@ -43,10 +44,18 @@ module.exports = (sequelize, DataTypes) => {
       venueName: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          notEmpty: false,
+          len: [1, 100]
+        },
       },
       address: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          notEmpty: false,
+          len: [1, 100]
+        },
       },
       city: {
         type: DataTypes.STRING,
@@ -54,6 +63,10 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: true,
           notEmpty: true,
+          validate: {
+            notEmpty: false,
+            len: [1, 100]
+          },
         },
       },
       state: {
@@ -62,11 +75,19 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: true,
           notEmpty: true,
+          validate: {
+            notEmpty: false,
+            len: [1, 100]
+          },
         },
       },
       zipCode: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          notEmpty: false,
+          len: [1, 6]
+        },
       },
       mainPicUrl: {
         type: DataTypes.STRING,
@@ -82,6 +103,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: true,
           notEmpty: true,
+          len: [1, 500],
         },
       },
       link: {
@@ -98,7 +120,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "eventId",
       otherKey: "userId",
     });
-    Event.hasMany(models.Image);
     Event.hasMany(models.Post);
   };
   return Event;

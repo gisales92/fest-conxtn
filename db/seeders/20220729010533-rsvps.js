@@ -8,7 +8,7 @@ function r(o) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("Events", [
+    return queryInterface.bulkInsert("RSVPs", [
       r({
         type: "going",
       }),
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Events");
+    return queryInterface.bulkDelete("RSVPs");
   },
 };
