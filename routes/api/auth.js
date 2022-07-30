@@ -7,7 +7,7 @@ const {
   restoreUser,
   requireAuth,
 } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User } = require("../../db/models/user");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
@@ -56,15 +56,13 @@ router.post(
 );
 
 // Restore session user
-router.get("/", requireAuth, (req, res, next) => {
+router.get("/session", requireAuth, (req, res, next) => {
   const { user } = req;
   if (user) {
+    res.status(200);
+    const userObj = user.toSafeObject();
     return res.json({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: req.cookies.token,
+      userObj,
     });
   } else {
     next();
