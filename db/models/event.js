@@ -120,7 +120,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "eventId",
       otherKey: "userId",
     });
-    Event.hasMany(models.Post);
+    Event.hasMany(models.Post, {foreignKey: "eventId"});
   };
   return Event;
 };

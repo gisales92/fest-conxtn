@@ -111,4 +111,31 @@ router.get(
   })
 );
 
+// get the posts made by the user with the given userId
+router.get(
+  "/:userId/posts",
+  asyncHandler(async function (req, res, next) {
+    const userId = req.params.userId;
+    try {
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Post,
+          include: {
+            model: Event,
+            attributes: ["id", "name", "url", "mainPicUrl"],
+          },
+        },
+      });
+      const userPosts = user.Posts;
+      return res.json({ posts: userPosts });
+    } catch (e) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a User with that ID",
+        statusCode: 404,
+      });
+    }
+  })
+);
+
 module.exports = router;

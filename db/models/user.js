@@ -93,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
       otherKey: "eventId",
     });
-    User.hasMany(models.Post);
+    User.hasMany(models.Post, {foreignKey: "userId"});
     User.hasMany(models.Reply);
   };
 
