@@ -1,17 +1,33 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
+const { Op } = require("sequelize");
 
 const { Event, Genre } = require("../../db/models");
+const genre = require("../../db/models/genre");
 
 const router = express.Router();
 
-// get all events
+// get all events or query events by genre
 router.get(
   "/",
   asyncHandler(async function (req, res, next) {
-    const events = await Event.findAll({
-      include: Genre,
-    });
+    const { genreId } = req.query;
+    let options = { include: Genre };
+    if (typeof genreId !== "undefined") {
+        // update options if genreId query parameter has been provided
+      const genre = parseInt(genreId);
+        options = {
+        include: {
+          model: Genre,
+          where: {
+            id: {
+              [Op.eq]: genre,
+            },
+          },
+        },
+      };
+    }
+    const events = await Event.findAll(options);
     const parsedEvents = [];
     const attributes = [
       "id",
@@ -36,6 +52,13 @@ router.get(
       event.genre = eventObj.Genre.type;
       parsedEvents.push(event);
     });
+    if (parsedEvents.length === 0) {
+        res.status(404);
+        return res.json({
+            message: "Unable to find a Genre with that ID",
+            statusCode: 404,
+          });
+    }
     res.status(200);
     return res.json({ events: parsedEvents });
   })
