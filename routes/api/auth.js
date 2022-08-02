@@ -99,9 +99,14 @@ router.post(
 );
 
 // Log out
-router.delete("/", (_req, res) => {
+router.get("/logout", (_req, res) => {
   res.clearCookie("token");
-  return res.json({ message: "success" });
+  return res.json({ message: "User logged out" });
+});
+
+router.post("/logout", (_req, res) => {
+  res.clearCookie("token");
+  return res.json({ message: "User logged out" });
 });
 
 module.exports = router;

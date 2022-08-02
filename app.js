@@ -53,7 +53,8 @@ app.use(function(err, _req, res, _next) {
   }
   res.json({
     message: err.message,
-    error: JSON.parse(JSON.stringify(err)),
+    // error: JSON.parse(JSON.stringify(err)),
+    statusCode: err.status
   });
 });
 
