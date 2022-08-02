@@ -2,8 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
-const { Event, Genre } = require("../../db/models");
-const genre = require("../../db/models/genre");
+const { Event, Genre, Post, User } = require("../../db/models");
 
 const router = express.Router();
 
@@ -106,5 +105,54 @@ router.get(
     }
   })
 );
+
+// get all posts for an event by its eventId
+router.get(
+    "/:eventId/posts",
+    asyncHandler(async function (req, res, next) {
+      const eventId = req.params.eventId;
+      try {
+        // try to retrieve event with associated posts ordered with most recent first
+        const event = await Event.findByPk(eventId, {
+          include: {
+            model: Post,
+            order: ["createdAt", "DESC"],
+            include: {
+                model: User,
+                attributes: ["id", "username", "profilePicUrl"]
+            }
+          },
+        });
+
+        const eventPosts = event.Posts;
+        const posts = [];
+        eventPosts.forEach((postObj) => {
+            const post = {};
+            post.id = postObj.id;
+            post.user = postObj.User;
+            post.event = {
+                id: event.id,
+                name: event.name,
+                url: event.url,
+                mainPicUrl: event.mainPicUrl
+            };
+            post.title = postObj.title;
+            post.body = postObj.body;
+            post.time = postObj.createdAt;
+            posts.push(post);
+        })
+
+
+        res.status(200);
+        return res.json({ posts });
+      } catch (e) {
+        res.status(404);
+        return res.json({
+          message: "Unable to find an Event with that ID",
+          statusCode: 404,
+        });
+      }
+    })
+  );
 
 module.exports = router;
