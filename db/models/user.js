@@ -125,7 +125,7 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  User.getCurrentUserById = async function (id) {
+  User.getUserById = async function (id) {
     const user = await User.findByPk(id);
     return user.toSafeObject();
   };
