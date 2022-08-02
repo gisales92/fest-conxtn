@@ -46,33 +46,41 @@ router.get(
   "/:eventId",
   asyncHandler(async function (req, res, next) {
     const eventId = req.params.eventId;
-    const event = await Event.findByPk(eventId, {
-      include: Genre,
-    });
-    const parsedEvent = {};
-    const attributes = [
-      "id",
-      "name",
-      "url",
-      "startDate",
-      "endDate",
-      "venueName",
-      "address",
-      "city",
-      "state",
-      "zipCode",
-      "mainPicUrl",
-      "description",
-      "link",
-    ];
+    try {
+      const event = await Event.findByPk(eventId, {
+        include: Genre,
+      });
+      const parsedEvent = {};
+      const attributes = [
+        "id",
+        "name",
+        "url",
+        "startDate",
+        "endDate",
+        "venueName",
+        "address",
+        "city",
+        "state",
+        "zipCode",
+        "mainPicUrl",
+        "description",
+        "link",
+      ];
 
-    attributes.forEach((key) => {
-      parsedEvent[key] = event[key];
-    });
-    parsedEvent.genre = event.Genre.type;
+      attributes.forEach((key) => {
+        parsedEvent[key] = event[key];
+      });
+      parsedEvent.genre = event.Genre.type;
 
-    res.status(200);
-    return res.json({ ...parsedEvent });
+      res.status(200);
+      return res.json({ ...parsedEvent });
+    } catch (e) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an Event with that ID",
+        statusCode: 404,
+      });
+    }
   })
 );
 
