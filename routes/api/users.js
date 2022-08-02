@@ -71,7 +71,7 @@ router.get(
         going: [],
         interested: [],
       };
-      // got to remove extra data like createdAt, updatedAt, and the extra user_events join table info as well as sort into going vs interested
+      // got to remove extra data like createdAt, updatedAt, extra genre info, and the extra user_events join table info as well as sort into going vs interested
       userEvents.forEach((eventObj) => {
         const attributes = [
           "id",
@@ -93,6 +93,7 @@ router.get(
           event[key] = eventObj[key];
         });
         event.genre = eventObj.Genre.type;
+        // using this to sort into proper rsvp categories, which is why we're including User_Events table in the query
         if (eventObj.User_Events.rsvpId === 1) {
           events.going.push(event);
         } else {
