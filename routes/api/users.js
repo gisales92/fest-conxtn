@@ -169,9 +169,23 @@ router.get(
           order: ["createdAt", "DESC"],
         },
       });
-
+      const userReplies = user.Replies;
+      const replies = [];
+      userReplies.forEach((replyObj) => {
+        const reply = {};
+        reply.id = replyObj.id;
+        reply.user = {
+          id: user.id,
+          username: user.username,
+          profilePicUrl: user.profilePicUrl,
+        };
+        reply.postId = replyObj.postId;
+        reply.body = replyObj.body;
+        reply.time = replyObj.createdAt;
+        replies.push(reply);
+      });
       res.status(200);
-      return res.json({ user });
+      return res.json({ replies });
     } catch (e) {
       res.status(404);
       return res.json({
