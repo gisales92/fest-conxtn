@@ -21,13 +21,13 @@ app.use(cookieParser())
 // Security Middleware
 app.use(cors({ origin: true }));
 app.use(helmet({ hsts: false }));
-app.use(csurf({
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production',
-    httpOnly: true
-  }
-}));
+// app.use(csurf({
+//   cookie: {
+//     secure: process.env.NODE_ENV === 'production',
+//     sameSite: process.env.NODE_ENV === 'production',
+//     httpOnly: true
+//   }
+// }));
 
 
 app.use(routes);
@@ -53,7 +53,8 @@ app.use(function(err, _req, res, _next) {
   }
   res.json({
     message: err.message,
-    error: JSON.parse(JSON.stringify(err)),
+    // error: JSON.parse(JSON.stringify(err)),
+    statusCode: err.status
   });
 });
 

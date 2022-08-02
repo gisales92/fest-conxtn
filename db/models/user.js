@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           notNull: true,
-          len: [1, 255],
+          len: [1, 25],
           isNotEmail(value) {
             if (Validator.isEmail(value)) {
               throw new Error("Username cannot be an email.");
@@ -140,7 +140,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
     if (user && user.validatePassword(password)) {
-      return user.toSafeObject();
+      return user;
     }
   };
 
@@ -159,7 +159,7 @@ module.exports = (sequelize, DataTypes) => {
       firstName,
       lastName,
     });
-    return user.toSafeObject();
+    return user;
   };
 
   return User;
