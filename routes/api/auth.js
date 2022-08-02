@@ -41,10 +41,12 @@ router.post(
       return err;
     }
 
-    user.token = await setTokenCookie(res, user);
+    const token = await setTokenCookie(res, user);
+    const safeUser = user.toSafeObject();
+    safeUser.token = token
 
     return res.json({
-      user,
+      ...safeUser,
     });
   })
 );

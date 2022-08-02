@@ -140,7 +140,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
     if (user && user.validatePassword(password)) {
-      return user.toSafeObject();
+      return user;
     }
   };
 
