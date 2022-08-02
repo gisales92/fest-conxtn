@@ -60,10 +60,46 @@ router.get(
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
     try {
-      const user = await Event.findByPk(3);
-      // const events = user.Events;
-      // got to remove extra data like createdAt, updatedAt, and the user_genre join table info
-      return res.json({ user });
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Event,
+          include: Genre,
+        },
+      });
+      const userEvents = user.Events;
+      const events = {
+        going: [],
+        interested: [],
+      };
+      // got to remove extra data like createdAt, updatedAt, and the extra user_events join table info as well as sort into going vs interested
+      userEvents.forEach((eventObj) => {
+        const attributes = [
+          "id",
+          "name",
+          "url",
+          "startDate",
+          "endDate",
+          "venueName",
+          "address",
+          "city",
+          "state",
+          "zipCode",
+          "mainPicUrl",
+          "description",
+          "link",
+        ];
+        const event = {};
+        attributes.forEach((key) => {
+          event[key] = eventObj[key];
+        });
+        event.genre = eventObj.Genre.type;
+        if (eventObj.User_Events.rsvpId === 1) {
+          events.going.push(event);
+        } else {
+          events.interested.push(eventObj);
+        }
+      });
+      return res.json({ events });
     } catch (e) {
       res.status(404);
       return res.json({
