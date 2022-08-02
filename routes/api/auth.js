@@ -58,7 +58,7 @@ router.get("/session", requireAuth, (req, res, next) => {
     res.status(200);
     const userObj = user.toSafeObject();
     return res.json({
-      userObj,
+      ...userObj,
     });
   } else {
     next();
