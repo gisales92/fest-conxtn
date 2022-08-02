@@ -7,7 +7,7 @@ const {
   restoreUser,
   requireAuth,
 } = require("../../utils/auth");
-const { User } = require("../../db/models/user");
+const { User } = require("../../db/models/");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
@@ -16,8 +16,6 @@ const validateLogin = [
     .exists({ checkFalsy: true })
     .withMessage("A valid email or username is required")
     .notEmpty()
-    .withMessage("A valid email or username is required")
-    .isEmail()
     .withMessage("A valid email or username is required"),
   check("password")
     .exists({ checkFalsy: true })
@@ -46,7 +44,7 @@ router.post(
     user.token = await setTokenCookie(res, user);
 
     return res.json({
-     user
+      user,
     });
   })
 );
