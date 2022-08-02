@@ -127,7 +127,22 @@ router.get(
         },
       });
       const userPosts = user.Posts;
-      return res.json({ posts: userPosts });
+      const posts = [];
+      userPosts.forEach((postObj) => {
+        const post = {};
+        post.id = postObj.id
+        post.user = {
+            id: user.id,
+            username: user.username,
+            profilePicUrl: user.profilePicUrl,
+        }
+        post.event = postObj.Event;
+        post.title = postObj.title;
+        post.body = postObj.body;
+        post.time = postObj.createdAt;
+        posts.push(post)
+      })
+      return res.json({ posts });
     } catch (e) {
       res.status(404);
       return res.json({
