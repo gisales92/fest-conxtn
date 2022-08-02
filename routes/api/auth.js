@@ -58,6 +58,24 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const { firstName, lastName, username, email, password } = req.body;
 
+    const errors = {};
+    const emailCheck = await User.findOne({ where: { email } });
+    const userCheck = await User.findOne({ where: { username } });
+    if (emailCheck) {
+      errors.email = "User with that email already exists";
+    }
+    if (userCheck) {
+      errors.username = "User with that username already exists";
+    }
+    if (Object.keys(errors).length) {
+      res.status(403);
+      return res.json({
+        message: "User already exists",
+        statusCode: 403,
+        errors,
+      });
+    }
+
     const user = await User.signup({
       firstName,
       lastName,
@@ -65,17 +83,6 @@ router.post(
       email,
       password,
     });
-
-    if (!user) {
-      const err = new Error("Sign up error");
-      err.status = 401;
-      err.title = "Sign up failed";
-      err.errors = [
-        "The provided information could not be used to create a user",
-      ];
-      next(err);
-      return err;
-    }
 
     const token = await setTokenCookie(res, user);
 
@@ -86,8 +93,8 @@ router.post(
       lastName: user.lastName,
       username: user.username,
       email: user.email,
-      token
-    })
+      token,
+    });
   })
 );
 
