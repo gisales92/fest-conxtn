@@ -93,8 +93,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
       otherKey: "eventId",
     });
-    User.hasMany(models.Post);
-    User.hasMany(models.Reply);
+    User.hasMany(models.Post, {foreignKey: "userId"});
+    User.hasMany(models.Reply, {foreignKey: "userId"});
   };
 
   User.prototype.toSafeObject = function () {
@@ -125,7 +125,7 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  User.getCurrentUserById = async function (id) {
+  User.getUserById = async function (id) {
     const user = await User.findByPk(id);
     return user.toSafeObject();
   };

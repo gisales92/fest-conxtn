@@ -114,13 +114,13 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Event.associate = function (models) {
-    Event.belongsTo(models.Genre);
+    Event.belongsTo(models.Genre, {foreignKey: "genreId"});
     Event.belongsToMany(models.User, {
       through: "User_Events",
       foreignKey: "eventId",
       otherKey: "userId",
     });
-    Event.hasMany(models.Post);
+    Event.hasMany(models.Post, {foreignKey: "eventId"});
   };
   return Event;
 };
