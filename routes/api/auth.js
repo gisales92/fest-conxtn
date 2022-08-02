@@ -1,13 +1,12 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const { validateLogin } = require("../../utils/validation");
+const { validateLogin, validateSignup } = require("../../utils/validation");
 const {
   setTokenCookie,
   restoreUser,
   requireAuth,
 } = require("../../utils/auth");
 const { User } = require("../../db/models/");
-const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
 
@@ -59,9 +58,9 @@ router.get("/session", requireAuth, (req, res, next) => {
 // Sign up
 router.post(
   "/signup",
-  validateLogin,
+  validateSignup,
   asyncHandler(async (req, res, next) => {
-    const { credential, password } = req.body;
+    const { firstName, lastName, username, email, password } = req.body;
 
     const user = await User.login(credential, password);
 
