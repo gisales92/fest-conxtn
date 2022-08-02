@@ -5,7 +5,7 @@ const { Event, Genre } = require("../../db/models");
 
 const router = express.Router();
 
-// get user details for the user with the given userId
+// get all events
 router.get(
   "/",
   asyncHandler(async function (req, res, next) {
@@ -38,6 +38,41 @@ router.get(
     });
     res.status(200);
     return res.json({ events: parsedEvents });
+  })
+);
+
+// get details of an event by its eventId
+router.get(
+  "/:eventId",
+  asyncHandler(async function (req, res, next) {
+    const eventId = req.params.eventId;
+    const event = await Event.findByPk(eventId, {
+      include: Genre,
+    });
+    const parsedEvent = {};
+    const attributes = [
+      "id",
+      "name",
+      "url",
+      "startDate",
+      "endDate",
+      "venueName",
+      "address",
+      "city",
+      "state",
+      "zipCode",
+      "mainPicUrl",
+      "description",
+      "link",
+    ];
+
+    attributes.forEach((key) => {
+      parsedEvent[key] = event[key];
+    });
+    parsedEvent.genre = event.Genre.type;
+
+    res.status(200);
+    return res.json({ ...parsedEvent });
   })
 );
 
