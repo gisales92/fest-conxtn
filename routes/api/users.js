@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
-const { User, Genre, Event, Post, User_Events } = require("../../db/models");
+const { User, Genre, Event, Post, Reply } = require("../../db/models");
 
 const router = express.Router();
 
@@ -117,10 +117,10 @@ router.get(
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
     try {
-        //try getting the user's posts, with most recent post first
+      //try getting the user's replies, with most recent post first
       const user = await User.findByPk(userId, {
         include: {
-          model: Post,
+          model: Reply,
           order: ["createdAt", "DESC"],
           include: {
             model: Event,
@@ -144,6 +144,7 @@ router.get(
         post.time = postObj.createdAt;
         posts.push(post);
       });
+      res.status(200);
       return res.json({ posts });
     } catch (e) {
       res.status(404);
@@ -160,6 +161,24 @@ router.get(
   "/:userId/replies",
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
+    try {
+      //try getting the user's replies, with most recent post first
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Reply,
+          order: ["createdAt", "DESC"],
+        },
+      });
+
+      res.status(200);
+      return res.json({ user });
+    } catch (e) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a User with that ID",
+        statusCode: 404,
+      });
+    }
   })
 );
 
