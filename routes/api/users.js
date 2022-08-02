@@ -117,9 +117,11 @@ router.get(
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
     try {
+        //try getting the user's posts, with most recent post first
       const user = await User.findByPk(userId, {
         include: {
           model: Post,
+          order: ["createdAt", "DESC"],
           include: {
             model: Event,
             attributes: ["id", "name", "url", "mainPicUrl"],
@@ -130,18 +132,18 @@ router.get(
       const posts = [];
       userPosts.forEach((postObj) => {
         const post = {};
-        post.id = postObj.id
+        post.id = postObj.id;
         post.user = {
-            id: user.id,
-            username: user.username,
-            profilePicUrl: user.profilePicUrl,
-        }
+          id: user.id,
+          username: user.username,
+          profilePicUrl: user.profilePicUrl,
+        };
         post.event = postObj.Event;
         post.title = postObj.title;
         post.body = postObj.body;
         post.time = postObj.createdAt;
-        posts.push(post)
-      })
+        posts.push(post);
+      });
       return res.json({ posts });
     } catch (e) {
       res.status(404);
@@ -150,6 +152,14 @@ router.get(
         statusCode: 404,
       });
     }
+  })
+);
+
+// get the replies made by the user with the given userId
+router.get(
+  "/:userId/replies",
+  asyncHandler(async function (req, res, next) {
+    const userId = req.params.userId;
   })
 );
 
