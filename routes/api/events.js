@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 
-const { Event } = require("../../db/models");
+const { Event, Genre } = require("../../db/models");
 
 const router = express.Router();
 
@@ -9,9 +9,35 @@ const router = express.Router();
 router.get(
   "/",
   asyncHandler(async function (req, res, next) {
-    const events = await Event.findAll();
+    const events = await Event.findAll({
+      include: Genre,
+    });
+    const parsedEvents = [];
+    const attributes = [
+      "id",
+      "name",
+      "url",
+      "startDate",
+      "endDate",
+      "venueName",
+      "address",
+      "city",
+      "state",
+      "zipCode",
+      "mainPicUrl",
+      "description",
+      "link",
+    ];
+    events.forEach((eventObj) => {
+      const event = {};
+      attributes.forEach((key) => {
+        event[key] = eventObj[key];
+      });
+      event.genre = eventObj.Genre.type;
+      parsedEvents.push(event);
+    });
     res.status(200);
-    return res.json({ events });
+    return res.json({ events: parsedEvents });
   })
 );
 
