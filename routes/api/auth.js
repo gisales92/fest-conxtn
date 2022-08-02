@@ -9,7 +9,6 @@ const {
 const { User } = require("../../db/models/");
 const router = express.Router();
 
-
 // Log in
 router.post(
   "/session",
@@ -30,7 +29,7 @@ router.post(
 
     const token = await setTokenCookie(res, user);
     const safeUser = user.toSafeObject();
-    safeUser.token = token
+    safeUser.token = token;
 
     return res.json({
       ...safeUser,
@@ -49,11 +48,8 @@ router.get("/session", requireAuth, (req, res, next) => {
     });
   } else {
     next();
-    // res.status(401);
-    // return res.json({});
   }
 });
-
 
 // Sign up
 router.post(
@@ -62,24 +58,36 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const { firstName, lastName, username, email, password } = req.body;
 
-    const user = await User.login(credential, password);
+    const user = await User.signup({
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+    });
 
     if (!user) {
-      const err = new Error("Invalid credentials");
+      const err = new Error("Sign up error");
       err.status = 401;
-      err.title = "Login failed";
-      err.errors = ["The provided credentials were invalid."];
+      err.title = "Sign up failed";
+      err.errors = [
+        "The provided information could not be used to create a user",
+      ];
       next(err);
       return err;
     }
 
     const token = await setTokenCookie(res, user);
-    const safeUser = user.toSafeObject();
-    safeUser.token = token
 
+    res.status(200);
     return res.json({
-      ...safeUser,
-    });
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      email: user.email,
+      token
+    })
   })
 );
 

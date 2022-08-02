@@ -159,7 +159,7 @@ module.exports = (sequelize, DataTypes) => {
       firstName,
       lastName,
     });
-    return user.toSafeObject();
+    return user;
   };
 
   return User;
