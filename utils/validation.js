@@ -77,6 +77,10 @@ const validatePost = [
   handleValidationErrors,
 ];
 
+const validateReply = [
+  check("")
+];
+
 module.exports = {
   handleValidationErrors,
   validateLogin,

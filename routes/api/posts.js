@@ -48,6 +48,7 @@ router.get(
 // post a reply to a post specified by its postId
 router.post(
     "/:postId/replies",
+    requireAuth,
     asyncHandler(async function (req, res, next) {
       const postId = req.params.postId;
 
@@ -59,6 +60,13 @@ router.post(
           statusCode: 404,
         });
       }
+
+      const { userId, body } = req.body;
+      const reply = await Reply.create({
+        userId,
+        postId,
+        body
+      })
 
       res.status(200);
       res.json({ post });
