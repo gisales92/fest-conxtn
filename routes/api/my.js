@@ -12,10 +12,8 @@ const {
   User_Events,
   RSVP,
 } = require("../../db/models");
-const user = require("../../db/models/user");
 const { requireAuth } = require("../../utils/auth");
-const { validateReply } = require("../../utils/validation");
-const { route } = require("./auth");
+const { validatePost } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -452,8 +450,65 @@ router.get(
 router.put(
   "/posts/:postId",
   requireAuth,
+  validatePost,
   asyncHandler(async function (req, res, next) {
-    const userId = req.user.id;
+    const uId = req.user.id;
+    const postId = req.params.postId;
+    const { userId, title, body } = req.body;
+    console.log("uid: ", uId, "userId: ", userId);
+    // check that the userId on the post matches current user, we're going to assume that the eventId was validated on original posting, and not do anything to update that here.
+    if (uId !== userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // get the post from database
+    const post = await Post.findByPk(postId, {
+      include: [User, Event],
+    });
+    if (!post) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a Post with that ID",
+        statusCode: 404,
+      });
+    }
+    // check that the post was made by our current user
+    const userCheck = post.userId;
+    if (uId !== userCheck) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // update the title and body of the post
+    await post.update({
+      title,
+      body,
+    });
+    // return updated post info to frontend
+    const updatedPost = {};
+    updatedPost.id = post.id;
+    updatedPost.user = {
+      id: post.User.id,
+      username: post.User.username,
+      profilePicUrl: post.User.profilePicUrl,
+    };
+    updatedPost.event = {
+      id: post.Event.id,
+      name: post.Event.name,
+      url: post.Event.url,
+      mainPicUrl: post.Event.mainPicUrl,
+    };
+    updatedPost.title = post.title;
+    updatedPost.body = post.body;
+    updatedPost.time =post.createdAt;
+
+    res.status(200);
+    return res.json({ ...updatedPost });
   })
 );
 
