@@ -14,7 +14,11 @@ const {
   Message,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-const { validatePost, validateReply } = require("../../utils/validation");
+const {
+  validatePost,
+  validateReply,
+  validateMessage,
+} = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -669,8 +673,16 @@ router.get(
         ],
       },
       include: [
-        { model: User, as: "sender", attributes: ["id", "username", "profilePicUrl"] },
-        { model: User, as: "recipient", attributes: ["id", "username", "profilePicUrl"] },
+        {
+          model: User,
+          as: "sender",
+          attributes: ["id", "username", "profilePicUrl"],
+        },
+        {
+          model: User,
+          as: "recipient",
+          attributes: ["id", "username", "profilePicUrl"],
+        },
       ],
       order: [["createdAt", "ASC"]],
     });
@@ -706,6 +718,68 @@ router.get(
     });
     res.status(200);
     return res.json({ messages: returnObj });
+  })
+);
+
+// Update a message's read property to true
+router.get(
+  "/messages/:messageId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const messageId = req.params.messageId;
+    const message = await Message.findByPk(messageId, {
+      include: [
+        {
+          model: User,
+          as: "sender",
+          attributes: ["id", "username", "profilePicUrl"],
+        },
+        {
+          model: User,
+          as: "recipient",
+          attributes: ["id", "username", "profilePicUrl"],
+        },
+      ],
+    });
+    if (!message) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a message with that ID",
+        statusCode: 404,
+      });
+    }
+    // make sure message belongs to the current user
+    if (message.recipientId !== userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // update the read property to true and return the message
+    await message.update({
+      read: true,
+    });
+    const updatedMessage = {};
+    updatedMessage.id = message.id;
+    updatedMessage.sender = message.sender;
+    updatedMessage.recipient = message.recipient;
+    updatedMessage.body = message.body;
+    updatedMessage.time = message.createdAt;
+    updatedMessage.read = message.read;
+    res.status(200);
+    return res.json({ ...updatedMessage });
+  })
+);
+
+// Send a message
+router.post(
+  "/messages",
+  requireAuth,
+  validateMessage,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
   })
 );
 
