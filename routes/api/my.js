@@ -410,4 +410,13 @@ router.delete(
   })
 );
 
+// get the current user's posts
+router.get(
+  "/posts",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+  })
+);
+
 module.exports = router;
