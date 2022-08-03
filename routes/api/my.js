@@ -448,4 +448,13 @@ router.get(
   })
 );
 
+// Edit a post
+router.put(
+  "/posts/:postId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+  })
+);
+
 module.exports = router;
