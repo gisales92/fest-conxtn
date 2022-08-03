@@ -316,6 +316,48 @@ router.put(
         statusCode: 404,
       });
     }
+    // find rsvp record
+    const userEvent = await User_Events.findOne({
+      attributes: ["id", "userId", "eventId", "rsvpId"],
+      where: {
+        [Op.and]: [
+          {
+            userId: {
+              [Op.eq]: userId,
+            },
+          },
+          {
+            eventId: {
+              [Op.eq]: eventId,
+            },
+          },
+        ],
+      },
+    });
+    if (!userEvent) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find RSVP",
+        statusCode: 404,
+      });
+    }
+    // update rsvp record with new rsvp, return updated info
+    console.log("Userevent: ", userEvent);
+    await userEvent.update({
+      rsvpId,
+    });
+    const updatedRsvp = {};
+    updatedRsvp.id = userEvent.id;
+    updatedRsvp.userId = userEvent.userId;
+    updatedRsvp.event = {
+      id: event.id,
+      name: event.name,
+      url: event.url,
+      mainPicUrl: event.mainPicUrl,
+    };
+    updatedRsvp.rsvp = rsvp.type;
+    res.status(200);
+    return res.json({ ...updatedRsvp });
   })
 );
 module.exports = router;
