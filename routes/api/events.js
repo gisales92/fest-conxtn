@@ -181,11 +181,27 @@ router.post(
         title,
         body
     });
+    // get the user info via the post's association, we already have event info from our first query/test
+    const user = await post.getUser();
+    const filteredPost = {};
+    filteredPost.id = post.id;
+    filteredPost.user = {
+        id: user.id,
+        username: user.username,
+        profilePicUrl: user.profilePicUrl
+    };
+    filteredPost.event = {
+        id: event.id,
+        name: event.name,
+        url: event.url,
+        mainPicUrl: event.mainPicUrl
+    };
+    filteredPost.title = post.title;
+    filteredPost.body = post.body;
+    filteredPost.time = post.createdAt;
 
-
-
-    res.status(200);
-    return res.json({ post });
+    res.status(201);
+    return res.json({ ...filteredPost });
   })
 );
 
