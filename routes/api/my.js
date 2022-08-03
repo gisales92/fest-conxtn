@@ -342,7 +342,6 @@ router.put(
       });
     }
     // update rsvp record with new rsvp, return updated info
-    console.log("Userevent: ", userEvent);
     await userEvent.update({
       rsvpId,
     });
@@ -360,4 +359,6 @@ router.put(
     return res.json({ ...updatedRsvp });
   })
 );
+
+
 module.exports = router;
