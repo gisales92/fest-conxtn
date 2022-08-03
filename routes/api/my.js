@@ -2,7 +2,17 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
-const { Post, Reply, User, Genre, User_Genres, Event } = require("../../db/models");
+const {
+  Post,
+  Reply,
+  User,
+  Genre,
+  User_Genres,
+  Event,
+  User_Events,
+  RSVP,
+} = require("../../db/models");
+const user = require("../../db/models/user");
 const { requireAuth } = require("../../utils/auth");
 const { validateReply } = require("../../utils/validation");
 
@@ -195,6 +205,87 @@ router.get(
     });
     res.status(200);
     return res.json({ events });
+  })
+);
+
+// RSVP to an event
+router.post(
+  "/events",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const id = req.user.id;
+    const { userId, eventId, rsvpId } = req.body;
+    // check to make sure user is submitting an rsvp for themselves
+    if (id !== userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // check to make sure it's for a valid event
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an Event with that ID",
+        statusCode: 404,
+      });
+    }
+     // check to make sure it's a valid rsvp
+     const rsvp = await RSVP.findByPk(rsvpId);
+     if (!rsvp) {
+       res.status(404);
+       return res.json({
+         message: "Unable to find an RSVP with that ID",
+         statusCode: 404,
+       });
+     }
+    // check to make sure user is not already rsvp'd - if they are changing rsvp type, delete the old rsvp record to prevent duplicates. If no change, return message to user that they already rsvp'd
+    const userEvent = await User_Events.findOne({
+      where: {
+        [Op.and]: [
+          {
+            userId: {
+              [Op.eq]: userId,
+            },
+          },
+          {
+            eventId: {
+              [Op.eq]: eventId,
+            },
+          },
+        ],
+      },
+    });
+    if (userEvent) {
+      if (userEvent.rsvpId === rsvpId) {
+        res.status(200);
+        return res.json({
+          message: "Already submitted this RSVP",
+          statusCode: 200,
+        });
+      } else {
+        await userEvent.destroy();
+      }
+    }
+    const newRsvp = await User_Events.create({
+      userId,
+      eventId,
+      rsvpId,
+    });
+    const cleanUserEvent = {};
+    cleanUserEvent.id = newRsvp.id;
+    cleanUserEvent.userId = newRsvp.userId;
+    cleanUserEvent.event = {
+      id: event.id,
+      name: event.name,
+      url: event.url,
+      mainPicUrl: event.mainPicUrl,
+    };
+    cleanUserEvent.rsvp = rsvp.type;
+    res.status(201);
+    return res.json({ ...cleanUserEvent });
   })
 );
 
