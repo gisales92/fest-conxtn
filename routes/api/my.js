@@ -416,6 +416,35 @@ router.get(
   requireAuth,
   asyncHandler(async function (req, res, next) {
     const userId = req.user.id;
+    //getting the current user's posts, with most recent post first
+    const user = await User.findByPk(userId, {
+      include: {
+        model: Post,
+        order: ["createdAt", "DESC"],
+        include: {
+          model: Event,
+          attributes: ["id", "name", "url", "mainPicUrl"],
+        },
+      },
+    });
+    const userPosts = user.Posts;
+    const posts = [];
+    userPosts.forEach((postObj) => {
+      const post = {};
+      post.id = postObj.id;
+      post.user = {
+        id: user.id,
+        username: user.username,
+        profilePicUrl: user.profilePicUrl,
+      };
+      post.event = postObj.Event;
+      post.title = postObj.title;
+      post.body = postObj.body;
+      post.time = postObj.createdAt;
+      posts.push(post);
+    });
+    res.status(200);
+    return res.json({ posts });
   })
 );
 
