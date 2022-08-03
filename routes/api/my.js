@@ -536,4 +536,39 @@ router.delete(
     });
   })
 );
+
+
+// Get the current user's replies
+router.get(
+  "/replies",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    // Get the user's replies, with most recent first
+    const user = await User.findByPk(userId, {
+      include: {
+        model: Reply,
+        order: ["createdAt", "DESC"],
+      },
+    });
+    const userReplies = user.Replies;
+    const replies = [];
+    userReplies.forEach((replyObj) => {
+      const reply = {};
+      reply.id = replyObj.id;
+      reply.user = {
+        id: user.id,
+        username: user.username,
+        profilePicUrl: user.profilePicUrl,
+      };
+      reply.postId = replyObj.postId;
+      reply.body = replyObj.body;
+      reply.time = replyObj.createdAt;
+      replies.push(reply);
+    });
+    res.status(200);
+    return res.json({ replies });
+  })
+);
+
 module.exports = router;
