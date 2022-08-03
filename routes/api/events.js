@@ -170,12 +170,20 @@ router.post(
         message: "Unable to find an Event with that ID",
         statusCode: 404,
       });
-    }
 
-    
+    }
+    const { userId, title, body } = req.body;
+    const post = await Post.create({
+        userId,
+        eventId,
+        title,
+        body
+    });
+
+
 
     res.status(200);
-    return res.json({ event });
+    return res.json({ post });
   })
 );
 
