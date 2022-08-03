@@ -99,6 +99,7 @@ router.get(
           events.interested.push(eventObj);
         }
       });
+      res.status(200);
       return res.json({ events });
     } catch (e) {
       res.status(404);

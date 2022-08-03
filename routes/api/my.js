@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
-const { Post, Reply, User, Genre, User_Genres } = require("../../db/models");
+const { Post, Reply, User, Genre, User_Genres, Event } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { validateReply } = require("../../utils/validation");
 
@@ -144,6 +144,57 @@ router.delete(
         statusCode: 200,
       });
     }
+  })
+);
+
+// get current user's rsvp'd events
+router.get(
+  "/events",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const user = await User.findByPk(userId, {
+      include: {
+        model: Event,
+        include: Genre,
+      },
+    });
+    const userEvents = user.Events;
+    const events = {
+      going: [],
+      interested: [],
+    };
+    // got to remove extra data like createdAt, updatedAt, extra genre info, and the extra user_events join table info as well as sort into going vs interested
+    userEvents.forEach((eventObj) => {
+      const attributes = [
+        "id",
+        "name",
+        "url",
+        "startDate",
+        "endDate",
+        "venueName",
+        "address",
+        "city",
+        "state",
+        "zipCode",
+        "mainPicUrl",
+        "description",
+        "link",
+      ];
+      const event = {};
+      attributes.forEach((key) => {
+        event[key] = eventObj[key];
+      });
+      event.genre = eventObj.Genre.type;
+      // using this to sort into proper rsvp categories, which is why we're including User_Events table in the query
+      if (eventObj.User_Events.rsvpId === 1) {
+        events.going.push(event);
+      } else {
+        events.interested.push(eventObj);
+      }
+    });
+    res.status(200);
+    return res.json({ events });
   })
 );
 
