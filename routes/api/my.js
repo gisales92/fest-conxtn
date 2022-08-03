@@ -527,6 +527,13 @@ router.delete(
         statusCode: 403,
       });
     }
+    // delete the post and return the success message to the frontend
+    await post.destroy();
+    res.status(200);
+    return res.json({
+      message: "Successfully deleted post",
+      statusCode: 200,
+    });
   })
 );
 module.exports = router;
