@@ -452,18 +452,10 @@ router.put(
   requireAuth,
   validatePost,
   asyncHandler(async function (req, res, next) {
-    const uId = req.user.id;
+    const userId = req.user.id;
     const postId = req.params.postId;
-    const { userId, title, body } = req.body;
-    console.log("uid: ", uId, "userId: ", userId);
-    // check that the userId on the post matches current user, we're going to assume that the eventId was validated on original posting, and not do anything to update that here.
-    if (uId !== userId) {
-      res.status(403);
-      return res.json({
-        message: "Forbidden",
-        statusCode: 403,
-      });
-    }
+    const { title, body } = req.body;
+
     // get the post from database
     const post = await Post.findByPk(postId, {
       include: [User, Event],
@@ -476,8 +468,7 @@ router.put(
       });
     }
     // check that the post was made by our current user
-    const userCheck = post.userId;
-    if (uId !== userCheck) {
+    if (userId !== post.userId) {
       res.status(403);
       return res.json({
         message: "Forbidden",
@@ -505,11 +496,37 @@ router.put(
     };
     updatedPost.title = post.title;
     updatedPost.body = post.body;
-    updatedPost.time =post.createdAt;
+    updatedPost.time = post.createdAt;
 
     res.status(200);
     return res.json({ ...updatedPost });
   })
 );
 
+// Delete a post made by the current user
+router.delete(
+  "/posts/:postId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const postId = req.params.postId;
+    // get the post from database
+    const post = await Post.findByPk(postId);
+    if (!post) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a Post with that ID",
+        statusCode: 404,
+      });
+    }
+    // make sure the post belongs to our current user
+    if (userId !== post.userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+  })
+);
 module.exports = router;
