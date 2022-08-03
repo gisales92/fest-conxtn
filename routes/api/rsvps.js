@@ -5,7 +5,7 @@ const { RSVP } = require("../../db/models");
 
 const router = express.Router();
 
-// get user details for the user with the given userId
+// get all rsvp options back from the database
 router.get(
   "/",
   asyncHandler(async function (req, res, next) {
