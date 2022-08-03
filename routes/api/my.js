@@ -15,6 +15,7 @@ const {
 const user = require("../../db/models/user");
 const { requireAuth } = require("../../utils/auth");
 const { validateReply } = require("../../utils/validation");
+const { route } = require("./auth");
 
 const router = express.Router();
 
@@ -232,15 +233,15 @@ router.post(
         statusCode: 404,
       });
     }
-     // check to make sure it's a valid rsvp
-     const rsvp = await RSVP.findByPk(rsvpId);
-     if (!rsvp) {
-       res.status(404);
-       return res.json({
-         message: "Unable to find an RSVP with that ID",
-         statusCode: 404,
-       });
-     }
+    // check to make sure it's a valid rsvp
+    const rsvp = await RSVP.findByPk(rsvpId);
+    if (!rsvp) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an RSVP with that ID",
+        statusCode: 404,
+      });
+    }
     // check to make sure user is not already rsvp'd - if they are changing rsvp type, delete the old rsvp record to prevent duplicates. If no change, return message to user that they already rsvp'd
     const userEvent = await User_Events.findOne({
       where: {
@@ -289,4 +290,32 @@ router.post(
   })
 );
 
+// update rsvp to an event
+router.put(
+  "/events/:eventId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const eventId = req.params.eventId;
+    const { rsvpId } = req.body;
+    // check to make sure it's for a valid event
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an Event with that ID",
+        statusCode: 404,
+      });
+    }
+    // check to make sure it's a valid rsvp
+    const rsvp = await RSVP.findByPk(rsvpId);
+    if (!rsvp) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an RSVP with that ID",
+        statusCode: 404,
+      });
+    }
+  })
+);
 module.exports = router;
