@@ -367,6 +367,46 @@ router.delete(
   asyncHandler(async function (req, res, next) {
     const userId = req.user.id;
     const eventId = req.params.eventId;
+    // check to make sure it's for a valid event
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find an Event with that ID",
+        statusCode: 404,
+      });
+    }
+    // find rsvp record
+    const userEvent = await User_Events.findOne({
+      where: {
+        [Op.and]: [
+          {
+            userId: {
+              [Op.eq]: userId,
+            },
+          },
+          {
+            eventId: {
+              [Op.eq]: eventId,
+            },
+          },
+        ],
+      },
+    });
+    if (!userEvent) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find RSVP",
+        statusCode: 404,
+      });
+    }
+    // delete the rsvp
+    await userEvent.destroy();
+    res.status(200);
+    return res.json({
+      message: "Successfully deleted RSVP",
+      statusCode: 200,
+    });
   })
 );
 
