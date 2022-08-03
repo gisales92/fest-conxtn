@@ -1,6 +1,5 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const { Op } = require("sequelize");
 
 const { User, Genre, Event, Post, Reply } = require("../../db/models");
 
@@ -117,10 +116,10 @@ router.get(
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
     try {
-      //try getting the user's replies, with most recent post first
+      //try getting the user's posts, with most recent post first
       const user = await User.findByPk(userId, {
         include: {
-          model: Reply,
+          model: Post,
           order: ["createdAt", "DESC"],
           include: {
             model: Event,
