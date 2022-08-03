@@ -1,5 +1,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
+const { Op } = require("sequelize");
 
 const { Post, Reply, User, Genre, User_Genres } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
@@ -44,28 +45,51 @@ router.post(
         message: "Forbidden",
         statusCode: 403,
       });
-    };
+    }
     // check to make sure it's a valid genre
     const genre = await Genre.findByPk(genreId);
     if (!genre) {
-        res.status(404);
-        res.json({
-            message: "Unable to find a Genre with that ID",
-            statusCode: 404,
-        })
-    };
-    // 
+      res.status(404);
+      res.json({
+        message: "Unable to find a Genre with that ID",
+        statusCode: 404,
+      });
+    }
+    // check to make sure user is not already subscribed to that genre to prevent duplicates
+    const userGenre = await User_Genres.findOne({
+      where: {
+        [Op.and]: [
+          {
+            userId: {
+              [Op.eq]: userId,
+            },
+          },
+          {
+            genreId: {
+              [Op.eq]: genreId,
+            },
+          },
+        ],
+      },
+    });
+    if (userGenre) {
+      res.status(200);
+      return res.json({
+        message: "Already subscribed",
+        statusCode: 200,
+      });
+    }
     // create the new record on the User_Genres table format the response
     const newGenreSub = await User_Genres.create({
-        userId,
-        genreId
-    })
+      userId,
+      genreId,
+    });
     const subbedGenre = {};
     subbedGenre.id = newGenreSub.id;
     subbedGenre.userId = newGenreSub.userId;
     subbedGenre.genre = {
-        id: genre.id,
-        type: genre.type
+      id: genre.id,
+      type: genre.type,
     };
     res.status(201);
     return res.json({ ...subbedGenre });
