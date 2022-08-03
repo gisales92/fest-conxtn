@@ -11,6 +11,7 @@ const {
   Event,
   User_Events,
   RSVP,
+  Message,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { validatePost, validateReply } = require("../../utils/validation");
@@ -650,6 +651,30 @@ router.delete(
       message: "Successfully deleted reply",
       statusCode: 200,
     });
+  })
+);
+
+// Get the current user's messages
+router.get(
+  "/messages",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    // get messages with the current user as sender or recipient
+    const messages = await Message.findAll({
+      where: {
+        [Op.or]: [
+          { senderId: { [Op.eq]: userId } },
+          { recipientId: { [Op.eq]: userId } },
+        ],
+      },
+      include: [
+        { model: User, as: "sender" },
+        { model: User, as: "recipient" },
+      ],
+    });
+    res.status(200);
+    return res.json({ messages })
   })
 );
 

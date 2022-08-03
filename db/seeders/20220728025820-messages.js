@@ -13,6 +13,12 @@ module.exports = {
         senderId: 2,
         recipientId: 1,
         body: "Hey! Do you want to join my crew?",
+        read: true,
+      }),
+      r({
+        senderId: 1,
+        recipientId: 2,
+        body: "Where do I sign up?",
       }),
       r({
         senderId: 1,
