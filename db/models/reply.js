@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: true,
           notEmpty: true,
+          len: [1, 1000]
         },
       },
     },
