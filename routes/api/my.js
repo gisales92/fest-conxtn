@@ -360,5 +360,14 @@ router.put(
   })
 );
 
+// Delete the current user's rsvp to an event
+router.delete(
+  "/events/:eventId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const eventId = req.params.eventId;
+  })
+);
 
 module.exports = router;
