@@ -70,6 +70,7 @@ router.post(
       body,
     });
 
+    // get user info from the reply's association, then format reply response object
     const user = await reply.getUser();
     const filteredReply = {};
     filteredReply.id = reply.id;
