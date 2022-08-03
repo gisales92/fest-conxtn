@@ -96,4 +96,55 @@ router.post(
   })
 );
 
+// unsubscribe from a genre.
+router.delete(
+  "/genres/:genreId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    // grab userId from the req.user object, grab genreId from req params
+    const userId = req.user.id;
+    const genreId = req.params.genreId;
+    // check to make sure it's a valid genre
+    const genre = await Genre.findByPk(genreId);
+    if (!genre) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a Genre with that ID",
+        statusCode: 404,
+      });
+    }
+    // look for User_Genre record using that info
+    const userGenre = await User_Genres.findOne({
+      where: {
+        [Op.and]: [
+          {
+            userId: {
+              [Op.eq]: userId,
+            },
+          },
+          {
+            genreId: {
+              [Op.eq]: genreId,
+            },
+          },
+        ],
+      },
+    });
+    if (userGenre) {
+      await userGenre.destroy();
+      res.status(200);
+      return res.json({
+        message: "Successfully Unsubscribed",
+        statusCode: 200,
+      });
+    } else {
+      res.status(200);
+      return res.json({
+        message: "Already Unsubscribed",
+        statusCode: 200,
+      });
+    }
+  })
+);
+
 module.exports = router;
