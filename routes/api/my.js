@@ -13,7 +13,7 @@ const {
   RSVP,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-const { validatePost } = require("../../utils/validation");
+const { validatePost, validateReply } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -537,7 +537,6 @@ router.delete(
   })
 );
 
-
 // Get the current user's replies
 router.get(
   "/replies",
@@ -568,6 +567,56 @@ router.get(
     });
     res.status(200);
     return res.json({ replies });
+  })
+);
+
+// Edit a reply made by the current user, specified by the replyId
+router.put(
+  "/replies/:replyId",
+  requireAuth,
+  validateReply,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const replyId = req.params.replyId;
+    const { body } = req.body;
+
+    // get the reply from database
+    const reply = await Reply.findByPk(replyId, {
+      include: [User],
+    });
+    if (!reply) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a reply with that ID",
+        statusCode: 404,
+      });
+    }
+    // check that the reply was made by our current user
+    if (userId !== reply.userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // update the title and body of the reply
+    await reply.update({
+      body,
+    });
+    // return updated reply info to frontend
+    const updatedReply = {};
+    updatedReply.id = reply.id;
+    updatedReply.user = {
+      id: reply.User.id,
+      username: reply.User.username,
+      profilePicUrl: reply.User.profilePicUrl,
+    };
+    updatedReply.postId = reply.postId
+    updatedReply.body = reply.body;
+    updatedReply.time = reply.createdAt;
+
+    res.status(200);
+    return res.json({ ...updatedReply });
   })
 );
 
