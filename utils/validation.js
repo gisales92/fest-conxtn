@@ -86,10 +86,20 @@ const validateReply = [
   handleValidationErrors,
 ];
 
+const validateMessage = [
+  check("body")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a body for your message")
+    .isLength({ min: 1, max: 2000 })
+    .withMessage("Message must be between 1 and 2000 characters"),
+  handleValidationErrors,
+];
+
 module.exports = {
   handleValidationErrors,
   validateLogin,
   validateSignup,
   validatePost,
   validateReply,
+  validateMessage,
 };

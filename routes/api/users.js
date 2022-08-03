@@ -99,6 +99,7 @@ router.get(
           events.interested.push(eventObj);
         }
       });
+      res.status(200);
       return res.json({ events });
     } catch (e) {
       res.status(404);
@@ -161,7 +162,7 @@ router.get(
   asyncHandler(async function (req, res, next) {
     const userId = req.params.userId;
     try {
-      //try getting the user's replies, with most recent post first
+      //try getting the user's replies, with most recent first
       const user = await User.findByPk(userId, {
         include: {
           model: Reply,
