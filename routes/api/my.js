@@ -660,7 +660,7 @@ router.get(
   requireAuth,
   asyncHandler(async function (req, res, next) {
     const userId = req.user.id;
-    // get messages with the current user as sender or recipient
+    // get messages with the current user as sender or recipient, oldest first
     const messages = await Message.findAll({
       where: {
         [Op.or]: [
@@ -669,12 +669,43 @@ router.get(
         ],
       },
       include: [
-        { model: User, as: "sender" },
-        { model: User, as: "recipient" },
+        { model: User, as: "sender", attributes: ["id", "username", "profilePicUrl"] },
+        { model: User, as: "recipient", attributes: ["id", "username", "profilePicUrl"] },
       ],
+      order: [["createdAt", "ASC"]],
+    });
+    if (!messages.length) {
+      res.status(200);
+      return res.json({
+        message: "User has no messages",
+        statusCode: 200,
+      });
+    }
+    // create obj we'll return
+    const returnObj = {};
+    // iterate through the messages to sort them into conversations, using the other user's id as the key
+    messages.forEach((messObj) => {
+      let id;
+      if (messObj.sender.id === userId) {
+        id = messObj.recipient.id;
+      } else {
+        id = messObj.sender.id;
+      }
+      const message = {};
+      message.id = messObj.id;
+      message.sender = messObj.sender;
+      message.recipient = messObj.recipient;
+      message.body = messObj.body;
+      message.time = messObj.createdAt;
+      message.read = messObj.read;
+      if (returnObj[id]) {
+        returnObj[id].push(message);
+      } else {
+        returnObj[id] = [message];
+      }
     });
     res.status(200);
-    return res.json({ messages })
+    return res.json({ messages: returnObj });
   })
 );
 
