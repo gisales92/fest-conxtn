@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 
 const { Event, Genre, Post, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
+const { validatePost } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -159,6 +160,7 @@ router.get(
 router.post(
   "/:eventId/posts",
   requireAuth,
+  validatePost,
   asyncHandler(async function (req, res, next) {
     const eventId = req.params.eventId;
 

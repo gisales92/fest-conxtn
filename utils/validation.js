@@ -63,8 +63,23 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
+const validatePost = [
+  check("title")
+    .exists(({ checkFalsy: true }))
+    .withMessage("Please provide a title for your post")
+    .isLength({ min: 1, max: 100 })
+    .withMessage("Title must be between 1 and 100 characters"),
+  check("body")
+  .exists(({ checkFalsy: true }))
+  .withMessage("Please provide a body for your post")
+  .isLength({ min: 1, max: 1000 })
+  .withMessage("Body must be between 1 and 1000 characters"),
+  handleValidationErrors,
+];
+
 module.exports = {
   handleValidationErrors,
   validateLogin,
-  validateSignup
+  validateSignup,
+  validatePost
 };
