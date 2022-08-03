@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const { Post, Reply, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
+const { validateReply } = require("../../utils/validation")
 
 const router = express.Router();
 
@@ -49,6 +50,7 @@ router.get(
 router.post(
     "/:postId/replies",
     requireAuth,
+    validateReply,
     asyncHandler(async function (req, res, next) {
       const postId = req.params.postId;
 
