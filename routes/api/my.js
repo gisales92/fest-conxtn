@@ -611,12 +611,45 @@ router.put(
       username: reply.User.username,
       profilePicUrl: reply.User.profilePicUrl,
     };
-    updatedReply.postId = reply.postId
+    updatedReply.postId = reply.postId;
     updatedReply.body = reply.body;
     updatedReply.time = reply.createdAt;
 
     res.status(200);
     return res.json({ ...updatedReply });
+  })
+);
+
+// Delete a reply belonging to the current user, specified by replyId
+router.delete(
+  "/replies/:replyId",
+  requireAuth,
+  asyncHandler(async function (req, res, next) {
+    const userId = req.user.id;
+    const replyId = req.params.replyId;
+    // get the reply from the database
+    const reply = await Reply.findByPk(replyId);
+    if (!reply) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a reply with that ID",
+        statusCode: 404,
+      });
+    }
+    // check that the reply was made by our current user
+    if (userId !== reply.userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    await reply.destroy();
+    res.status(200);
+    return res.json({
+      message: "Successfully deleted reply",
+      statusCode: 200,
+    });
   })
 );
 
