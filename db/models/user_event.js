@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   User_Events.associate = function (models) {
     // associations can be defined here
-    User_Events.hasOne(models.RSVP, { foreignKey: "rsvpId" });
+    User_Events.belongsTo(models.RSVP, { foreignKey: "rsvpId" });
   };
   return User_Events;
 };
