@@ -780,6 +780,46 @@ router.post(
   validateMessage,
   asyncHandler(async function (req, res, next) {
     const userId = req.user.id;
+    const { senderId, recipientId, body } = req.body;
+    // Check that the current user is the sender
+    if (userId !== senderId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden",
+        statusCode: 403,
+      });
+    }
+    // Check that the recipient is a valid user
+    const recipient = await User.findByPk(recipientId, {
+      attributes: ["id", "username", "profilePicUrl"],
+    });
+    if (!recipient) {
+      res.status(404);
+      return res.json({
+        message: "Unable to find a User with that ID",
+        statusCode: 404,
+      });
+    }
+    // create the new message
+    const message = await Message.create({
+      senderId,
+      recipientId,
+      body,
+    });
+    const newMessage = {};
+    const sender = await message.getSender();
+    newMessage.id = message.id;
+    newMessage.sender = {
+      id: sender.id,
+      username: sender.username,
+      profilePicUrl: sender.profilePicUrl,
+    };
+    newMessage.recipient = recipient;
+    newMessage.body = message.body;
+    newMessage.time = message.createdAt;
+    newMessage.read = message.read;
+    res.status(201);
+    return res.json({ ...newMessage });
   })
 );
 
