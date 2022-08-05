@@ -4,6 +4,8 @@ export const SET_GENRE_EVENTS = "events/SET_GENRE_EVENTS";
 export const SET_USER_EVENTS = "events/SET_USER_EVENTS";
 export const SET_CURRENT_EVENTS = "events/SET_CURRENT_EVENTS";
 export const SET_RSVP = "events/SET_RSVP";
+export const UPDATE_RSVP = "events/UPDATE_RSVP";
+export const DELETE_RSVP = "events/DELETE-RSVP";
 
 // selectors
 export const allEventsSelector = (state) => state.events.all;
@@ -46,6 +48,21 @@ export function setRSVP(rsvp) {
   return {
     type: SET_RSVP,
     rsvp,
+  };
+}
+// update RSVP for an event
+export function updateRSVPAction(rsvpId, eventId) {
+  return {
+    type: UPDATE_RSVP,
+    rsvpId,
+    eventId,
+  };
+}
+// delete RSVP for an event
+export function deleteRSVPAction(eventId) {
+  return {
+    type: DELETE_RSVP,
+    eventId,
   };
 }
 
@@ -98,6 +115,34 @@ export const createRSVP = (rsvp) => async (dispatch, getState) => {
   });
   const data = await res.json();
   dispatch(setRSVP(data));
+  return data;
+};
+// Update RSVP for an event for the current user
+export const updateRSVP = (rsvp) => async (dispatch) => {
+  const { eventId, rsvpId } = rsvp;
+  const res = await fetch(`/api/my/events/${eventId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      rsvpId,
+    }),
+  });
+  const data = await res.json();
+  dispatch(updateRSVPAction(rsvpId, eventId));
+  return data;
+};
+
+// Delete RSVP for an event for the current user
+export const deleteRSVP = (eventId) => async (dispatch) => {
+  const res = await fetch(`/api/my/events/${eventId}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  if (res.ok) {
+    dispatch(deleteRSVPAction());
+  }
   return data;
 };
 
@@ -153,6 +198,24 @@ export default function eventsReducer(
       break;
     case SET_RSVP:
       newState.user[action.rsvp.rsvp][action.rsvp.event.id] = action.rsvp.event;
+      break;
+    case UPDATE_RSVP:
+      if (action.rsvpId === 1) {
+        newState.user.going[action.eventId] =
+          newState.user.interested[action.eventId];
+        delete newState.user.interested[action.eventId];
+      } else {
+        newState.user.interested[action.eventId] =
+          newState.user.going[action.eventId];
+        delete newState.user.going[action.eventId];
+      }
+      break;
+    case DELETE_RSVP:
+      if (newState.user.going[action.eventId]) {
+        delete newState.user.going[action.eventId];
+      } else {
+        delete newState.user.interested[action.eventId];
+      }
       break;
     default:
       break;
