@@ -2,12 +2,15 @@
 export const SET_EVENTS = "events/SET_EVENTS";
 export const SET_GENRE_EVENTS = "events/SET_GENRE_EVENTS";
 export const SET_USER_EVENTS = "events/SET_USER_EVENTS";
+export const SET_CURRENT_EVENTS = "events/SET_CURRENT_EVENTS";
+export const SET_RSVP = "events/SET_RSVP";
 
 // selectors
 export const allEventsSelector = (state) => state.events.all;
 export const eventByIdSelector = (id) => (state) => state.events.all[id];
 export const genreEventsSelector = (state) => state.events.genre;
 export const userEventSelector = (state) => state.events.user;
+export const currentEventSelector = (state) => state.events.current;
 
 // action creators
 // set all events
@@ -29,6 +32,20 @@ export function setUserEvents(events) {
   return {
     type: SET_USER_EVENTS,
     events,
+  };
+}
+// set current user events
+export function setCurrentEvents(events) {
+  return {
+    type: SET_CURRENT_EVENTS,
+    events,
+  };
+}
+// set RSVP for an event
+export function setRSVP(rsvp) {
+  return {
+    type: SET_RSVP,
+    rsvp,
   };
 }
 
@@ -56,6 +73,33 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
   dispatch(setUserEvents(data.events));
   return data;
 };
+// fetch events for current user thunk
+export const fetchCurrentEvents = () => async (dispatch) => {
+  const res = await fetch("/api/my/events");
+  const data = await res.json();
+  dispatch(setUserEvents(data.events));
+  return data;
+};
+// RSVP to an event for current user thunk
+export const createRSVP = (rsvp) => async (dispatch, getState) => {
+  const state = getState();
+  const userId = state.session.user.id;
+  const { eventId, rsvpId } = rsvp;
+  const res = await fetch("/api/my/events", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      eventId,
+      rsvpId,
+    }),
+  });
+  const data = await res.json();
+  dispatch(setRSVP(data));
+  return data;
+};
 
 // reducer
 export default function eventsReducer(
@@ -66,7 +110,11 @@ export default function eventsReducer(
   newState.all = { ...state.all };
   newState.genre = { ...state.genre };
   newState.current = { ...state.current };
+  newState.current.going = { ...state.current.going };
+  newState.current.interested = { ...state.current.interested };
   newState.user = { ...state.user };
+  newState.user.going = { ...state.user.going };
+  newState.user.interested = { ...state.user.interested };
 
   switch (action.type) {
     case SET_EVENTS:
@@ -92,6 +140,19 @@ export default function eventsReducer(
         uEvents.interested[event.id] = event;
       });
       newState.user = uEvents;
+      break;
+    case SET_CURRENT_EVENTS:
+      const cEvents = { going: {}, interested: {} };
+      action.events.going.forEach((event) => {
+        cEvents.going[event.id] = event;
+      });
+      action.events.interested.forEach((event) => {
+        cEvents.interested[event.id] = event;
+      });
+      newState.current = cEvents;
+      break;
+    case SET_RSVP:
+      newState.user[action.rsvp.rsvp][action.rsvp.event.id] = action.rsvp.event;
       break;
     default:
       break;
