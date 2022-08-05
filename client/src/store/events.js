@@ -3,7 +3,7 @@ export const SET_EVENTS = "events/SET_EVENTS";
 export const SET_GENRE_EVENTS = "events/SET_GENRE_EVENTS";
 export const SET_USER_EVENTS = "events/SET_USER_EVENTS";
 export const SET_CURRENT_EVENTS = "events/SET_CURRENT_EVENTS";
-export const SET_RSVP = "events/SET_RSVP";
+export const NEW_RSVP = "events/NEW_RSVP";
 export const UPDATE_RSVP = "events/UPDATE_RSVP";
 export const DELETE_RSVP = "events/DELETE-RSVP";
 
@@ -46,7 +46,7 @@ export function setCurrentEvents(events) {
 // set RSVP for an event
 export function setRSVP(rsvp) {
   return {
-    type: SET_RSVP,
+    type: NEW_RSVP,
     rsvp,
   };
 }
@@ -196,7 +196,7 @@ export default function eventsReducer(
       });
       newState.current = cEvents;
       break;
-    case SET_RSVP:
+    case NEW_RSVP:
       newState.user[action.rsvp.rsvp][action.rsvp.event.id] = action.rsvp.event;
       break;
     case UPDATE_RSVP:
