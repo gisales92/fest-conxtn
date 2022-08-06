@@ -4,12 +4,14 @@ import ui from "./ui";
 import session from "./session";
 import events from "./events";
 import genres from "./genres";
+import user from "./user";
 
 const rootReducer = combineReducers({
   ui,
   session,
   events,
   genres,
+  user,
 });
 
 let enhancer;
