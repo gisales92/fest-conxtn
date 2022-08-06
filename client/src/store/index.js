@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import ui from "./ui";
 import session from "./session";
 import events from "./events";
+import genres from "./genres";
 
 const rootReducer = combineReducers({
   ui,
   session,
   events,
+  genres,
 });
 
 let enhancer;
