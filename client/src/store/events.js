@@ -197,7 +197,7 @@ export default function eventsReducer(
       newState.current = cEvents;
       break;
     case NEW_RSVP:
-      newState.user[action.rsvp.rsvp][action.rsvp.event.id] = action.rsvp.event;
+      newState.user[action.rsvp.rsvp][action.rsvp.event.id] = newState.all[action.rsvp.event.id];
       break;
     case UPDATE_RSVP:
       if (action.rsvpId === 1) {
