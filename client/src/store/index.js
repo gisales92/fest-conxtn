@@ -7,6 +7,7 @@ import genres from "./genres";
 import user from "./user";
 import posts from "./posts";
 import replies from "./replies";
+import messages from "./messages";
 
 const rootReducer = combineReducers({
   ui,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   user,
   posts,
   replies,
+  messages,
 });
 
 let enhancer;
