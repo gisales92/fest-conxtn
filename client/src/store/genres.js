@@ -88,7 +88,7 @@ export const addGenre = (genreId) => async (dispatch, getState) => {
     dispatch(addCurrentGenre(data.genre));
     return data;
   }
-  return null;
+  return res;
 };
 // Remove a genre from the current user's genres thunk
 export const removeGenre = (genreId) => async (dispatch) => {
@@ -100,7 +100,7 @@ export const removeGenre = (genreId) => async (dispatch) => {
     dispatch(removeCurrentGenre(genreId));
     return data;
   }
-  return null;
+  return res;
 };
 
 // reducer

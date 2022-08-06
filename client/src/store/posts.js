@@ -2,6 +2,9 @@
 export const SET_EVENT_POSTS = "posts/SET_EVENT_POSTS";
 export const SET_USER_POSTS = "posts/SET_USER_POSTS";
 export const SET_CURRENT_POSTS = "posts/SET_CURRENT_POSTS";
+export const NEW_POST = "posts/NEW_POST";
+export const EDIT_POST = "posts/EDIT_POST";
+export const DELETE_POST = "posts/DELETE_POST";
 
 // selectors
 export const eventPostsSelector = (state) => state.posts.event;
@@ -28,6 +31,27 @@ export function setCurrentPosts(posts) {
   return {
     type: SET_CURRENT_POSTS,
     posts,
+  };
+}
+// new post for an event
+export function newPost(post) {
+  return {
+    type: NEW_POST,
+    post,
+  };
+}
+// edit a post
+export function editPost(post) {
+  return {
+    type: EDIT_POST,
+    post,
+  };
+}
+// delete a post
+export function deletePost(postId) {
+  return {
+    type: DELETE_POST,
+    postId,
   };
 }
 
@@ -58,6 +82,59 @@ export const getCurrentPosts = () => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(setCurrentPosts(data.posts));
+    return data;
+  }
+  return res;
+};
+// create a new post thunk
+export const createPost = (post) => async (dispatch) => {
+  const { userId, eventId, title, body } = post;
+  const res = await fetch(`/api/events/${eventId}/posts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      title,
+      body,
+    }),
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(newPost(data));
+    return data;
+  }
+  return res;
+};
+// update a post thunk
+export const updatePost = (post) => async (dispatch) => {
+  const { postId, title, body } = post;
+  const res = await fetch(`/api/my/posts/${postId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(editPost(data));
+    return data;
+  }
+  return res;
+};
+// delete post thunk
+export const removePost = (postId) => async (dispatch) => {
+  const res = await fetch(`/api/my/posts/${postId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(deletePost(postId));
     return data;
   }
   return res;
@@ -94,6 +171,16 @@ export default function postsReducer(
         cPosts[post.id] = post;
       });
       newState.current = cPosts;
+      break;
+    case NEW_POST:
+      newState.event[action.post.id] = action.post;
+      newState.current[action.post.id] = action.post;
+      break;
+    case EDIT_POST:
+      newState.current[action.post.id] = action.post;
+      break;
+    case DELETE_POST:
+      delete newState.current[action.postId];
       break;
     default:
       break;
