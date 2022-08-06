@@ -6,6 +6,7 @@ import events from "./events";
 import genres from "./genres";
 import user from "./user";
 import posts from "./posts";
+import replies from "./replies";
 
 const rootReducer = combineReducers({
   ui,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   genres,
   user,
   posts,
+  replies,
 });
 
 let enhancer;
