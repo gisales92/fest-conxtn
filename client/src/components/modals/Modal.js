@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { modalSelector, hideModal } from "../../store/ui";
+import LoginModal, { LOGIN_MODAL } from "./LoginModal";
+import SignupModal, { SIGNUP_MODAL } from "./SignupModal";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,9 @@ const Modal = () => {
   switch (modalId) {
     case LOGIN_MODAL:
       modalToRender = <LoginModal />;
+      break;
+    case SIGNUP_MODAL:
+      modalToRender = <SignupModal />;
       break;
     default:
       closeModal();
