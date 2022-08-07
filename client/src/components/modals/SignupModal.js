@@ -12,6 +12,7 @@ const SignupModal = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,20 +20,34 @@ const SignupModal = () => {
   const [errors, setErrors] = useState([]);
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const validateFirstName = () => {
-    let errorMessage = firstName ? "" : "First name is required";
+    let errorMessage = "";
+    if (!firstName) errorMessage = "First name is required";
+    else if (firstName.length > 20) errorMessage = "First name must be fewer than 20 characters";
     setFirstNameError(errorMessage);
     return errorMessage === "";
   };
 
   const validateLastName = () => {
-    let errorMessage = lastName ? "" : "Last name is required";
+    let errorMessage = "";
+    if (!lastName) errorMessage = "Last name is required";
+    else if (lastName.length > 30) errorMessage = "Last name must be fewer than 30 characters";
     setLastNameError(errorMessage);
+    return errorMessage === "";
+  };
+
+  const validateUsername = () => {
+    let errorMessage = "";
+    if (!username) errorMessage = "Username is required";
+    else if (username.length < 4) errorMessage = "Username must be at least 4 characters";
+    else if (username.length > 25) errorMessage = "Username must be fewer than 25 characters";
+    setUsernameError(errorMessage);
     return errorMessage === "";
   };
 
@@ -47,7 +62,7 @@ const SignupModal = () => {
   const validatePassword = () => {
     let errorMessage = "";
     if (!password) errorMessage = "Password is required";
-    else if (password.length < 8) errorMessage = "Password must be at least 8 characters";
+    else if (password.length < 6) errorMessage = "Password must be at least 6 characters";
     else if (password.length > 128) errorMessage = "Password must be fewer than 128 characters";
     setPasswordError(errorMessage);
     return errorMessage === "";
@@ -65,6 +80,7 @@ const SignupModal = () => {
     if (hasSubmitted) {
       validateFirstName();
       validateLastName();
+      validateUsername();
       validateEmail();
       validatePassword();
       validateConfirmPassword();
@@ -78,7 +94,7 @@ const SignupModal = () => {
 
       if (errObj.email) setEmailError(errObj.email);
     }
-  }, [firstName, lastName, email, password, confirmPassword, hasSubmitted, errors]);
+  }, [firstName, lastName, email, username, password, confirmPassword, hasSubmitted, errors]);
 
   // if user is logged in hide modal
   if (user) {
@@ -95,7 +111,7 @@ const SignupModal = () => {
 
     // if there are no errors make request
     if (!validations.includes(false)) {
-      const data = await dispatch(signUp(firstName, lastName, email.toLowerCase(), password));
+      const data = await dispatch(signUp(firstName, lastName, username.toLowerCase(), email.toLowerCase(), password));
       if (data) setErrors(data);
     }
   };
@@ -144,6 +160,20 @@ const SignupModal = () => {
           />
           <label htmlFor="email" className="field-error">
             {emailError}
+          </label>
+        </div>
+
+        <div className="form-row">
+          <label htmlFor="email">Username</label>
+          <input
+            name="username"
+            type="text"
+            placeholder="coolDood1"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="username" className="field-error">
+            {usernameError}
           </label>
         </div>
 
