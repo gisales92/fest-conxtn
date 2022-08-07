@@ -8,18 +8,17 @@ export const LOGIN_MODAL = "ui/modals/LOGIN";
 
 const LoginModal = () => {
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
+  const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [credentialError, setCredentialError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
 
-  const getEmailError = () => {
-    if (!email) return "Email is required";
-    if (!/\S+@\S+\.\S+/.test(email)) return "Please enter a valid email";
+  const getCredentialError = () => {
+    if (!credential) return "A valid username or email is required";
     return "";
   };
 
@@ -27,7 +26,7 @@ const LoginModal = () => {
 
   useEffect(() => {
     if (hasSubmitted) {
-      setEmailError(getEmailError());
+      setCredentialError(getCredentialError());
       setPasswordError(getPasswordError());
 
       // parse errors obj
