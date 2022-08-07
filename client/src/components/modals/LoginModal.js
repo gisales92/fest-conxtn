@@ -1,0 +1,133 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector, login } from "../../store/session";
+import { showModal, hideModal } from "../../store/ui";
+import { SIGNUP_MODAL } from "./SignupModal";
+
+export const LOGIN_MODAL = "ui/modals/LOGIN";
+
+const LoginModal = () => {
+  const [errors, setErrors] = useState([]);
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [credentialError, setCredentialError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const dispatch = useDispatch();
+  const user = useSelector(userSelector);
+
+  const getCredentialError = () => {
+    if (!credential) return "A valid username or email is required";
+    return "";
+  };
+
+  const getPasswordError = () => (password ? "" : "Password is required");
+
+  useEffect(() => {
+    if (hasSubmitted) {
+      setCredentialError(getCredentialError());
+      setPasswordError(getPasswordError());
+
+      // parse errors obj
+      const errObj = errors.reduce((obj, error) => {
+        error = error.split(" : ");
+        obj[error[0]] = error[1];
+        return obj;
+      }, {});
+
+      if (errObj.credential) setCredentialError(errObj.credential);
+      else if (errObj.password) setPasswordError(errObj.password);
+    }
+  }, [credential, password, hasSubmitted, errors]);
+
+  // if user is logged in hide the modal
+  if (user) {
+    dispatch(hideModal());
+    return null;
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setHasSubmitted(true);
+
+    // front end validations
+    const credentialValidationError = getCredentialError();
+    const passwordValidationError = getPasswordError();
+
+    setCredentialError(credentialValidationError);
+    setPasswordError(passwordValidationError);
+
+    // if there are errors dont make request
+    if (!credentialValidationError && !passwordValidationError) {
+      // perform login
+      const data = await dispatch(login(credential, password));
+      if (data) setErrors(data);
+    }
+  };
+
+  const populateDemoUserFields = () => {
+    setEmail("Demo-lition");
+    setPassword("password");
+  };
+
+  return (
+    <div className="login-modal">
+      <h1 className="form-header">Log in</h1>
+
+      <form onSubmit={onSubmit}>
+        <div className="form-row">
+          <label htmlFor="credential">Username or Email</label>
+          <input
+            name="credential"
+            type="text"
+            placeholder="jason.smith@example.co"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+          />
+          <label htmlFor="credential" className="field-error">
+            {credentialError}
+          </label>
+        </div>
+
+        <div className="form-row">
+          <label htmlFor="password">Password</label>
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label htmlFor="password" className="field-error">
+            {passwordError}
+          </label>
+        </div>
+
+        <button type="submit" className="form-submit-button">
+          Submit
+        </button>
+      </form>
+
+      <div className="modal-footer">
+        <p>
+          Don't have an account yet?{" "}
+          <a
+            className="text-link"
+            onClick={() => dispatch(showModal(SIGNUP_MODAL))}
+          >
+            Sign up.
+          </a>
+        </p>
+        <p>
+          Just looking around?{" "}
+          <a className="text-link" onClick={populateDemoUserFields}>
+            Log in as a demo user.
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default LoginModal;
