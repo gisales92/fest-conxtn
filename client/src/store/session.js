@@ -33,13 +33,24 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (credential, password) => async (dispatch) => {
+  let email = null;
+  // checking to see if our credential is an email, if it is, convert to lowercase
+  if (
+    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(
+      credential
+    )
+  ) {
+    email = credential.toLowerCase();
+  }
+  let login = null;
+  email ? login = email : login = credential;
   const response = await fetch("/api/auth/session", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      credential,
+      credential: login,
       password,
     }),
   });

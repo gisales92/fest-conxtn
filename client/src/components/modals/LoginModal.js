@@ -36,10 +36,10 @@ const LoginModal = () => {
         return obj;
       }, {});
 
-      if (errObj.email) setEmailError(errObj.email);
+      if (errObj.credential) setCredentialError(errObj.credential);
       else if (errObj.password) setPasswordError(errObj.password);
     }
-  }, [email, password, hasSubmitted, errors]);
+  }, [credential, password, hasSubmitted, errors]);
 
   // if user is logged in hide the modal
   if (user) {
@@ -52,22 +52,22 @@ const LoginModal = () => {
     setHasSubmitted(true);
 
     // front end validations
-    const emailValidationError = getEmailError();
+    const credentialValidationError = getCredentialError();
     const passwordValidationError = getPasswordError();
 
-    setEmailError(emailValidationError);
+    setCredentialError(credentialValidationError);
     setPasswordError(passwordValidationError);
 
     // if there are errors dont make request
-    if (!emailValidationError && !passwordValidationError) {
+    if (!credentialValidationError && !passwordValidationError) {
       // perform login
-      const data = await dispatch(login(email.toLowerCase(), password));
+      const data = await dispatch(login(credential, password));
       if (data) setErrors(data);
     }
   };
 
   const populateDemoUserFields = () => {
-    setEmail("demo@aa.io");
+    setEmail("Demo-lition");
     setPassword("password");
   };
 
@@ -77,16 +77,16 @@ const LoginModal = () => {
 
       <form onSubmit={onSubmit}>
         <div className="form-row">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="credential">Username or Email</label>
           <input
-            name="email"
+            name="credential"
             type="text"
             placeholder="jason.smith@example.co"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
           />
-          <label htmlFor="email" className="field-error">
-            {emailError}
+          <label htmlFor="credential" className="field-error">
+            {credentialError}
           </label>
         </div>
 
