@@ -174,7 +174,7 @@ module.exports = {
         state: "South Carolina",
         zipCode: "29414",
         mainPicUrl:
-          "https://res.cloudinary.com/djsh50cka/image/upload/v1659043707/resonance_oee09c.jpg",
+          "https://res.cloudinary.com/djsh50cka/image/upload/v1660015981/294883614_2155351931311914_8603266166990964713_n_m1hla5.png",
         description:
           "The law of Resonance provides the answers as to how the law of attraction operates and creates the events, conditions, and circumstances in your life. A gathering of like-minded, motivated, music-loving individuals.",
         link: "https://resonancemusicfest.com/",
@@ -241,7 +241,7 @@ module.exports = {
         state: "California",
         zipCode: "92101",
         mainPicUrl:
-          "https://res.cloudinary.com/djsh50cka/image/upload/v1659051887/download_msqeac.jpg",
+          "https://res.cloudinary.com/djsh50cka/image/upload/v1660015918/download_aif6m5.jpg",
         description: "House x Techno",
         link: "https://www.crssdfest.com/",
       }),

@@ -17,7 +17,14 @@ function EventDetail() {
 
   useEffect(() => {
     if (!updated && url !== undefined) {
-      setUpdated(true);
+      (async () => {
+        try {
+          await dispatch();
+          await dispatch(fetchAllEvents());
+        } finally {
+          setUpdated(true);
+        }
+      })();
     }
   }, [dispatch, updated, url]);
 
