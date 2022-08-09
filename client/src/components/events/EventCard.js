@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import "../../styles/eventCard.css";
 
 const EventCard = ({ event }) => {
   const history = useHistory();
@@ -16,11 +17,17 @@ const EventCard = ({ event }) => {
     );
   }
 
-  const startDate = new Date(event.startDate).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const startDate = new Date(event.startDate).toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div className="event-card" onClick={redirectToEvent}>
       <img
+        className="event-card-img"
         src={event.mainPicUrl}
         alt={`Thumbnail for ${event.name}`}
         crossOrigin=""

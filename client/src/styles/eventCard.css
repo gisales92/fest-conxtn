@@ -1,0 +1,39 @@
+.event-card {
+    position: relative;
+}
+
+.event-card:hover {
+    cursor: pointer;
+}
+
+.event-card-img {
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+.event-card-name {
+    position: absolute;
+    margin-top: 0;
+    top: 0;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 5;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 80%, rgba(255,255,255,0) 100%);
+    padding: 15px 5px;
+    color: #ffffff;
+}
+
+.event-card-date {
+    position: absolute;
+    margin-bottom: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 3;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 80%, rgba(255,255,255,0) 100%);
+    padding: 15px 5px;
+    color: #ffffff;
+}
