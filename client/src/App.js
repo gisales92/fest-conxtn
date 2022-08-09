@@ -5,6 +5,7 @@ import NavBar from "./components/navigation/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
+import EventList from "./components/events/EventList";
 import { authenticate } from "./store/session";
 import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
@@ -38,7 +39,7 @@ function App() {
         {loaded ? (
           <Switch>
             <Route path="/" exact={true}>
-              Home Page Component
+              <EventList />
             </Route>
 
             <Route path="/login" exact={true}>
