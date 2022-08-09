@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
 import * as replyActions from "../../store/replies";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function EventDetail() {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ function EventDetail() {
       })();
     }
   }, [dispatch, updated, url, event]);
-
+  const fixDate = (dateStr) => new Date(dateStr).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   return (
     <div className="event-profile">
       {event ? (
@@ -41,24 +40,26 @@ function EventDetail() {
           <h1 className="event-detail-name">{event.name}</h1>
           <div className="event-detail-information">
             <p className="event-detail-genre">{event.genre}</p>
-            <p className="event-detail-venue">{event.venueName}</p>
-            <p className="event-detail-start">{event.startDate}</p>
-            <p className="event-detail-end">{event.endDate}</p>
             <p className="event-detail-description">{event?.description}</p>
-            <p className="event-detail-link">{event.link}</p>
+            <h4 className="event-detail-title">Venue</h4>
+            <p className="event-detail-venue">{event.venueName}</p>
+            <h4 className="event-detail-title">Festival Dates</h4>
+            <p className="event-detail-dates">{`${fixDate(event.startDate)} to ${fixDate(event.endDate)}`}</p>
+            <h4 className="event-detail-title">Official Site</h4>
+            <a href={event.link} className="event-detail-link">{event.link}</a>
           </div>
           <div className="event-detail-location">
-            <h4 className="event-detail-header">Location Information</h4>
-            <h6 className="event-detail-title">Venue</h6>
+            <h3 className="event-detail-header">Location Information</h3>
+            <h4 className="event-detail-title">Venue</h4>
             <p className="event-detail-info">{event.venueName}</p>
-            <h6 className="event-detail-title">Location</h6>
+            <h4 className="event-detail-title">Location</h4>
             <p className="event-detail-info">{event.address}</p>
             <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
           </div>
         </div>
       ) : null}
       <div className="event-profile-posts">
-        <h3 className="event-posts-header">Posts</h3>
+        <h2 className="event-posts-header">Posts</h2>
       </div>
     </div>
   );

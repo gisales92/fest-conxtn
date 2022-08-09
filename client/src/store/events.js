@@ -10,11 +10,13 @@ export const DELETE_RSVP = "events/DELETE-RSVP";
 // selectors
 export const allEventsSelector = (state) => state.events.all;
 export const eventByUrlSelector = (url) => (state) => {
-  Object.keys(state.events.all).forEach((event) => {
-    if (event.url === url) {
-      return state.events.all[event.id];
+  const eventKeys = Object.keys(state.events.all);
+  for (let i = 0; i < eventKeys.length; i++) {
+    let key = eventKeys[i];
+    if (state.events.all[key].url === url) {
+      return state.events.all[key];
     }
-  });
+  }
 };
 export const eventByIdSelector = (id) => (state) => state.events.all[id];
 export const genreEventsSelector = (state) => state.events.genre;

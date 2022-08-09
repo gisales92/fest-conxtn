@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
 import EventList from "./components/events/EventList";
+import EventDetail from "./components/events/EventsDetail";
 import { authenticate } from "./store/session";
 import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
@@ -48,6 +49,10 @@ function App() {
 
             <Route path="/signup" exact={true}>
               <SignupPage />
+            </Route>
+
+            <Route path="/events/:url" exact={true}>
+              <EventDetail />
             </Route>
           </Switch>
         ) : (
