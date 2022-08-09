@@ -26,7 +26,15 @@ function EventDetail() {
       })();
     }
   }, [dispatch, updated, url, event]);
-  const fixDate = (dateStr) => new Date(dateStr).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const fixDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "GMT",
+    });
+  };
   return (
     <div className="event-profile">
       {event ? (
@@ -44,9 +52,13 @@ function EventDetail() {
             <h4 className="event-detail-title">Venue</h4>
             <p className="event-detail-venue">{event.venueName}</p>
             <h4 className="event-detail-title">Festival Dates</h4>
-            <p className="event-detail-dates">{`${fixDate(event.startDate)} to ${fixDate(event.endDate)}`}</p>
+            <p className="event-detail-dates">{`${fixDate(
+              event.startDate
+            )} to ${fixDate(event.endDate)}`}</p>
             <h4 className="event-detail-title">Official Site</h4>
-            <a href={event.link} className="event-detail-link">{event.link}</a>
+            <a href={event.link} className="event-detail-link">
+              {event.link}
+            </a>
           </div>
           <div className="event-detail-location">
             <h3 className="event-detail-header">Location Information</h3>

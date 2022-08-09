@@ -22,6 +22,7 @@ const EventCard = ({ event }) => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "GMT",
   });
 
   return (
