@@ -1,8 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCompass } from "@fortawesome/free-regular-svg-icons";
 
 import { userSelector } from "../../store/session";
 import UnauthenticatedNav from "./UnauthenticatedNav";
@@ -10,6 +7,9 @@ import AuthenticatedNav from "./AuthenticatedNav";
 
 const NavBar = () => {
   const sessionUser = useSelector(userSelector);
+  useEffect(() => {
+
+  }, [])
 
   return (
     <nav className="nav-header">

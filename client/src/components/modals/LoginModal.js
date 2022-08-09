@@ -28,24 +28,16 @@ const LoginModal = () => {
     if (hasSubmitted) {
       setCredentialError(getCredentialError());
       setPasswordError(getPasswordError());
-
-      // parse errors obj
-      const errObj = errors.reduce((obj, error) => {
-        error = error.split(" : ");
-        obj[error[0]] = error[1];
-        return obj;
-      }, {});
-
-      if (errObj.credential) setCredentialError(errObj.credential);
-      else if (errObj.password) setPasswordError(errObj.password);
     }
-  }, [credential, password, hasSubmitted, errors]);
+  }, [credential, password, hasSubmitted, errors, user]);
 
-  // if user is logged in hide the modal
-  if (user) {
-    dispatch(hideModal());
-    return null;
-  }
+  useEffect(() => {
+    // if user is logged in hide the modal
+    if (user) {
+      dispatch(hideModal());
+      return null;
+    }
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -62,7 +54,11 @@ const LoginModal = () => {
     if (!credentialValidationError && !passwordValidationError) {
       // perform login
       const data = await dispatch(login(credential, password));
-      if (data) setErrors(data);
+      if (data.message) {
+        setErrors([data.message]);
+      } else {
+        dispatch(hideModal());
+      }
     }
   };
 
@@ -104,9 +100,14 @@ const LoginModal = () => {
           </label>
         </div>
 
-        <button type="submit" className="form-submit-button">
-          Submit
-        </button>
+        <div className="form-row">
+          <label htmlFor="submit" className="field-error">
+            {errors}
+          </label>
+          <button type="submit" className="form-submit-button">
+            Submit
+          </button>
+        </div>
       </form>
 
       <div className="modal-footer">
