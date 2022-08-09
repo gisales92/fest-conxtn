@@ -63,6 +63,7 @@ function EventDetail() {
                 href={event.link}
                 className="event-detail-link"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {event.link}
               </a>
