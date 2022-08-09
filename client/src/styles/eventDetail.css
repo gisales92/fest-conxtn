@@ -1,6 +1,10 @@
 .event-profile {
     width: 100%;
-    overflow-x: hidden;
+    min-width: 650px;
+}
+
+.event-details {
+    width: 100%;
 }
 
 .event-profile-img {
@@ -11,6 +15,7 @@
 
 .event-detail-body {
     width: 80%;
+    min-width: 520px;
     margin: auto;
 }
 
@@ -28,5 +33,6 @@
 
 .event-profile-posts {
     width: 80%;
+    min-width: 520px;
     margin: auto;
 }
