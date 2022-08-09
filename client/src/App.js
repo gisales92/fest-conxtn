@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
 import { authenticate } from "./store/session";
+import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
 import Modal from "./components/modals/Modal";
 
@@ -20,6 +21,7 @@ function App() {
       (async () => {
         try {
           await dispatch(authenticate());
+          await dispatch(fetchAllEvents());
         } finally {
           setLoaded(true);
         }
