@@ -74,14 +74,14 @@ export const createMessage = (message) => async (dispatch) => {
 
 // reducer
 export default function messagesReducer(state = {}, action) {
-  const newState = { ...state };
+  let newState = { ...state };
 
   switch (action.type) {
     case SET_MESSAGES:
       newState = action.messages;
       break;
     case READ_MESSAGE:
-      newState[action.message.sender.id]?.forEach((message) => {
+      newState[action.message.sender.id].forEach((message) => {
         message.read = true;
       });
       break;

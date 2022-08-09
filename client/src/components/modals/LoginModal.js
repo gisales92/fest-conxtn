@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector, login } from "../../store/session";
 import { showModal, hideModal } from "../../store/ui";
@@ -67,7 +67,7 @@ const LoginModal = () => {
   };
 
   const populateDemoUserFields = () => {
-    setEmail("Demo-lition");
+    setCredential("Demo-lition");
     setPassword("password");
   };
 

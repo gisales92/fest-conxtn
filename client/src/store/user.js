@@ -27,7 +27,7 @@ export const fetchUser = (userId) => async (dispatch) => {
 
 // reducer
 export default function userReducer(state = {}, action) {
-  const newState = { ...state };
+  let newState = { ...state };
   switch (action.type) {
     case SET_USER:
       newState = action.user;
