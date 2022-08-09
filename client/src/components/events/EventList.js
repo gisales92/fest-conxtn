@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { allEventsSelector } from "../../store/events";
 import EventCard from "./EventCard";
+import "../../styles/eventCard.css";
 
 function EventList() {
     const events = useSelector(allEventsSelector);
