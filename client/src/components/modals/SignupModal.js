@@ -17,7 +17,8 @@ const SignupModal = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [errorMsg, setErrorMsg] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [usernameError, setUsernameError] = useState("");
@@ -29,7 +30,8 @@ const SignupModal = () => {
   const validateFirstName = () => {
     let errorMessage = "";
     if (!firstName) errorMessage = "First name is required";
-    else if (firstName.length > 20) errorMessage = "First name must be fewer than 20 characters";
+    else if (firstName.length > 20)
+      errorMessage = "First name must be fewer than 20 characters";
     setFirstNameError(errorMessage);
     return errorMessage === "";
   };
@@ -37,7 +39,8 @@ const SignupModal = () => {
   const validateLastName = () => {
     let errorMessage = "";
     if (!lastName) errorMessage = "Last name is required";
-    else if (lastName.length > 30) errorMessage = "Last name must be fewer than 30 characters";
+    else if (lastName.length > 30)
+      errorMessage = "Last name must be fewer than 30 characters";
     setLastNameError(errorMessage);
     return errorMessage === "";
   };
@@ -45,8 +48,10 @@ const SignupModal = () => {
   const validateUsername = () => {
     let errorMessage = "";
     if (!username) errorMessage = "Username is required";
-    else if (username.length < 4) errorMessage = "Username must be at least 4 characters";
-    else if (username.length > 25) errorMessage = "Username must be fewer than 25 characters";
+    else if (username.length < 4)
+      errorMessage = "Username must be at least 4 characters";
+    else if (username.length > 25)
+      errorMessage = "Username must be fewer than 25 characters";
     setUsernameError(errorMessage);
     return errorMessage === "";
   };
@@ -54,7 +59,8 @@ const SignupModal = () => {
   const validateEmail = () => {
     let errorMessage = "";
     if (!email) errorMessage = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(email)) errorMessage = "Please enter a valid email";
+    else if (!/\S+@\S+\.\S+/.test(email))
+      errorMessage = "Please enter a valid email";
     setEmailError(errorMessage);
     return errorMessage === "";
   };
@@ -62,8 +68,10 @@ const SignupModal = () => {
   const validatePassword = () => {
     let errorMessage = "";
     if (!password) errorMessage = "Password is required";
-    else if (password.length < 6) errorMessage = "Password must be at least 6 characters";
-    else if (password.length > 128) errorMessage = "Password must be fewer than 128 characters";
+    else if (password.length < 6)
+      errorMessage = "Password must be at least 6 characters";
+    else if (password.length > 128)
+      errorMessage = "Password must be fewer than 128 characters";
     setPasswordError(errorMessage);
     return errorMessage === "";
   };
@@ -71,10 +79,11 @@ const SignupModal = () => {
   const validateConfirmPassword = () => {
     let errorMessage = "";
     if (!confirmPassword) errorMessage = "Please re-enter your password";
-    else if (confirmPassword !== password) errorMessage = "Passwords do not match";
+    else if (confirmPassword !== password)
+      errorMessage = "Passwords do not match";
     setConfirmPasswordError(errorMessage);
     return errorMessage === "";
-  }
+  };
 
   useEffect(() => {
     if (hasSubmitted) {
@@ -86,33 +95,54 @@ const SignupModal = () => {
       validateConfirmPassword();
 
       // parse backend errors obj
-      const errObj = errors.reduce((obj, error) => {
-        error = error.split(" : ");
-        obj[error[0]] = error[1];
-        return obj;
-      }, {});
-
-      if (errObj.email) setEmailError(errObj.email);
+      console.log("Errors: ", errors);
+      if (errors.message) setErrorMsg(errors.message);
+      if (errors.errors?.email) setEmailError(errors.errors.email);
+      if (errors.errors?.username) setUsernameError(errors.errors.username);
     }
-  }, [firstName, lastName, email, username, password, confirmPassword, hasSubmitted, errors]);
+  }, [
+    firstName,
+    lastName,
+    email,
+    username,
+    password,
+    confirmPassword,
+    hasSubmitted,
+    errors,
+    errorMsg,
+  ]);
 
-  // if user is logged in hide modal
-  if (user) {
-    dispatch(hideModal());
-    return null;
-  }
+  useEffect(() => {
+    // if user is logged in hide the modal
+    if (user) {
+      dispatch(hideModal());
+      return null;
+    }
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
 
     // front end validations
-    const validations = [validateFirstName(), validateLastName(), validateEmail(), validatePassword(), validateConfirmPassword()];
+    const validations = [
+      validateFirstName(),
+      validateLastName(),
+      validateEmail(),
+      validatePassword(),
+      validateConfirmPassword(),
+    ];
 
     // if there are no errors make request
     if (!validations.includes(false)) {
-      const data = await dispatch(signUp(firstName, lastName, username, email.toLowerCase(), password));
-      if (data) setErrors(data);
+      const data = await dispatch(
+        signUp(firstName, lastName, username, email.toLowerCase(), password)
+      );
+      if (data) {
+        setErrors(data);
+      } else {
+        dispatch(hideModal());
+      }
     }
   };
 
@@ -205,9 +235,14 @@ const SignupModal = () => {
           </label>
         </div>
 
-        <button type="submit" className="form-submit-button">
-          Submit
-        </button>
+        <div className="form-row">
+          <label htmlFor="submit" className="field-error">
+            {errorMsg}
+          </label>
+          <button type="submit" className="form-submit-button">
+            Submit
+          </button>
+        </div>
       </form>
 
       <div className="modal-footer">
