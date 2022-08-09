@@ -14,73 +14,51 @@ function EventDetail() {
     exact: true,
   });
   const url = match.params.url;
+  const event = useSelector(eventActions.eventByUrlSelector(url));
 
   useEffect(() => {
-    if (!updated && url !== undefined) {
+    if (!updated && url !== undefined && event) {
       (async () => {
         try {
-          await dispatch();
-          await dispatch(fetchAllEvents());
+          await dispatch(postActions.getEventPosts(event.id));
         } finally {
           setUpdated(true);
         }
       })();
     }
-  }, [dispatch, updated, url]);
-
-  const restaurant = useSelector(restaurantActions.restaurantUrlSelector(url));
-  const reviews = useSelector(restaurantReviewsSelector);
+  }, [dispatch, updated, url, event]);
 
   return (
-    <div className="restDetail">
-      <img
-        src={`${restaurant?.preview_image_url}`}
-        alt="Restaurant Header"
-        className="restHeaderImg"
-        crossOrigin=""
-      />
-      <div className="restProfile">
-        <h1 className="restName">{restaurant?.name}</h1>
-        <div className="restOverview">
-          {restaurant?.rating ? (
-            <p className="restRating">
-              Rating: {restaurant?.rating.toFixed(2)}/5
-            </p>
-          ) : null}
-          <p className="restInfo">
-            {restaurant?.cuisine_type} • {"$".repeat(restaurant?.price)} •{" "}
-            {restaurant?.location.city}
-          </p>
-        </div>
-        {restaurant ? (
-          <button
-            className="nav-button hover-effect sign-up-button reservation-button"
-            onClick={openReservationModal}
-          >
-            <span>Make A Reservation</span>
-            <FontAwesomeIcon icon={faClipboard} className="icon" />
-          </button>
-        ) : null}
-        {restaurant ? (
-          <div className="restDetails">
-            <h4 className="rest-detail-header">Additional Info</h4>
-            <h6 className="rest-detail-title">Opening Time</h6>
-            <p className="rest-detail-info">
-              {fixTimes(restaurant.opening_time)}
-            </p>
-            <h6 className="rest-detail-title">Closing Time</h6>
-            <p className="rest-detail-info">
-              {fixTimes(restaurant.closing_time)}
-            </p>
-            <h6 className="rest-detail-title">Location</h6>
-            <p className="rest-detail-info">{restaurant.address_line_1}</p>
-            <p className="rest-detail-info">{restaurant.address_line_2}</p>
-            <p className="rest-detail-info">{`${restaurant.location?.city}, ${restaurant.location?.state}`}</p>
+    <div className="event-profile">
+      {event ? (
+        <div className="event-details">
+          <img
+            src={`${event?.mainPicUrl}`}
+            alt="Event Header"
+            className="event-profile-img"
+            crossOrigin=""
+          />
+          <h1 className="event-detail-name">{event.name}</h1>
+          <div className="event-detail-information">
+            <p className="event-detail-genre">{event.genre}</p>
+            <p className="event-detail-venue">{event.venueName}</p>
+            <p className="event-detail-start">{event.startDate}</p>
+            <p className="event-detail-end">{event.endDate}</p>
+            <p className="event-detail-description">{event?.description}</p>
+            <p className="event-detail-link">{event.link}</p>
           </div>
-        ) : null}
-        <div className="restaurant-gallery">
-          <RestaurantGallery props={{ updated, restaurant }} />
+          <div className="event-detail-location">
+            <h4 className="event-detail-header">Location Information</h4>
+            <h6 className="event-detail-title">Venue</h6>
+            <p className="event-detail-info">{event.venueName}</p>
+            <h6 className="event-detail-title">Location</h6>
+            <p className="event-detail-info">{event.address}</p>
+            <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
+          </div>
         </div>
+      ) : null}
+      <div className="event-profile-posts">
+        <h3 className="event-posts-header">Posts</h3>
       </div>
     </div>
   );

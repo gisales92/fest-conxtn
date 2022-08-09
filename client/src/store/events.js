@@ -9,6 +9,13 @@ export const DELETE_RSVP = "events/DELETE-RSVP";
 
 // selectors
 export const allEventsSelector = (state) => state.events.all;
+export const eventByUrlSelector = (url) => (state) => {
+  Object.keys(state.events.all).forEach((event) => {
+    if (event.url === url) {
+      return state.events.all[event.id];
+    }
+  });
+};
 export const eventByIdSelector = (id) => (state) => state.events.all[id];
 export const genreEventsSelector = (state) => state.events.genre;
 export const userEventSelector = (state) => state.events.user;
@@ -197,7 +204,8 @@ export default function eventsReducer(
       newState.current = cEvents;
       break;
     case NEW_RSVP:
-      newState.user[action.rsvp.rsvp][action.rsvp.event.id] = newState.all[action.rsvp.event.id];
+      newState.user[action.rsvp.rsvp][action.rsvp.event.id] =
+        newState.all[action.rsvp.event.id];
       break;
     case UPDATE_RSVP:
       if (action.rsvpId === 1) {
