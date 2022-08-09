@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Map from "./Map";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
 import * as replyActions from "../../store/replies";
@@ -66,6 +67,7 @@ function EventDetail() {
             <h4 className="event-detail-title">Location</h4>
             <p className="event-detail-info">{event.address}</p>
             <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
+            < Map lat={event.lat} lng={event.lng} />
           </div>
         </div>
       ) : null}
