@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
 import * as replyActions from "../../store/replies";
+import "../../styles/eventDetail.css";
 
 function EventDetail() {
   const dispatch = useDispatch();
@@ -49,14 +50,12 @@ function EventDetail() {
           <div className="event-detail-information">
             <p className="event-detail-genre">{event.genre}</p>
             <p className="event-detail-description">{event?.description}</p>
-            <h4 className="event-detail-title">Venue</h4>
-            <p className="event-detail-venue">{event.venueName}</p>
             <h4 className="event-detail-title">Festival Dates</h4>
             <p className="event-detail-dates">{`${fixDate(
               event.startDate
             )} to ${fixDate(event.endDate)}`}</p>
             <h4 className="event-detail-title">Official Site</h4>
-            <a href={event.link} className="event-detail-link">
+            <a href={event.link} className="event-detail-link" target="_blank">
               {event.link}
             </a>
           </div>

@@ -1,0 +1,10 @@
+.event-profile {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.event-profile-img {
+    width: 100%;
+    height: 69vh;
+    object-fit: cover;
+}
