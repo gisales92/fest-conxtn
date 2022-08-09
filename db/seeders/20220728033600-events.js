@@ -20,6 +20,8 @@ module.exports = {
         city: "Thornville",
         state: "Ohio",
         zipCode: "43076",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658981269/107706_1655410905582-secret-dreams-PHASE3-1200x1200px_bpl53w.jpg",
         description:
@@ -37,6 +39,8 @@ module.exports = {
         city: "George",
         state: "Washington",
         zipCode: "98848",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658981553/Bass_Canyon_Lineup_2022_PosterSize1000px-777x1200_r1rt26.jpg",
         description:
@@ -54,6 +58,8 @@ module.exports = {
         city: "Columbus",
         state: "Ohio",
         zipCode: "43211",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658982419/BREAKAWAY_LINEUP_POSTER_FRI-SAT_OH_LINEUP_4X5_rgsgvi.png",
         description:
@@ -71,6 +77,8 @@ module.exports = {
         city: "Nashville",
         state: "Tennessee",
         zipCode: "37243",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658982805/mainlineupflyer_myhkou.png",
         description:
@@ -88,6 +96,8 @@ module.exports = {
         city: "Chicago",
         state: "Illinois",
         zipCode: "60606",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658983489/ARC_2022_DESIGN-PHASE1-1350-e1647215433946_skdam6.jpg",
         description:
@@ -105,6 +115,8 @@ module.exports = {
         city: "New York",
         state: "New York",
         zipCode: "10035",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658983851/EZoo2022_StageByStageLineup_4x5_xeolkx.png",
         description:
@@ -122,6 +134,8 @@ module.exports = {
         city: "Bridgeview",
         state: "Illinois",
         zipCode: "60455",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659040267/ncmf-2022-lineup-final_u4jmbd.png",
         description:
@@ -139,6 +153,8 @@ module.exports = {
         city: "Austin",
         state: "Texas",
         zipCode: "78724",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659040767/illfest-lineup-2022-819x1024_ikez5z.jpg",
         description:
@@ -156,6 +172,8 @@ module.exports = {
         city: "Perris",
         state: "California",
         zipCode: "92571",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659041150/SSBD-2022-SOCIAL-FINAL_qg3vlt.webp",
         description:
@@ -173,6 +191,8 @@ module.exports = {
         city: "Charleston",
         state: "South Carolina",
         zipCode: "29414",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1660015981/294883614_2155351931311914_8603266166990964713_n_m1hla5.png",
         description:
@@ -190,6 +210,8 @@ module.exports = {
         city: "Thornville",
         state: "Ohio",
         zipCode: "43076",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659044654/E6dXvDFWQAIfXS6_jibtgj.jpg",
         description:
@@ -207,6 +229,8 @@ module.exports = {
         city: "Queens",
         state: "New York",
         zipCode: "11368",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659049035/RL22_NY_-_FINAL_FLYER_resized_ztfias.jpg",
         description: "The Largest Hip-Hop Festival in the World.",
@@ -223,6 +247,8 @@ module.exports = {
         city: "Pelham",
         state: "Tennessee",
         zipCode: "37366",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659051630/d1bc2004-6e7d-468f-81d1-2d1678ea6972_ffzqoc.png",
         description:
@@ -240,6 +266,8 @@ module.exports = {
         city: "San Diego",
         state: "California",
         zipCode: "92101",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1660015918/download_aif6m5.jpg",
         description: "House x Techno",
@@ -256,6 +284,8 @@ module.exports = {
         city: "Waterford",
         state: "California",
         zipCode: "95386",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659052506/DBC22_-_Lineup_Announce_-_FINAL_aywmfq.jpg",
         description:
@@ -273,6 +303,8 @@ module.exports = {
         city: "Los Angeles",
         state: "California",
         zipCode: "90037",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659052837/IMG_4768-819x1024_no042o.jpg",
         description:
@@ -290,6 +322,8 @@ module.exports = {
         city: "Morrison",
         state: "Colorado",
         zipCode: "80465",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659053567/FPmH5x1XsAcFn0J-819x1024_ijonhq.jpg",
         description:
@@ -307,6 +341,8 @@ module.exports = {
         city: "Detroit",
         state: "Michigan",
         zipCode: "48226",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659054075/Movment-Closing-Set-Katie-Laskowska-7W5A4235_onralr.jpg",
         description:
@@ -324,6 +360,8 @@ module.exports = {
         city: "San Bernardino",
         state: "California",
         zipCode: "92408",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659054604/Dreamstate-2022-Banner_bronza.jpg",
         description:
@@ -341,6 +379,8 @@ module.exports = {
         city: "Philadelphia",
         state: "Pennsylvania",
         zipCode: "19107",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659055045/hijinx_feature_2019-1200x675_isalnb.jpg",
         description:
@@ -358,6 +398,8 @@ module.exports = {
         city: "Pasadena",
         state: "California",
         zipCode: "91103",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659055489/H7z0kHKcBvKtdfRoJOUyH0qabKqlmAej4sbNY8vP_jem9lo.png",
         description:
@@ -375,6 +417,8 @@ module.exports = {
         city: "Las Vegas",
         state: "Nevada",
         zipCode: "89115",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659055849/03-edc-lv-press-photo-2018-billboard-1548-compressed_nzturo.jpg",
         description:
@@ -392,6 +436,8 @@ module.exports = {
         city: "Perris",
         state: "California",
         zipCode: "92571",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659056237/64328294_1136145919843020_2712146850990784512_o_nai3m7.jpg",
         description:
@@ -409,6 +455,8 @@ module.exports = {
         city: "San Bernardino",
         state: "California",
         zipCode: "92408",
+        lat: "39.9386",
+        lng: "-82.4025",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659056411/hs_2022_mk_lu_full_1080x1350_r04v01_uyjmms.png",
         description:

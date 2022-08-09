@@ -34,11 +34,11 @@ module.exports = {
       },
       venueName: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       city: {
         type: Sequelize.STRING(100),
@@ -50,7 +50,15 @@ module.exports = {
       },
       zipCode: {
         type: Sequelize.STRING(5),
-        allowNull: true,
+        allowNull: false,
+      },
+      lat: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lng: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       mainPicUrl: {
         type: Sequelize.STRING,
