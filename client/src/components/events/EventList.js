@@ -38,7 +38,6 @@ function EventList() {
 
   return (
     <div className="event-list-div">
-      <h1 className="event-list-header">Events</h1>
       <ul className="event-list-ul">{eventCards}</ul>
     </div>
   );
