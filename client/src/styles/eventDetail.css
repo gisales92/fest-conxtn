@@ -8,3 +8,25 @@
     height: 69vh;
     object-fit: cover;
 }
+
+.event-detail-body {
+    width: 80%;
+    margin: auto;
+}
+
+.event-detail-top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+}
+
+.event-detail-location {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+}
+
+.event-profile-posts {
+    width: 80%;
+    margin: auto;
+}

@@ -47,27 +47,39 @@ function EventDetail() {
             className="event-profile-img"
             crossOrigin=""
           />
-          <h1 className="event-detail-name">{event.name}</h1>
-          <div className="event-detail-information">
-            <p className="event-detail-genre">{event.genre}</p>
-            <p className="event-detail-description">{event?.description}</p>
-            <h4 className="event-detail-title">Festival Dates</h4>
-            <p className="event-detail-dates">{`${fixDate(
-              event.startDate
-            )} to ${fixDate(event.endDate)}`}</p>
-            <h4 className="event-detail-title">Official Site</h4>
-            <a href={event.link} className="event-detail-link" target="_blank">
-              {event.link}
-            </a>
-          </div>
-          <div className="event-detail-location">
-            <h3 className="event-detail-header">Location Information</h3>
-            <h4 className="event-detail-title">Venue</h4>
-            <p className="event-detail-info">{event.venueName}</p>
-            <h4 className="event-detail-title">Location</h4>
-            <p className="event-detail-info">{event.address}</p>
-            <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
-            < Map lat={event.lat} lng={event.lng} />
+          <div className="event-detail-body">
+            <div className="event-detail-top">
+              <h1 className="event-detail-name">{event.name}</h1>
+              <p className="event-detail-genre">{event.genre}</p>
+            </div>
+            <div className="event-detail-information">
+              <p className="event-detail-description">{event?.description}</p>
+              <h4 className="event-detail-title">Festival Dates</h4>
+              <p className="event-detail-dates">{`${fixDate(
+                event.startDate
+              )} to ${fixDate(event.endDate)}`}</p>
+              <h4 className="event-detail-title">Official Site</h4>
+              <a
+                href={event.link}
+                className="event-detail-link"
+                target="_blank"
+              >
+                {event.link}
+              </a>
+            </div>
+            <div className="event-detail-location">
+              <div className="event-detail-location-left">
+                <h3 className="event-detail-header">Location Information</h3>
+                <h4 className="event-detail-title">Venue</h4>
+                <p className="event-detail-info">{event.venueName}</p>
+                <h4 className="event-detail-title">Location</h4>
+                <p className="event-detail-info">{event.address}</p>
+                <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
+              </div>
+              <div className="event-detail-location-right">
+                <Map lat={event.lat} lng={event.lng} />
+              </div>
+            </div>
           </div>
         </div>
       ) : null}
