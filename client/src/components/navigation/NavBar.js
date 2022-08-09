@@ -22,12 +22,6 @@ const NavBar = () => {
             crossOrigin=""
           />
         </a>
-
-        <div className="nav-location">
-          <nav>
-            <FontAwesomeIcon icon={faCompass} size="lg" className="icon" />
-          </nav>
-        </div>
       </div>
 
       {sessionUser ? <AuthenticatedNav /> : <UnauthenticatedNav />}
