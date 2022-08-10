@@ -25,9 +25,11 @@ function EventList() {
           newKeys.push(i);
         } else {
           setEventKeys(newKeys);
+          return;
         }
       }
       setEventKeys(newKeys);
+      return;
     }
   };
 

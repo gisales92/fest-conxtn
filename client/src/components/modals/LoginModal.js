@@ -113,18 +113,18 @@ const LoginModal = () => {
       <div className="modal-footer">
         <p>
           Don't have an account yet?{" "}
-          <a
+          <span
             className="text-link"
             onClick={() => dispatch(showModal(SIGNUP_MODAL))}
           >
             Sign up.
-          </a>
+          </span>
         </p>
         <p>
           Just looking around?{" "}
-          <a className="text-link" onClick={populateDemoUserFields}>
+          <span className="text-link" onClick={populateDemoUserFields}>
             Log in as a demo user.
-          </a>
+          </span>
         </p>
       </div>
     </div>
