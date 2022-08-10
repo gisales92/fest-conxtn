@@ -135,7 +135,7 @@ module.exports = {
         state: "Illinois",
         zipCode: "60455",
         lat: "41.7648",
-        lng: "87.8049",
+        lng: "-87.8049",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1659040267/ncmf-2022-lineup-final_u4jmbd.png",
         description:
