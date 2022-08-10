@@ -96,7 +96,7 @@ module.exports = {
         city: "Chicago",
         state: "Illinois",
         zipCode: "60606",
-        lat: "42.8852",
+        lat: "41.8852",
         lng: "-87.6655",
         mainPicUrl:
           "https://res.cloudinary.com/djsh50cka/image/upload/v1658983489/ARC_2022_DESIGN-PHASE1-1350-e1647215433946_skdam6.jpg",

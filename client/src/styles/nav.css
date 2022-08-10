@@ -1,14 +1,22 @@
 /* nav specific css styling */
 
 .nav-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
-    height: 10vh;
+    width: 100%;
     margin: auto;
     padding: 15px 0;
     background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10vh;
+    width: 80%;
+    margin: auto;
 }
 
 .flex-row {
