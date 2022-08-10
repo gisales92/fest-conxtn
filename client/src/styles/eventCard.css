@@ -28,6 +28,7 @@
     width: calc(2*var(--s) + var(--g));
     grid-template-columns: repeat(2, auto);
     margin: auto;
+    padding: 0;
 }
 
 .event-card-img {

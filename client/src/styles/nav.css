@@ -1,0 +1,65 @@
+/* nav specific css styling */
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    height: 10vh;
+    margin: auto;
+    padding: 15px 0;
+    background-color: white;
+}
+
+.flex-row {
+    height: 100%;
+}
+
+.masthead {
+    height: 100%;
+}
+
+.nav-location {
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.nav-location nav {
+    padding: 0 0.9rem;
+    margin-left: 0.5rem;
+    border-left: 0.08rem solid #0000000f;
+}
+
+.nav-location .icon {
+    height: 1.5rem;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-button {
+    height: 9vh;
+    border: none;
+    background-color: #ffffff;
+    padding: 2vh 3vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+    border-right: 2px solid #000000;
+}
+
+#profile-button {
+    text-decoration: none;
+}
+
+.nav-button:hover {
+    cursor: pointer;
+    background-color: #000000;
+    color: #ffffff
+}

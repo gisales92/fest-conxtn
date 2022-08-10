@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { userSelector } from "../../store/session";
 import UnauthenticatedNav from "./UnauthenticatedNav";
 import AuthenticatedNav from "./AuthenticatedNav";
+import "../../styles/nav.css"
 
 const NavBar = () => {
   const sessionUser = useSelector(userSelector);
