@@ -99,24 +99,24 @@
   margin-right: 2vw;
   vertical-align: middle;
   box-sizing: border-box;
-  z-index: 4;
+  z-index: 3;
   padding: 5px;
   width: 12vw;
   min-width: fit-content;
   height: fit-content;
   border-radius: 25px;
   background-color: transparent;
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--ts);
   text-align: center;
 }
 
 .going {
   color: #30c735;
-  border: 3px solid #30c735;
+  border: 2px solid #30c735;
 }
 
 .interested {
   color: #e1eb2d;
-  border: 3px solid #e1eb2d;
+  border: 2px solid #e1eb2d;
 }
