@@ -37,7 +37,7 @@ const LoginModal = () => {
       dispatch(hideModal());
       return null;
     }
-  }, []);
+  }, [dispatch]);
 
   const onSubmit = async (e) => {
     e.preventDefault();

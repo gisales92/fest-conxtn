@@ -103,7 +103,7 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
 export const fetchCurrentEvents = () => async (dispatch) => {
   const res = await fetch("/api/my/events");
   const data = await res.json();
-  dispatch(setUserEvents(data.events));
+  dispatch(setCurrentEvents(data.events));
   return data;
 };
 // RSVP to an event for current user thunk
