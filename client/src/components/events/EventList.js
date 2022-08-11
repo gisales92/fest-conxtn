@@ -57,7 +57,7 @@ function EventList() {
 
   return (
     <div className="event-list-div">
-      <ul className="event-list-ul">{eventCards}</ul>
+      {loaded ? <ul className="event-list-ul">{eventCards}</ul> : null}
     </div>
   );
 }

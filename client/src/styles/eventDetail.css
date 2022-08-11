@@ -38,3 +38,11 @@
     min-width: 520px;
     margin: auto;
 }
+
+.rsvp-bar-outer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #000000;
+    height: 10vh;
+}

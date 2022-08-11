@@ -12,13 +12,16 @@ import "../../styles/eventDetail.css";
 function EventDetail() {
   const dispatch = useDispatch();
   const [updated, setUpdated] = useState(false);
+  const [userUpdate, setUserUpdate] = useState(false);
+  const [rsvp, setRSVP] = useState(0);
   const match = useRouteMatch({
     path: "/events/:url",
     exact: true,
   });
   const url = match.params.url;
   const event = useSelector(eventActions.eventByUrlSelector(url));
-  const sessionUser = useSelector(userSelector)
+  const sessionUser = useSelector(userSelector);
+  const userEvents = useSelector(eventActions.currentEventSelector);
 
   useEffect(() => {
     if (!updated && url !== undefined && event) {
@@ -26,7 +29,7 @@ function EventDetail() {
         try {
           await dispatch(postActions.getEventPosts(event.id));
           if (sessionUser) {
-            await dispatch(eventActions.fetchCurrentEvents())
+            await dispatch(eventActions.fetchCurrentEvents());
           }
         } finally {
           setUpdated(true);
@@ -34,6 +37,22 @@ function EventDetail() {
       })();
     }
   }, [dispatch, updated, url, event, sessionUser]);
+
+  useEffect(() => {
+    if (sessionUser && updated) {
+      console.log(userEvents);
+      console.log(userEvents.interested);
+      if (userEvents.going[event.id]) {
+        setRSVP(1);
+      } else if (userEvents.interested[event.id]) {
+        setRSVP(2);
+      } else {
+        setRSVP(0);
+      }
+      setUserUpdate(true);
+    }
+  }, [setRSVP, sessionUser, updated]);
+
   const fixDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString(undefined, {
       weekday: "long",
@@ -47,18 +66,22 @@ function EventDetail() {
     <div className="event-profile">
       {event ? (
         <div className="event-details">
-          <img
-            src={`${event?.mainPicUrl}`}
-            alt="Event Header"
-            className="event-profile-img"
-            crossOrigin=""
-          />
+          <div className="event-detail-upper">
+            <img
+              src={`${event?.mainPicUrl}`}
+              alt="Event Header"
+              className="event-profile-img"
+              crossOrigin=""
+            />
+            <p className="event-detail-genre">{event.genre}</p>
+          </div>
           <div className="event-detail-body">
             <div className="event-detail-top">
               <h1 className="event-detail-name">{event.name}</h1>
-              {sessionUser ? <RSVPBar rsvpId={1}/> : null}
-              <p className="event-detail-genre">{event.genre}</p>
             </div>
+            {updated && sessionUser && userUpdate ? (
+              <RSVPBar rsvpId={rsvp} />
+            ) : null}
             <div className="event-detail-information">
               <p className="event-detail-description">{event?.description}</p>
               <h4 className="event-detail-title">Festival Dates</h4>
