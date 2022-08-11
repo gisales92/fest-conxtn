@@ -3,9 +3,9 @@ import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Map from "./Map";
 import RSVPBar from "./RSVPBar";
+import EventBoard from "../board/EventBoard";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
-import * as replyActions from "../../store/replies";
 import { userSelector } from "../../store/session";
 import "../../styles/eventDetail.css";
 
@@ -114,7 +114,8 @@ function EventDetail() {
         </div>
       ) : null}
       <div className="event-profile-posts">
-        <h2 className="event-posts-header">Posts</h2>
+        <h2 className="event-posts-header">Festival Board</h2>
+        <EventBoard />
       </div>
     </div>
   );
