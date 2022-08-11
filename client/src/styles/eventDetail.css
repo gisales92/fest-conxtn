@@ -63,3 +63,9 @@
     background-color: #000000;
     color: #ffffff
 }
+
+.rsvp-bar-first {
+    margin-right: 10px;
+    font-size: large;
+    font-weight: 500;
+}
