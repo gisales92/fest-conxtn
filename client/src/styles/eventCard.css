@@ -1,0 +1,114 @@
+.event-card {
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  filter: grayscale(70%);
+  transition: all 0.5s linear;
+}
+
+.event-card:hover {
+  cursor: pointer;
+  width: calc(var(--s) * var(--f));
+  height: calc(var(--s) * var(--f));
+  filter: grayscale(0);
+}
+
+.event-list-ul {
+  --s: 35vw;
+  --g: 5px;
+  --f: 1.2;
+  --t: calc(var(--s) * (0.06));
+  --ts: calc(var(--t) * (0.8));
+  --txs: calc(var(--ts) * (0.8));
+
+  display: grid;
+  gap: var(--g);
+  width: calc(2 * var(--s) + var(--g));
+  min-width: 600px;
+  grid-template-columns: repeat(2, auto);
+  margin: auto;
+  padding: 0;
+}
+
+.event-card-img {
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  object-fit: cover;
+}
+
+.event-card-name {
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 5;
+  padding: 15px;
+  padding-left: 2vw;
+  font-size: var(--t);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  color: #ffffff;
+}
+
+.event-card-lower {
+  position: absolute;
+  margin-bottom: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 3;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.event-card-date {
+  position: static;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 4;
+  padding: 30px 5px 15px;
+  padding-left: 2vw;
+  font-size: var(--ts);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+.rsvp-button {
+  position: static;
+  margin-right: 2vw;
+  vertical-align: middle;
+  box-sizing: border-box;
+  z-index: 3;
+  padding: 5px;
+  width: 10vw;
+  min-width: fit-content;
+  height: fit-content;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: var(--txs);
+  text-align: center;
+}

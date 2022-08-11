@@ -9,6 +9,15 @@ export const DELETE_RSVP = "events/DELETE-RSVP";
 
 // selectors
 export const allEventsSelector = (state) => state.events.all;
+export const eventByUrlSelector = (url) => (state) => {
+  const eventKeys = Object.keys(state.events.all);
+  for (let i = 0; i < eventKeys.length; i++) {
+    let key = eventKeys[i];
+    if (state.events.all[key].url === url) {
+      return state.events.all[key];
+    }
+  }
+};
 export const eventByIdSelector = (id) => (state) => state.events.all[id];
 export const genreEventsSelector = (state) => state.events.genre;
 export const userEventSelector = (state) => state.events.user;
@@ -77,7 +86,7 @@ export const fetchAllEvents = () => async (dispatch) => {
 };
 // fetch events of a genre thunk
 export const fetchGenreEvents = (genreId) => async (dispatch) => {
-  const res = await fetch(`/api/events?genre=${genreId}`);
+  const res = await fetch(`/api/events?genreId=${genreId}`);
   const data = await res.json();
 
   dispatch(setGenreEvents(data.events));
@@ -94,7 +103,7 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
 export const fetchCurrentEvents = () => async (dispatch) => {
   const res = await fetch("/api/my/events");
   const data = await res.json();
-  dispatch(setUserEvents(data.events));
+  dispatch(setCurrentEvents(data.events));
   return data;
 };
 // RSVP to an event for current user thunk
@@ -117,7 +126,7 @@ export const createRSVP = (rsvp) => async (dispatch, getState) => {
   dispatch(setRSVP(data));
   return data;
 };
-// Update RSVP for an event for the current user
+// Update RSVP for an event for the current user -- not used
 export const updateRSVP = (rsvp) => async (dispatch) => {
   const { eventId, rsvpId } = rsvp;
   const res = await fetch(`/api/my/events/${eventId}`, {
@@ -197,7 +206,8 @@ export default function eventsReducer(
       newState.current = cEvents;
       break;
     case NEW_RSVP:
-      newState.user[action.rsvp.rsvp][action.rsvp.event.id] = newState.all[action.rsvp.event.id];
+      newState.user[action.rsvp.rsvp][action.rsvp.event.id] =
+        newState.all[action.rsvp.event.id];
       break;
     case UPDATE_RSVP:
       if (action.rsvpId === 1) {

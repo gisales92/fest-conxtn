@@ -5,9 +5,15 @@ import NavBar from "./components/navigation/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
+import EventList from "./components/events/EventList";
+import EventDetail from "./components/events/EventDetail";
 import { authenticate } from "./store/session";
+import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
+import { getAllGenres } from "./store/genres";
 import Modal from "./components/modals/Modal";
+import GenreBar from "./components/events/GenreBar";
+import GenreEventList from "./components/events/GenreEventList";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -20,6 +26,8 @@ function App() {
       (async () => {
         try {
           await dispatch(authenticate());
+          await dispatch(fetchAllEvents());
+          await dispatch(getAllGenres());
         } finally {
           setLoaded(true);
         }
@@ -36,7 +44,8 @@ function App() {
         {loaded ? (
           <Switch>
             <Route path="/" exact={true}>
-              Home Page Component
+              <GenreBar />
+              <EventList />
             </Route>
 
             <Route path="/login" exact={true}>
@@ -45,6 +54,15 @@ function App() {
 
             <Route path="/signup" exact={true}>
               <SignupPage />
+            </Route>
+
+            <Route path="/events/:url" exact={true}>
+              <EventDetail />
+            </Route>
+
+            <Route path="/genres/:genre" exact={true}>
+              <GenreBar />
+              <GenreEventList />
             </Route>
           </Switch>
         ) : (

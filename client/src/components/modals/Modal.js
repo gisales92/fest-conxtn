@@ -5,6 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { modalSelector, hideModal } from "../../store/ui";
 import LoginModal, { LOGIN_MODAL } from "./LoginModal";
 import SignupModal, { SIGNUP_MODAL } from "./SignupModal";
+import "../../styles/modals.css"
 
 const Modal = () => {
   const dispatch = useDispatch();

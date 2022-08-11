@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       venueName: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         validate: {
           notEmpty: false,
           len: [1, 100]
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       address: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         validate: {
           notEmpty: false,
           len: [1, 100]
@@ -83,11 +83,27 @@ module.exports = (sequelize, DataTypes) => {
       },
       zipCode: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         validate: {
           notEmpty: false,
           len: [1, 6]
         },
+      },
+      lat: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        }
+      },
+      lng: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        }
       },
       mainPicUrl: {
         type: DataTypes.STRING,
