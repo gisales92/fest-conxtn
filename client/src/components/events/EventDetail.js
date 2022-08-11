@@ -81,8 +81,9 @@ function EventDetail() {
               <RSVPBar rsvpId={rsvp} />
             ) : null}
             <div className="event-detail-information">
+            <h4 className="event-detail-title">Festival Description</h4>
               <p className="event-detail-description">{event?.description}</p>
-              <h4 className="event-detail-title">Festival Dates</h4>
+              <h4 className="event-detail-title">Dates</h4>
               <p className="event-detail-dates">{`${fixDate(
                 event.startDate
               )} to ${fixDate(event.endDate)}`}</p>

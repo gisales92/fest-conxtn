@@ -30,6 +30,12 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #000000;
+    margin-bottom: 15px;
+}
+
+.event-detail-information {
+    border-top: 1px solid #000000;
+
 }
 
 .event-detail-location {
@@ -48,8 +54,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid #000000;
     height: 10vh;
+    margin-bottom: 15px;
 }
 
 .rsvp-bar {
@@ -62,6 +68,7 @@
     align-items: center;
     gap: 0.3rem;
     font-weight: 600;
+    border-right: 2px solid ;
 }
 
 .rsvp-bar.active {
@@ -70,9 +77,13 @@
 }
 
 .rsvp-bar-first {
-    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    height: 100%;
     font-size: large;
     font-weight: 500;
+    border-right: 2px solid ;
 }
 
 .event-detail-genre {
