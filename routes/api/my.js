@@ -245,7 +245,7 @@ router.post(
         statusCode: 404,
       });
     }
-    // check to make sure user is not already rsvp'd - if they are changing rsvp type, delete the old rsvp record to prevent duplicates. If no change, return message to user that they already rsvp'd
+    // check to make sure user is not already rsvp'd - if they are changing rsvp type, update rsvp record to prevent duplicates. If no change, return message to user that they already rsvp'd
     const userEvent = await User_Events.findOne({
       where: {
         [Op.and]: [
@@ -270,9 +270,25 @@ router.post(
           statusCode: 200,
         });
       } else {
-        await userEvent.destroy();
+        // update rsvp record with new rsvp, return updated info
+        await userEvent.update({
+          rsvpId,
+        });
+        const updatedRsvp = {};
+        updatedRsvp.id = userEvent.id;
+        updatedRsvp.userId = userEvent.userId;
+        updatedRsvp.event = {
+          id: event.id,
+          name: event.name,
+          url: event.url,
+          mainPicUrl: event.mainPicUrl,
+        };
+        updatedRsvp.rsvp = rsvp.type;
+        res.status(200);
+        return res.json({ ...updatedRsvp });
       }
     }
+    // create the new RSVP if there is no rsvp for this event + current user
     const newRsvp = await User_Events.create({
       userId,
       eventId,
@@ -293,7 +309,7 @@ router.post(
   })
 );
 
-// update rsvp to an event
+// update rsvp to an event --  this logic is handled in the post route anyways
 router.put(
   "/events/:eventId",
   requireAuth,

@@ -126,7 +126,7 @@ export const createRSVP = (rsvp) => async (dispatch, getState) => {
   dispatch(setRSVP(data));
   return data;
 };
-// Update RSVP for an event for the current user
+// Update RSVP for an event for the current user -- not used
 export const updateRSVP = (rsvp) => async (dispatch) => {
   const { eventId, rsvpId } = rsvp;
   const res = await fetch(`/api/my/events/${eventId}`, {
