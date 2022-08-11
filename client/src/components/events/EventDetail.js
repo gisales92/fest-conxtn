@@ -40,8 +40,6 @@ function EventDetail() {
 
   useEffect(() => {
     if (sessionUser && updated) {
-      console.log(userEvents);
-      console.log(userEvents.interested);
       if (userEvents.going[event.id]) {
         setRSVP(1);
       } else if (userEvents.interested[event.id]) {
