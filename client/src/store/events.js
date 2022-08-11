@@ -86,7 +86,7 @@ export const fetchAllEvents = () => async (dispatch) => {
 };
 // fetch events of a genre thunk
 export const fetchGenreEvents = (genreId) => async (dispatch) => {
-  const res = await fetch(`/api/events?genre=${genreId}`);
+  const res = await fetch(`/api/events?genreId=${genreId}`);
   const data = await res.json();
 
   dispatch(setGenreEvents(data.events));

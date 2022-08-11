@@ -22,8 +22,8 @@ const GenreBar = () => {
 
   const handleClick =async (e) => {
     e.stopPropagation();
-    await dispatch(fetchGenreEvents(e.target.id))
     history.push(`/genres/${e.target.innerHTML}`)
+    await dispatch(fetchGenreEvents(e.target.id))
   }
 
   const genreBoxes = Object.keys(genres).map((genreId) => (
