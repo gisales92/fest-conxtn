@@ -12,6 +12,7 @@ import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
 import Modal from "./components/modals/Modal";
 import GenreBar from "./components/events/GenreBar";
+import GenreEventList from "./components/events/GenreEventList";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -59,7 +60,7 @@ function App() {
 
             <Route path="/genres/:genre" exact={true}>
               <GenreBar />
-              <EventList />
+              <GenreEventList />
             </Route>
           </Switch>
         ) : (
