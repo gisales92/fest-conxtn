@@ -38,7 +38,7 @@ function GenreEventList() {
         }
       })();
     }
-  }, [sessionUser, loaded, dispatch]);
+  }, [sessionUser, loaded, events, genre, dispatch]);
 
   return (
     <div className="event-list-div">

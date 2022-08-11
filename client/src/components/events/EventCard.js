@@ -24,7 +24,7 @@ const EventCard = ({ event }) => {
     } else {
       setRSVP(0)
     }
-  }, [setRSVP, sessionUser])
+  }, [setRSVP, sessionUser, events, event])
 
   // if no event in store
   if (!event) {

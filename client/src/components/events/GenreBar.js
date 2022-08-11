@@ -24,7 +24,7 @@ const GenreBar = () => {
         setLoaded(true);
       })();
     }
-  }, [loaded]);
+  }, [loaded, dispatch]);
 
   useEffect(() => {
     if (loaded && match) {
@@ -61,7 +61,7 @@ const GenreBar = () => {
       {loaded ? (
         <div className="genre-bar-inner">
           <div className="genre-bar-label">
-            <span>Event Genres</span>
+            <span>Events by Genre</span>
           </div>
           {genreBoxes}
         </div>

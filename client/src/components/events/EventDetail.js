@@ -49,7 +49,7 @@ function EventDetail() {
       }
       setUserUpdate(true);
     }
-  }, [setRSVP, sessionUser, updated]);
+  }, [setRSVP, sessionUser, updated, userEvents, event]);
 
   const fixDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString(undefined, {

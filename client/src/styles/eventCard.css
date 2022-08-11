@@ -22,10 +22,12 @@
   --f: 1.2;
   --t: calc(var(--s) * (0.06));
   --ts: calc(var(--t) * (0.8));
+  --txs: calc(var(--ts) * (0.8));
 
   display: grid;
   gap: var(--g);
   width: calc(2 * var(--s) + var(--g));
+  min-width: 600px;
   grid-template-columns: repeat(2, auto);
   margin: auto;
   padding: 0;
@@ -101,22 +103,12 @@
   box-sizing: border-box;
   z-index: 3;
   padding: 5px;
-  width: 12vw;
+  width: 10vw;
   min-width: fit-content;
   height: fit-content;
-  border-radius: 25px;
-  background-color: transparent;
+  background-color: #000000;
+  color: #ffffff;
   font-weight: 500;
-  font-size: var(--ts);
+  font-size: var(--txs);
   text-align: center;
-}
-
-.going {
-  color: #30c735;
-  border: 2px solid #30c735;
-}
-
-.interested {
-  color: #e1eb2d;
-  border: 2px solid #e1eb2d;
 }
