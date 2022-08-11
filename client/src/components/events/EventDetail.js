@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Map from "./Map";
+import RSVPBar from "./RSVPBar";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
 import * as replyActions from "../../store/replies";
+import { userSelector } from "../../store/session";
 import "../../styles/eventDetail.css";
 
 function EventDetail() {
@@ -16,18 +18,22 @@ function EventDetail() {
   });
   const url = match.params.url;
   const event = useSelector(eventActions.eventByUrlSelector(url));
+  const sessionUser = useSelector(userSelector)
 
   useEffect(() => {
     if (!updated && url !== undefined && event) {
       (async () => {
         try {
           await dispatch(postActions.getEventPosts(event.id));
+          if (sessionUser) {
+            await dispatch(eventActions.fetchCurrentEvents())
+          }
         } finally {
           setUpdated(true);
         }
       })();
     }
-  }, [dispatch, updated, url, event]);
+  }, [dispatch, updated, url, event, sessionUser]);
   const fixDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString(undefined, {
       weekday: "long",
@@ -50,6 +56,7 @@ function EventDetail() {
           <div className="event-detail-body">
             <div className="event-detail-top">
               <h1 className="event-detail-name">{event.name}</h1>
+              {sessionUser ? <RSVPBar rsvpId={1}/> : null}
               <p className="event-detail-genre">{event.genre}</p>
             </div>
             <div className="event-detail-information">
