@@ -1,3 +1,8 @@
 .genre-bar-inner {
     display: flex;
 }
+
+.genre-box.active {
+    background-color: #000000;
+    color: #ffffff
+}

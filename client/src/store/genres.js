@@ -9,6 +9,15 @@ export const REMOVE_CURRENT_GENRE = "genres/REMOVE_CURRENT_GENRE";
 export const allGenresSelector = (state) => state.genres.all;
 export const userGenresSelector = (state) => state.genres.user;
 export const currentGenresSelector = (state) => state.genres.current;
+export const genreNameSelector = (name) => (state) => {
+  const genreKeys = Object.keys(state.genres.all);
+  for (let i = 0; i < genreKeys.length; i++) {
+    let key = genreKeys[i];
+    if (state.genres.all[key].type === name) {
+      return state.genres.all[key];
+    }
+  }
+};
 
 // action creators
 // set all genres

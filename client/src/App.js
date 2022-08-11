@@ -10,6 +10,7 @@ import EventDetail from "./components/events/EventDetail";
 import { authenticate } from "./store/session";
 import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
+import { getAllGenres } from "./store/genres";
 import Modal from "./components/modals/Modal";
 import GenreBar from "./components/events/GenreBar";
 import GenreEventList from "./components/events/GenreEventList";
@@ -26,6 +27,7 @@ function App() {
         try {
           await dispatch(authenticate());
           await dispatch(fetchAllEvents());
+          await dispatch(getAllGenres());
         } finally {
           setLoaded(true);
         }

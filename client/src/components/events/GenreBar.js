@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import * as genreActions from "../../store/genres";
 import { fetchGenreEvents } from "../../store/events";
 import "../../styles/genreBar.css";
@@ -10,6 +10,12 @@ const GenreBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const genres = useSelector(genreActions.allGenresSelector);
+  const match = useRouteMatch({
+    path: "/genres/:genre",
+    exact: true,
+  });
+  const genreName = decodeURIComponent(match?.params.genre);
+  const genre = useSelector(genreActions.genreNameSelector(genreName));
 
   useEffect(() => {
     if (!loaded) {
@@ -20,14 +26,32 @@ const GenreBar = () => {
     }
   }, [loaded]);
 
-  const handleClick =async (e) => {
+  useEffect(() => {
+    if (loaded && match) {
+      const all = document.querySelectorAll(".genre-box");
+      all.forEach((el) => {
+        el.classList.remove("active");
+      });
+      const el = document.querySelector(`#genre${genre.id}`);
+      el.classList.add("active");
+    }
+  }, [genre, loaded, match]);
+
+  const handleClick = async (e) => {
     e.stopPropagation();
-    history.push(`/genres/${e.target.innerHTML}`)
-    await dispatch(fetchGenreEvents(e.target.id))
-  }
+    history.push(`/genres/${encodeURIComponent(e.target.dataset.name)}`);
+    await dispatch(fetchGenreEvents(e.target.dataset.id));
+  };
 
   const genreBoxes = Object.keys(genres).map((genreId) => (
-    <div className="genre-box" id={genreId} onClick={handleClick}>
+    <div
+      className="genre-box"
+      data-id={genreId}
+      data-name={genres[genreId].type}
+      key={genreId}
+      id={`genre${genreId}`}
+      onClick={handleClick}
+    >
       {genres[genreId].type}
     </div>
   ));
