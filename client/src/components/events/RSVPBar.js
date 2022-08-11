@@ -19,14 +19,29 @@ const RSVPBar = ({ rsvpId }) => {
     }
   }, [rsvp])
 
+  const handleClick1 = (e) => {
+    e.stopPropagation();
+    setRSVP(1);
+  }
+
+  const handleClick2 = (e) => {
+    e.stopPropagation();
+    setRSVP(2);
+  }
+
+  const handleClick0 = (e) => {
+    e.stopPropagation();
+    setRSVP(0);
+  }
+
   return (
     <div className="rsvp-bar-outer">
       <div className="rsvp-bar-first">
         <span>RSVP:</span>
       </div>
-      <button className="b1 rsvp-bar">Going</button>
-      <button className="b2 rsvp-bar">Interested</button>
-      {rsvp ? <button className="b3 rsvp-bar">Clear</button> : null}
+      <button className="b1 rsvp-bar" onClick={handleClick1}>Going</button>
+      <button className="b2 rsvp-bar" onClick={handleClick2}>Interested</button>
+      {rsvp ? <button className="b0 rsvp-bar" onClick={handleClick0}>Clear</button> : null}
     </div>
   );
 };
