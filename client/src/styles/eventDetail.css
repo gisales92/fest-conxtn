@@ -46,3 +46,20 @@
     border-bottom: 1px solid #000000;
     height: 10vh;
 }
+
+.rsvp-bar {
+    height: 100%;
+    border: none;
+    background-color: #ffffff;
+    padding: 2vh 3vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+}
+
+.rsvp-bar.active {
+    background-color: #000000;
+    color: #ffffff
+}
