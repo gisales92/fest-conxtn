@@ -53,11 +53,11 @@ function EventList() {
         }
       })();
     }
-  }, [sessionUser, loaded, dispatch])
+  }, [sessionUser, loaded, dispatch]);
 
   return (
     <div className="event-list-div">
-      {loaded ? <ul className="event-list-ul">{eventCards}</ul> : null}
+      {loaded || !sessionUser ? <ul className="event-list-ul">{eventCards}</ul> : null}
     </div>
   );
 }
