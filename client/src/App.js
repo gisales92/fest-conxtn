@@ -11,6 +11,7 @@ import { authenticate } from "./store/session";
 import { fetchAllEvents } from "./store/events";
 import { modalSelector } from "./store/ui";
 import Modal from "./components/modals/Modal";
+import GenreBar from "./components/events/GenreBar";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +41,7 @@ function App() {
         {loaded ? (
           <Switch>
             <Route path="/" exact={true}>
+              <GenreBar />
               <EventList />
             </Route>
 
