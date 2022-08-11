@@ -56,6 +56,11 @@ function App() {
             <Route path="/events/:url" exact={true}>
               <EventDetail />
             </Route>
+
+            <Route path="/genres/:genre" exact={true}>
+              <GenreBar />
+              <EventList />
+            </Route>
           </Switch>
         ) : (
           <div className="fill-screen center-content">
