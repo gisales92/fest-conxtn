@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as replyActions from "../../store/replies";
 import * as postActions from "../../store/posts";
+import EventBoardPost from "./Post";
 
 const EventBoard = () => {
   const [loaded, setLoaded] = useState(false);
@@ -11,7 +12,6 @@ const EventBoard = () => {
   useEffect(() => {
     if (!loaded && Object.keys(posts)[0]) {
       (async () => {
-        console.log(posts);
         await Object.keys(posts).forEach(async (postId) => {
           await dispatch(replyActions.getPostReplies(postId));
         });
@@ -20,7 +20,13 @@ const EventBoard = () => {
     }
   }, [loaded, dispatch, posts]);
 
-  return <div className="event-board-outer">EVENT BOARD COMPONENT</div>;
+  const postComponents = Object.keys(posts).map((key) => (
+    <EventBoardPost key={key} post={posts[key]} />
+  ));
+
+  return <div className="event-board-outer">
+    {postComponents}
+  </div>;
 };
 
 export default EventBoard;
