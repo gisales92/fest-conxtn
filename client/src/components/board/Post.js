@@ -33,6 +33,7 @@ const EventBoardPost = ({ post }) => {
       </div>
       <div className="post-footer">
         <p>{post.time}</p>
+        <p>Replies: {replies ? Object.keys(replies).length : 0}</p>
       </div>
       <div className="reply-container">{replyComponents}</div>
     </div>
