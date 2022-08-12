@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { postRepliesSelector } from "../../store/replies";
+import Reply from "./Reply";
 
 const EventBoardPost = ({ post }) => {
+  const replies = useSelector(postRepliesSelector(post.id));
+  const [loaded, setLoaded] = useState(false);
+  let replyComponents;
+  if (replies) {
+    replyComponents = Object.keys(replies).map((key) => {
+      console.log(replies[key]);
+      return <Reply reply={replies[key]} key={key} />;
+    });
+  }
+
   return (
     <div className="post-outer">
       <div className="post-user-info">
@@ -22,6 +35,7 @@ const EventBoardPost = ({ post }) => {
       <div className="post-footer">
         <p>{post.time}</p>
       </div>
+      <div className="reply-container">{replyComponents}</div>
     </div>
   );
 };
