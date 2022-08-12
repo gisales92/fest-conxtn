@@ -107,13 +107,15 @@
     background-color: #000000;
     color: #ffffff;
     height: 4vw;
-   
+
 }
 
 .event-detail-name {
     font-size: 30pt;
+    font-weight: 400;
 }
 
 .event-posts-header {
     font-size: 24pt;
+    font-weight: 400;
 }
