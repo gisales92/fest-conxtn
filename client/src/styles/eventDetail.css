@@ -44,7 +44,7 @@
     border-bottom: 1px solid #000000;
 }
 
-.event-profile-posts {
+.event-posts-container {
     width: 80%;
     min-width: 520px;
     margin: auto;
@@ -94,5 +94,15 @@
     padding: 5px 20px;
     background-color: #000000;
     color: #ffffff;
+}
 
+.event-posts-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-button.post {
+    background-color: #000000;
+    color: #ffffff;
 }
