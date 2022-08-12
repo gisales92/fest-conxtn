@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as replyActions from "../../store/replies";
 import * as postActions from "../../store/posts";
 import EventBoardPost from "./Post";
+import "../../styles/postReplies.css"
 
 const EventBoard = () => {
   const [loaded, setLoaded] = useState(false);
