@@ -8,7 +8,7 @@ import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
 import { userSelector } from "../../store/session";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faP, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/eventDetail.css";
 
 function EventDetail() {
@@ -119,7 +119,7 @@ function EventDetail() {
         <div className="event-posts-top">
           <h2 className="event-posts-header">Festival Board</h2>
           <button className="create-button post">
-            <FontAwesomeIcon icon={faPlus} className="create-icon"/>
+            New Post  <FontAwesomeIcon icon={faPlus} className="create-icon"/>
           </button>
         </div>
         <EventBoard />
