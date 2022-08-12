@@ -1,6 +1,11 @@
 .post-user-img {
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
 }

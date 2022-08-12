@@ -3,7 +3,7 @@ import React from "react";
 const Reply = ({reply}) => {
     return (
         <div className="reply-outer">
-            REPLY COMPONENT
+            REPLY COMPONENT: Reply {reply.id}
         </div>
     )
 }

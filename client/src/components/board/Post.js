@@ -9,7 +9,6 @@ const EventBoardPost = ({ post }) => {
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
-      console.log(replies[key]);
       return <Reply reply={replies[key]} key={key} />;
     });
   }
@@ -17,7 +16,6 @@ const EventBoardPost = ({ post }) => {
   return (
     <div className="post-outer">
       <div className="post-user-info">
-        <p className="post-user-name">{post.user.username}</p>
         <img
           src={
             post.user.profilePicUrl ||
@@ -27,6 +25,7 @@ const EventBoardPost = ({ post }) => {
           crossOrigin=""
           className="post-user-img"
         />
+        <p className="post-user-name">{post.user.username}</p>
       </div>
       <div className="post-main">
         <p>{post.title}</p>
