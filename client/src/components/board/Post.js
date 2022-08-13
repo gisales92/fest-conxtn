@@ -41,7 +41,7 @@ const EventBoardPost = ({ post }) => {
         </div>
         <div className="post-main">
           <p className="post-title">{post.title}</p>
-          <p>{post.body}</p>
+          <p className="post-body">{post.body}</p>
           <p className="post-date">{fixDate(post.time)}</p>
         </div>
         <div className="post-footer">
