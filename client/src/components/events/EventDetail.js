@@ -9,6 +9,8 @@ import * as postActions from "../../store/posts";
 import { userSelector } from "../../store/session";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { showModal } from "../../store/ui";
+import { NEW_POST_MODAL } from "../modals/NewPostModal";
 import "../../styles/eventDetail.css";
 
 function EventDetail() {
@@ -62,6 +64,13 @@ function EventDetail() {
       timeZone: "GMT",
     });
   };
+
+  const openNewPostModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(showModal(NEW_POST_MODAL));
+  };
+
   return (
     <div className="event-profile">
       {event ? (
@@ -118,8 +127,8 @@ function EventDetail() {
       <div className="event-posts-container">
         <div className="event-posts-top">
           <h2 className="event-posts-header">Festival Board</h2>
-          <button className="create-button post">
-            New Post  <FontAwesomeIcon icon={faPlus} className="create-icon"/>
+          <button className="create-button post" onClick={openNewPostModal}>
+            New Post <FontAwesomeIcon icon={faPlus} className="create-icon" />
           </button>
         </div>
         <EventBoard />
