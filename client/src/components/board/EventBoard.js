@@ -23,7 +23,7 @@ const EventBoard = () => {
 
   const postComponents = Object.keys(posts).map((key) => (
     <EventBoardPost key={key} post={posts[key]} />
-  ));
+  )).sort((a, b) => a.props.post.time > b.props.post.time ? -1 : 1);
 
   return <div className="event-board-outer">
     {Object.keys(postComponents).length ? postComponents : "Be the first to post for this event"}
