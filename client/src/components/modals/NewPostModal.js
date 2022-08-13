@@ -71,7 +71,7 @@ const NewPostModal = () => {
 
   return (
     <div className="new-post-modal">
-      <h1 className="form-header">Create Post</h1>
+      <h1 className="form-header">Post</h1>
 
       <form onSubmit={onSubmit}>
         <div className="form-row">

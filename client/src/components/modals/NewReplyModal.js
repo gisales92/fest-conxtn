@@ -61,7 +61,7 @@ const NewReplyModal = () => {
 
   return (
     <div className="new-post-modal">
-      <h1 className="form-header">Create Reply</h1>
+      <h1 className="form-header">Reply</h1>
 
       <form onSubmit={onSubmit}>
         <div className="form-row">
