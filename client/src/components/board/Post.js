@@ -17,25 +17,30 @@ const EventBoardPost = ({ post }) => {
 
   return (
     <div className="post-outer">
-      <div className="post-user-info">
-        <img
-          src={
-            post.user.profilePicUrl ||
-            "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
-          }
-          alt="profile-thumb"
-          crossOrigin=""
-          className="post-user-img"
-        />
-        <p className="post-user-name">{post.user.username}</p>
-      </div>
-      <div className="post-main">
-        <p>{post.title}</p>
-        <p>{post.body}</p>
-      </div>
-      <div className="post-footer">
-        <p>{post.time}</p>
-        <span><FontAwesomeIcon icon={faCommentDots}/> {replies ? Object.keys(replies).length : 0}</span>
+      <div className="post-inner">
+        <div className="post-user-info">
+          <img
+            src={
+              post.user.profilePicUrl ||
+              "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
+            }
+            alt="profile-thumb"
+            crossOrigin=""
+            className="post-user-img"
+          />
+          <p className="post-user-name">{post.user.username}</p>
+        </div>
+        <div className="post-main">
+          <p>{post.title}</p>
+          <p>{post.body}</p>
+        </div>
+        <div className="post-footer">
+          <p>{post.time}</p>
+          <span>
+            <FontAwesomeIcon icon={faCommentDots} />{" "}
+            {replies ? Object.keys(replies).length : 0}
+          </span>
+        </div>
       </div>
       <div className="reply-container">{replyComponents}</div>
     </div>

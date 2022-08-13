@@ -30,12 +30,32 @@
   align-items: center;
 }
 
+.reply-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
 .reply-outer {
   margin-left: 50px;
+  background-color: #ffffff;
+  box-shadow: 1px 0px 2px #000000;
+  padding: 10px;
 }
 
 .post-outer {
-  margin-bottom: 25px;
+  margin: 15px 5px;
+  box-shadow: 1px 1px 5px #000000;
+  box-sizing: border-box;
+  height: fit-content;
+}
+
+.post-inner {
+  background-color: #ffffff;
+  border-bottom: 1px solid #000000;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
 }
 
 .event-board-outer {
