@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
-import { genreEventsSelector } from "../../store/events";
 import { userSelector } from "../../store/session";
 import { genreNameSelector } from "../../store/genres";
-import { fetchCurrentEvents, fetchGenreEvents } from "../../store/events";
+import {
+  fetchCurrentEvents,
+  fetchGenreEvents,
+  genreEventsSelector,
+} from "../../store/events";
 import EventCard from "./EventCard";
 import "../../styles/eventCard.css";
 

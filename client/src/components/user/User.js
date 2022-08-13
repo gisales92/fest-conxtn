@@ -30,17 +30,24 @@ function User() {
   }, [dispatch, loaded, username]);
 
   return (
-    <>
-      <strong>Username:</strong> {user.username}
-      <br />
-      <strong>Email:</strong> {user.email}
-      <br />
-      <hr />
+    <div className="user-profile-outer">
+      <div className="user-profile-upper">
+      <img
+            src={
+              user.profilePicUrl ||
+              "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
+            }
+            alt="profile-thumb"
+            crossOrigin=""
+            className="user-profile-img"
+          />
+          <p className="post-profile-name">{user.username}</p>
+      </div>
       <Events />
       <Genres />
       <Posts />
       <Replies />
-    </>
+    </div>
   );
 }
 export default User;
