@@ -5,11 +5,13 @@ export const SET_CURRENT_POSTS = "posts/SET_CURRENT_POSTS";
 export const NEW_POST = "posts/NEW_POST";
 export const EDIT_POST = "posts/EDIT_POST";
 export const DELETE_POST = "posts/DELETE_POST";
+export const FOCUS_POST = "posts/FOCUS_POST";
 
 // selectors
 export const eventPostsSelector = (state) => state.posts.event;
 export const userPostSelector = (state) => state.posts.current;
 export const currentPostSelector = (state) => state.posts.user;
+export const focusPostSelector = (state) => state.posts.focus;
 
 // action creators
 // set all posts for an event
@@ -52,6 +54,13 @@ export function deletePost(postId) {
   return {
     type: DELETE_POST,
     postId,
+  };
+}
+// set a post as the focus post
+export function focusPost(post) {
+  return {
+    type: FOCUS_POST,
+    post,
   };
 }
 
@@ -142,7 +151,7 @@ export const removePost = (postId) => async (dispatch) => {
 
 // reducer
 export default function postsReducer(
-  state = { event: {}, current: {}, user: {} },
+  state = { event: {}, current: {}, user: {}, focus: {} },
   action
 ) {
   const newState = { ...state };
@@ -181,6 +190,9 @@ export default function postsReducer(
       break;
     case DELETE_POST:
       delete newState.current[action.postId];
+      break;
+    case FOCUS_POST:
+      newState.focus = action.post;
       break;
     default:
       break;

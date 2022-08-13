@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postRepliesSelector } from "../../store/replies";
 import Reply from "./Reply";
-import NewReplyModal from "../modals/NewReplyModal";
+import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
+import { focusPost } from "../../store/posts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReply,
@@ -10,11 +11,12 @@ import {
   faArrowDown,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { showModal } from "../../store/ui";
 
 const EventBoardPost = ({ post }) => {
+  const dispatch = useDispatch();
   const replies = useSelector(postRepliesSelector(post.id));
   const [showReplies, setShowReplies] = useState(false);
-  const [replyModal, setReplyModal] = useState(false);
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
@@ -42,7 +44,9 @@ const EventBoardPost = ({ post }) => {
 
   const handleReplyModal = (e) => {
     e.stopPropagation();
-    replyModal ? setReplyModal(false) : setReplyModal(true);
+    e.preventDefault();
+    dispatch(focusPost(post));
+    dispatch(showModal(NEW_REPLY_MODAL));
   };
 
   return (
@@ -73,7 +77,6 @@ const EventBoardPost = ({ post }) => {
           <button className="post-reply-button" onClick={handleReplyModal}>
             Reply <FontAwesomeIcon icon={faReply} />
           </button>
-            {replyModal ? <NewReplyModal postId={post.id} /> : null}
         </div>
       </div>
       <div className="reply-container">
