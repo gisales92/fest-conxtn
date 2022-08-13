@@ -41,7 +41,7 @@ function User() {
             crossOrigin=""
             className="user-profile-img"
           />
-          <p className="post-profile-name">{user.username}</p>
+          <h1 className="post-profile-name">{user.username}</h1>
       </div>
       <Events />
       <Genres />
