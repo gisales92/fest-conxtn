@@ -40,15 +40,18 @@ const EventBoardPost = ({ post }) => {
           <p className="post-user-name">{post.user.username}</p>
         </div>
         <div className="post-main">
-          <p>{post.title}</p>
+          <p className="post-title">{post.title}</p>
           <p>{post.body}</p>
+          <p className="post-date">{fixDate(post.time)}</p>
         </div>
         <div className="post-footer">
-          <p className="post-date">{fixDate(post.time)}</p>
           <span>
             <FontAwesomeIcon icon={faCommentDots} />{" "}
             {replies ? Object.keys(replies).length : 0}
           </span>
+          <button className="post-reply-button">
+            Reply{" "}<FontAwesomeIcon icon={faReply} />
+          </button>
         </div>
       </div>
       <div className="reply-container">{replyComponents}</div>

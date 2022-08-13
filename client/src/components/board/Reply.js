@@ -25,7 +25,6 @@ const Reply = ({ reply }) => {
         <p className="reply-user-name">{reply.user.username}</p>
       </div>
       <div className="reply-main">
-        <p>{reply.title}</p>
         <p>{reply.body}</p>
       </div>
       <div className="reply-footer">
