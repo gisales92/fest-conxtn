@@ -14,7 +14,7 @@ import { getAllGenres } from "./store/genres";
 import Modal from "./components/modals/Modal";
 import GenreBar from "./components/events/GenreBar";
 import GenreEventList from "./components/events/GenreEventList";
-import User from "./components/User";
+import User from "./components/user/User";
 
 function App() {
   const [loaded, setLoaded] = useState(false);

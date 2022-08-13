@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
-import { fetchUser, otherUserSelector } from "../store/user";
+import { fetchUser, otherUserSelector } from "../../store/user";
+import Events from "./Events";
+import Genres from "./Genres";
+import Posts from "./Posts";
+import Replies from "./Replies";
 
 function User() {
   const dispatch = useDispatch();
@@ -32,6 +36,10 @@ function User() {
       <strong>Email:</strong> {user.email}
       <br />
       <hr />
+      <Events />
+      <Genres />
+      <Posts />
+      <Replies />
     </>
   );
 }

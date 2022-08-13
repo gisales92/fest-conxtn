@@ -13,6 +13,11 @@
 .post-user-info {
   display: flex;
   align-items: center;
+  width: fit-content;
+}
+
+.post-user-info:hover {
+  cursor: pointer;
 }
 
 .reply-user-img {
@@ -38,7 +43,6 @@
 .reply-container {
   display: flex;
   flex-direction: column;
-
 }
 
 .reply-outer {
@@ -63,8 +67,8 @@
 }
 
 .event-board-outer {
-    overflow-y: scroll;
-    height: 70vh;
+  overflow-y: scroll;
+  height: 70vh;
 }
 
 .reply-footer {
