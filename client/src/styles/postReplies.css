@@ -62,3 +62,12 @@
     overflow-y: scroll;
     height: 70vh;
 }
+
+.reply-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-date {
+  text-align: right;
+}

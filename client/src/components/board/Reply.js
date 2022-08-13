@@ -1,6 +1,15 @@
 import React from "react";
 
 const Reply = ({ reply }) => {
+  const fixDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      timeZone: "GMT",
+    });
+  };
+
   return (
     <div className="reply-outer">
       <div className="reply-user-info">
@@ -20,7 +29,7 @@ const Reply = ({ reply }) => {
         <p>{reply.body}</p>
       </div>
       <div className="reply-footer">
-        <p>{reply.time}</p>
+        <p>{fixDate(reply.time)}</p>
       </div>
     </div>
   );

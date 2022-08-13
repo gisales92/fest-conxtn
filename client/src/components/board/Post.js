@@ -15,6 +15,15 @@ const EventBoardPost = ({ post }) => {
     });
   }
 
+  const fixDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      timeZone: "GMT",
+    });
+  };
+
   return (
     <div className="post-outer">
       <div className="post-inner">
@@ -35,7 +44,7 @@ const EventBoardPost = ({ post }) => {
           <p>{post.body}</p>
         </div>
         <div className="post-footer">
-          <p>{post.time}</p>
+          <p className="post-date">{fixDate(post.time)}</p>
           <span>
             <FontAwesomeIcon icon={faCommentDots} />{" "}
             {replies ? Object.keys(replies).length : 0}
