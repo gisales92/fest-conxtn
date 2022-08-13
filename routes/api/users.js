@@ -6,7 +6,7 @@ const { User, Genre, Event, Post, Reply } = require("../../db/models");
 
 const router = express.Router();
 
-// get user details for the user with the given userId
+// get user details for the user with the given username
 router.get(
   "/:username",
   asyncHandler(async function (req, res, next) {
@@ -19,6 +19,8 @@ router.get(
           },
         },
       });
+      delete user.dataValues.hashedPassword;
+      delete user.dataValues.tokenId;
       res.status(200);
       return res.json({ ...user.dataValues });
     } catch (e) {
