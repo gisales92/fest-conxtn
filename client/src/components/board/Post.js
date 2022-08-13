@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { postRepliesSelector } from "../../store/replies";
 import Reply from "./Reply";
+import NewReplyModal from "../modals/NewReplyModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReply,
@@ -12,7 +13,8 @@ import {
 
 const EventBoardPost = ({ post }) => {
   const replies = useSelector(postRepliesSelector(post.id));
-  const [showReplies, setShowReplies] = useState();
+  const [showReplies, setShowReplies] = useState(false);
+  const [replyModal, setReplyModal] = useState(false);
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
@@ -36,6 +38,11 @@ const EventBoardPost = ({ post }) => {
     } else {
       setShowReplies(false);
     }
+  };
+
+  const handleReplyModal = (e) => {
+    e.stopPropagation();
+    replyModal ? setReplyModal(false) : setReplyModal(true);
   };
 
   return (
@@ -63,9 +70,10 @@ const EventBoardPost = ({ post }) => {
             <FontAwesomeIcon icon={faCommentDots} />{" "}
             {replies ? Object.keys(replies).length : 0}
           </span>
-          <button className="post-reply-button">
+          <button className="post-reply-button" onClick={handleReplyModal}>
             Reply <FontAwesomeIcon icon={faReply} />
           </button>
+            {replyModal ? <NewReplyModal postId={post.id} /> : null}
         </div>
       </div>
       <div className="reply-container">

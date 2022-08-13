@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
 import { userSelector } from "../../store/session";
 import { showModal, hideModal } from "../../store/ui";
 import { LOGIN_MODAL } from "./LoginModal";
@@ -41,7 +40,6 @@ const NewPostModal = () => {
   useEffect(() => {
     // if user is not logged , direct to the login modal
     if (!user) {
-        console.log(user);
       dispatch(showModal(LOGIN_MODAL));
       return;
     }
@@ -92,9 +90,8 @@ const NewPostModal = () => {
 
         <div className="form-row">
           <label htmlFor="body">Post body</label>
-          <input
+          <textarea
             name="body"
-            type="text"
             placeholder="Your post"
             value={body}
             onChange={(e) => setBody(e.target.value)}

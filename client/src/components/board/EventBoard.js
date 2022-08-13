@@ -21,6 +21,7 @@ const EventBoard = () => {
     }
   }, [loaded, dispatch, posts]);
 
+  // sorting the posts with the most recent first when we go to map the components
   const postComponents = Object.keys(posts).map((key) => (
     <EventBoardPost key={key} post={posts[key]} />
   )).sort((a, b) => a.props.post.time > b.props.post.time ? -1 : 1);

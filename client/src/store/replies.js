@@ -91,7 +91,7 @@ export const getCurrentReplies = () => async (dispatch) => {
 // create a new reply thunk
 export const createReply = (reply) => async (dispatch) => {
   const { userId, postId, body } = reply;
-  const res = await fetch(`/api/post/${postId}`, {
+  const res = await fetch(`/api/posts/${postId}/replies`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
