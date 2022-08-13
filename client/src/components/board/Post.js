@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { postRepliesSelector } from "../../store/replies";
 import Reply from "./Reply";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
@@ -15,6 +16,7 @@ import { showModal } from "../../store/ui";
 
 const EventBoardPost = ({ post }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const replies = useSelector(postRepliesSelector(post.id));
   const [showReplies, setShowReplies] = useState(false);
   let replyComponents;
@@ -49,10 +51,15 @@ const EventBoardPost = ({ post }) => {
     dispatch(showModal(NEW_REPLY_MODAL));
   };
 
+  const redirectToUser = (e) => {
+    e.stopPropagation();
+    history.push(`/users/${post.user.username}`)
+  }
+
   return (
     <div className="post-outer">
       <div className="post-inner">
-        <div className="post-user-info">
+        <div className="post-user-info" onClick={redirectToUser}>
           <img
             src={
               post.user.profilePicUrl ||

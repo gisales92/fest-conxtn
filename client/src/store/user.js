@@ -2,7 +2,7 @@
 export const SET_USER = "users/SET_USER";
 
 // selectors
-export const userSelector = (state) => state.user;
+export const otherUserSelector = (state) => state.user;
 
 // action creators
 // set the user
@@ -15,8 +15,8 @@ export function setUser(user) {
 
 // thunks
 // fetch a user thunk
-export const fetchUser = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}`);
+export const fetchUser = (username) => async (dispatch) => {
+  const res = await fetch(`/api/users/${username}`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setUser(data));

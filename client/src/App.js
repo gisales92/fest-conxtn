@@ -14,6 +14,7 @@ import { getAllGenres } from "./store/genres";
 import Modal from "./components/modals/Modal";
 import GenreBar from "./components/events/GenreBar";
 import GenreEventList from "./components/events/GenreEventList";
+import User from "./components/User";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -54,6 +55,10 @@ function App() {
 
             <Route path="/signup" exact={true}>
               <SignupPage />
+            </Route>
+
+            <Route path="/users/:username" exact={true}>
+              <User />
             </Route>
 
             <Route path="/events/:url" exact={true}>
