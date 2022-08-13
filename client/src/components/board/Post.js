@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { postRepliesSelector } from "../../store/replies";
 import Reply from "./Reply";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply, faCommentDots } from "@fortawesome/free-solid-svg-icons";
+import {
+  faReply,
+  faCommentDots,
+  faArrowDown,
+  faArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 const EventBoardPost = ({ post }) => {
   const replies = useSelector(postRepliesSelector(post.id));
-  const [loaded, setLoaded] = useState(false);
+  const [showReplies, setShowReplies] = useState();
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
@@ -22,6 +27,15 @@ const EventBoardPost = ({ post }) => {
       day: "numeric",
       timeZone: "GMT",
     });
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (!showReplies) {
+      setShowReplies(true);
+    } else {
+      setShowReplies(false);
+    }
   };
 
   return (
@@ -50,11 +64,30 @@ const EventBoardPost = ({ post }) => {
             {replies ? Object.keys(replies).length : 0}
           </span>
           <button className="post-reply-button">
-            Reply{" "}<FontAwesomeIcon icon={faReply} />
+            Reply <FontAwesomeIcon icon={faReply} />
           </button>
         </div>
       </div>
-      <div className="reply-container">{replyComponents}</div>
+      <div className="reply-container">
+        {showReplies ? (
+          <div className="reply-controller-active" onClick={handleClick}>
+            {replyComponents}
+            <FontAwesomeIcon icon={faArrowUp} /> Click to hide
+          </div>
+        ) : (
+          <div className="reply-controller-hidden" >
+            {replies ? (
+              Object.keys(replies).length ? (
+                <div onClick={handleClick}>
+                  <FontAwesomeIcon icon={faArrowDown} /> Click to expand{" "}
+                </div>
+              ) : (
+                <div className="no-replies">Be the first to reply</div>
+              )
+            ) : null}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

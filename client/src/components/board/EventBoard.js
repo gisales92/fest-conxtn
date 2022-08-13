@@ -26,7 +26,7 @@ const EventBoard = () => {
   ));
 
   return <div className="event-board-outer">
-    {postComponents}
+    {Object.keys(postComponents).length ? postComponents : "Be the first to post for this event"}
   </div>;
 };
 
