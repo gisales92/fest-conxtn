@@ -70,15 +70,17 @@ const EventBoardPost = ({ post }) => {
       </div>
       <div className="reply-container">
         {showReplies ? (
-          <div className="reply-controller-active" onClick={handleClick}>
+          <div className="reply-controller active" onClick={handleClick}>
             {replyComponents}
-            <FontAwesomeIcon icon={faArrowUp} /> Click to hide
+            <div className="reply-controller-bar">
+              <FontAwesomeIcon icon={faArrowUp} /> Click to hide
+            </div>
           </div>
         ) : (
-          <div className="reply-controller-hidden" >
+          <div>
             {replies ? (
               Object.keys(replies).length ? (
-                <div onClick={handleClick}>
+                <div className="reply-controller hidden" onClick={handleClick}>
                   <FontAwesomeIcon icon={faArrowDown} /> Click to expand{" "}
                 </div>
               ) : (
