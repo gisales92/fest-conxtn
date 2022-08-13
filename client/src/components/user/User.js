@@ -6,6 +6,7 @@ import Events from "./Events";
 import Genres from "./Genres";
 import Posts from "./Posts";
 import Replies from "./Replies";
+import "../../styles/profile.css";
 
 function User() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function User() {
             crossOrigin=""
             className="user-profile-img"
           />
-          <h1 className="post-profile-name">{user.username}</h1>
+          <h1 className="user-profile-name">{user.username}</h1>
       </div>
       <Events />
       <Genres />
