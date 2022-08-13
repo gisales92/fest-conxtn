@@ -59,7 +59,7 @@ module.exports = {
         username: "YoshDragon",
         firstName: "Yoshi",
         lastName: "Munchakoopas",
-        profilePicUrl: "https://res.cloudinary.com/djsh50cka/image/upload/v1658976130/Yoshi__Nintendo_character_sqgcko.png",
+        profilePicUrl: "https://res.cloudinary.com/djsh50cka/image/upload/v1660264835/yoshi_by_tsaoshin_df89j6j-300w_rkkl0z.jpg",
         hashedPassword: createPassword(),
       }),
     ]);

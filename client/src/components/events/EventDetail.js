@@ -3,10 +3,14 @@ import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Map from "./Map";
 import RSVPBar from "./RSVPBar";
+import EventBoard from "../board/EventBoard";
 import * as eventActions from "../../store/events";
 import * as postActions from "../../store/posts";
-import * as replyActions from "../../store/replies";
 import { userSelector } from "../../store/session";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { showModal } from "../../store/ui";
+import { NEW_POST_MODAL } from "../modals/NewPostModal";
 import "../../styles/eventDetail.css";
 
 function EventDetail() {
@@ -60,6 +64,13 @@ function EventDetail() {
       timeZone: "GMT",
     });
   };
+
+  const openNewPostModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(showModal(NEW_POST_MODAL));
+  };
+
   return (
     <div className="event-profile">
       {event ? (
@@ -81,7 +92,7 @@ function EventDetail() {
               <RSVPBar rsvpId={rsvp} />
             ) : null}
             <div className="event-detail-information">
-            <h4 className="event-detail-title">Festival Description</h4>
+              <h4 className="event-detail-title">Festival Description</h4>
               <p className="event-detail-description">{event?.description}</p>
               <h4 className="event-detail-title">Dates</h4>
               <p className="event-detail-dates">{`${fixDate(
@@ -113,8 +124,14 @@ function EventDetail() {
           </div>
         </div>
       ) : null}
-      <div className="event-profile-posts">
-        <h2 className="event-posts-header">Posts</h2>
+      <div className="event-posts-container">
+        <div className="event-posts-top">
+          <h2 className="event-posts-header">Festival Board</h2>
+          <button className="create-button post" onClick={openNewPostModal}>
+            New Post <FontAwesomeIcon icon={faPlus} className="create-icon" />
+          </button>
+        </div>
+        <EventBoard />
       </div>
     </div>
   );

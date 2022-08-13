@@ -28,6 +28,8 @@
 
 .genre-box:hover {
     cursor: pointer;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .genre-bar-label {
