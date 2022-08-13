@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { userSelector } from "../../store/session";
 import { otherUserSelector } from "../../store/user";
-import { fetchUserEvents, userEventSelector } from "../../store/events";
+import { fetchUserEvents, userEventSelector, fetchCurrentEvents } from "../../store/events";
 import EventCard from "../events/EventCard";
-import "../../styles/eventCard.css";
 
 function Events() {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const user = useSelector(otherUserSelector);
+  const curUser = useSelector(userSelector)
   const events = useSelector(userEventSelector);
   const goingEventCards = Object.keys(events.going).map((key) => {
     console.log("EVENT: ", events.going[key]);
@@ -24,6 +25,9 @@ function Events() {
       (async () => {
         try {
           await dispatch(fetchUserEvents(user.id));
+          if (curUser) {
+            dispatch(fetchCurrentEvents());
+          }
         } finally {
           setLoaded(true);
         }
@@ -33,7 +37,7 @@ function Events() {
 
   return (
     <div className="user-events-outer">
-      <h2 className="user-events-header">Events</h2>
+      <h2 className="user-events-header">{`${user.username}'s Events`}</h2>
       {loaded && goingEventCards ? (
         <div className="user-event-list-outer">
           <h3>Going</h3>
