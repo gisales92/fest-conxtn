@@ -17,6 +17,50 @@ module.exports = {
         userId: 1,
         genreId: 3,
       }),
+      r({
+        userId: 2,
+        genreId: 3,
+      }),
+      r({
+        userId: 2,
+        genreId: 6,
+      }),
+      r({
+        userId: 3,
+        genreId: 2,
+      }),
+      r({
+        userId: 3,
+        genreId: 1,
+      }),
+      r({
+        userId: 3,
+        genreId: 3,
+      }),
+      r({
+        userId: 4,
+        genreId: 4,
+      }),
+      r({
+        userId: 5,
+        genreId: 1,
+      }),
+      r({
+        userId: 5,
+        genreId: 2,
+      }),
+      r({
+        userId: 5,
+        genreId: 4,
+      }),
+      r({
+        userId: 5,
+        genreId: 6,
+      }),
+      r({
+        userId: 5,
+        genreId: 7,
+      }),
     ]);
   },
 
