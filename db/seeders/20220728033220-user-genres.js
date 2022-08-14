@@ -38,10 +38,6 @@ module.exports = {
         genreId: 3,
       }),
       r({
-        userId: 4,
-        genreId: 4,
-      }),
-      r({
         userId: 5,
         genreId: 1,
       }),
