@@ -33,7 +33,7 @@ function Events() {
         }
       })();
     }
-  }, [dispatch, loaded, user]);
+  }, [dispatch, loaded, user, curUser]);
 
   return (
     <div className="user-events-outer">

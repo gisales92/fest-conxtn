@@ -200,6 +200,7 @@ export default function repliesReducer(
       break;
     case FOCUS_REPLY:
       newState.focus = action.reply;
+      break;
     default:
       break;
   }
