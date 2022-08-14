@@ -45,8 +45,8 @@ function User() {
           <h1 className="user-profile-name">{user.username}</h1>
       </div>
       <div className="user-profile-lower">
-      <Events />
       <Genres />
+      <Events />
       <Posts />
       <Replies />
       </div>

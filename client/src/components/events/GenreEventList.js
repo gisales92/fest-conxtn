@@ -27,6 +27,12 @@ function GenreEventList() {
   ));
 
   useEffect(() => {
+    (async () => {
+      await dispatch(fetchGenreEvents(genre.id));
+    })();
+  }, [genre]);
+
+  useEffect(() => {
     if (Object.keys(events).length === 0) {
       (async () => {
         await dispatch(fetchGenreEvents(genre.id));

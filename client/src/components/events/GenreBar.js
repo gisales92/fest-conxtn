@@ -18,9 +18,10 @@ const GenreBar = () => {
   const genre = useSelector(genreActions.genreNameSelector(genreName));
 
   useEffect(() => {
-    if (!loaded) {
+    if (!loaded && genre) {
       (async () => {
         await dispatch(genreActions.getAllGenres());
+        await dispatch(fetchGenreEvents(genre.id))
         setLoaded(true);
       })();
     }
