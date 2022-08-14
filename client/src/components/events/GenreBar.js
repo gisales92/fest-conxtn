@@ -34,13 +34,15 @@ const GenreBar = () => {
   }, [loaded, genre, dispatch]);
 
   useEffect(() => {
-    if (loaded && match) {
+    if (loaded) {
       const all = document.querySelectorAll(".genre-box");
       all.forEach((el) => {
         el.classList.remove("active");
       });
-      const el = document.querySelector(`#genre${genre.id}`);
-      el.classList.add("active");
+      if (match) {
+        const el = document.querySelector(`#genre${genre.id}`);
+        el.classList.add("active");
+      }
     }
   }, [genre, loaded, match]);
 
