@@ -9,7 +9,8 @@ function Events() {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const user = useSelector(otherUserSelector);
-  const curUser = useSelector(userSelector)
+  const curUser = useSelector(userSelector);
+  const [userId, setUserId] = useState("");
   const events = useSelector(userEventSelector);
   const goingEventCards = Object.keys(events.going).map((key) => {
     return <EventCard key={key} event={events.going[key]} />;
@@ -19,7 +20,7 @@ function Events() {
   });
 
   useEffect(() => {
-    if (!loaded && user.id) {
+    if ((!loaded && user.id) || ((user.id !== userId) && user.id)) {
       (async () => {
         try {
           await dispatch(fetchUserEvents(user.id));
@@ -28,6 +29,7 @@ function Events() {
           }
         } finally {
           setLoaded(true);
+          setUserId(user.id);
         }
       })();
     }

@@ -33,7 +33,7 @@ function Genres() {
   ));
 
   useEffect(() => {
-    if (user.id && !loaded || ((user.id !== userId) && user.id)) {
+    if ((user.id && !loaded) || ((user.id !== userId) && user.id)) {
       (async () => {
         await dispatch(getUserGenres(user.id));
         setUserId(user.id);

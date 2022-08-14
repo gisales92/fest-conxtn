@@ -16,16 +16,22 @@ const GenreBar = () => {
   });
   const genreName = decodeURIComponent(match?.params.genre);
   const genre = useSelector(genreActions.genreNameSelector(genreName));
+  const match1 = useRouteMatch({
+    path: "/",
+    exact: true,
+  });
 
   useEffect(() => {
-    if (!loaded && genre) {
+    if ((!loaded && genre) || match1) {
       (async () => {
         await dispatch(genreActions.getAllGenres());
-        await dispatch(fetchGenreEvents(genre.id))
+        if (genre) {
+          await dispatch(fetchGenreEvents(genre.id));
+        }
         setLoaded(true);
       })();
     }
-  }, [loaded, dispatch]);
+  }, [loaded, genre, dispatch]);
 
   useEffect(() => {
     if (loaded && match) {
