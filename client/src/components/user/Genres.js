@@ -9,6 +9,7 @@ function Genres() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
+  const [userId, setUserId] = useState("");
   const user = useSelector(otherUserSelector);
   const genres = useSelector(userGenresSelector);
 
@@ -32,16 +33,14 @@ function Genres() {
   ));
 
   useEffect(() => {
-    if (!loaded && user.id) {
+    if (user.id && !loaded || ((user.id !== userId) && user.id)) {
       (async () => {
-        try {
-          await dispatch(getUserGenres(user.id));
-        } finally {
-          setLoaded(true);
-        }
+        await dispatch(getUserGenres(user.id));
+        setUserId(user.id);
+        setLoaded(true);
       })();
     }
-  }, [dispatch, loaded, user]);
+  }, [user, dispatch]);
 
   return <div className="user-events-outer">{genreBoxes}</div>;
 }

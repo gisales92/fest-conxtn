@@ -12,11 +12,9 @@ function Events() {
   const curUser = useSelector(userSelector)
   const events = useSelector(userEventSelector);
   const goingEventCards = Object.keys(events.going).map((key) => {
-    console.log("EVENT: ", events.going[key]);
     return <EventCard key={key} event={events.going[key]} />;
   });
   const interestedEventCards = Object.keys(events.interested).map((key) => {
-    console.log("EVENT: ", events.interested[key]);
     return <EventCard key={key} event={events.interested[key]} />;
   });
 

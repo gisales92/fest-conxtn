@@ -186,7 +186,6 @@ export default function eventsReducer(
       newState.genre = gEvents;
       break;
     case SET_USER_EVENTS:
-      console.log("ACTION", action.events.going[0])
       const uEvents = { going: {}, interested: {} };
       action.events.going.forEach((event) => {
         uEvents.going[event.id] = event;
