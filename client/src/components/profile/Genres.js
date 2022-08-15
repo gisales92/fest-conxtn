@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { otherUserSelector } from "../../store/user";
 import { currentGenresSelector } from "../../store/genres";
+import { userSelector } from "../../store/session";
 import { fetchGenreEvents } from "../../store/events";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faPen } from "@fortawesome/free-solid-svg-icons";
+import { showModal } from "../../store/ui";
+import { EDIT_GENRES_MODAL } from "../modals/EditGenresModal";
+
 function Genres() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [loaded, setLoaded] = useState(false);
-  const [userId, setUserId] = useState("");
-  const user = useSelector(otherUserSelector);
+  const user = useSelector(userSelector);
   const genres = useSelector(currentGenresSelector);
 
   const handleClick = async (e) => {
@@ -19,6 +20,11 @@ function Genres() {
     history.push(`/genres/${encodeURIComponent(e.target.dataset.name)}`);
     await dispatch(fetchGenreEvents(e.target.dataset.id));
   };
+
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    dispatch(showModal(EDIT_GENRES_MODAL))
+  }
 
   const genreBoxes = Object.keys(genres).map((genreId) => (
     <div
@@ -36,14 +42,22 @@ function Genres() {
   return (
     <div className="user-genres-outer">
       {genreBoxes.length ? (
-        <div className="user-genres-inner">
-          <div className="user-genres-label">
-            <span>
-              <FontAwesomeIcon icon={faHeart} />
-              {"  "}Likes
+        <div className="profile-genres-inner">
+          <div className="profile-genres-left">
+            <div className="user-genres-label">
+              <span>
+                <FontAwesomeIcon icon={faHeart} />
+                {"  "}Likes
+              </span>
+            </div>
+            {genreBoxes}
+          </div>
+          <div className="profile-genres-right">
+            <span className="edit-profile-genres" onClick={handleEditClick}>
+              Edit{"  "}
+              <FontAwesomeIcon icon={faPen} />
             </span>
           </div>
-          {genreBoxes}
         </div>
       ) : null}
     </div>

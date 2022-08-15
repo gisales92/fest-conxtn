@@ -7,6 +7,7 @@ import LoginModal, { LOGIN_MODAL } from "./LoginModal";
 import SignupModal, { SIGNUP_MODAL } from "./SignupModal";
 import NewPostModal, { NEW_POST_MODAL } from "./NewPostModal";
 import NewReplyModal, { NEW_REPLY_MODAL } from "./NewReplyModal";
+import EditGenresModal, { EDIT_GENRES_MODAL } from "./EditGenresModal";
 import "../../styles/modals.css";
 
 const Modal = () => {
@@ -32,6 +33,9 @@ const Modal = () => {
       break;
     case NEW_REPLY_MODAL:
       modalToRender = <NewReplyModal />;
+      break;
+    case EDIT_GENRES_MODAL:
+      modalToRender = <EditGenresModal />;
       break;
     default:
       closeModal();

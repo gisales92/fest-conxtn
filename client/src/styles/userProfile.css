@@ -152,7 +152,6 @@
 .reply-outer.user {
   margin: 10px 5px;
   box-sizing: border-box;
-
 }
 
 .user-replies-inner {
@@ -163,4 +162,32 @@
 .user-posts-header,
 .user-replies-header {
   border-bottom: 1px solid #000000;
+}
+
+.profile-genres-left {
+  display: flex;
+}
+
+.profile-genres-inner {
+  display: flex;
+  justify-content: space-between;
+  background-color: #000000;
+  color: #ffffff;
+  border-top: 1px solid #ffffff;
+}
+
+.profile-genres-right {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.edit-profile-genres {
+  padding: 10px;
+}
+
+.edit-profile-genres:hover {
+  cursor: pointer;
+  color: #000000;
+  background-color: #ffffff;
 }
