@@ -190,7 +190,6 @@ export default function repliesReducer(
           [action.reply.id]: action.reply,
         };
       }
-
       break;
     case EDIT_REPLY:
       newState.current[action.reply.id] = action.reply;

@@ -9,6 +9,7 @@ import NewPostModal, { NEW_POST_MODAL } from "./NewPostModal";
 import NewReplyModal, { NEW_REPLY_MODAL } from "./NewReplyModal";
 import EditGenresModal, { EDIT_GENRES_MODAL } from "./EditGenresModal";
 import EditPostModal, { EDIT_POST_MODAL } from "./EditPostModal";
+import EditReplyModal, { EDIT_REPLY_MODAL } from "./EditReplyModal";
 import "../../styles/modals.css";
 
 const Modal = () => {
@@ -40,6 +41,9 @@ const Modal = () => {
       break;
     case EDIT_POST_MODAL:
       modalToRender = <EditPostModal />;
+      break;
+    case EDIT_REPLY_MODAL:
+      modalToRender = <EditReplyModal />;
       break;
     default:
       closeModal();
