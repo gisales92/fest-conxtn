@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { otherUserSelector } from "../../store/user";
-import { getUserPosts, userPostSelector } from "../../store/posts";
+import { userSelector } from "../../store/session";
+import { currentPostSelector } from "../../store/posts";
 import { getPostReplies } from "../../store/replies";
 import UserPost from "./UserPost";
 
 function PostBoard() {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
   const [updated, setUpdated] = useState(false);
-  const [userId, setUserId] = useState("");
-  const user = useSelector(otherUserSelector);
-  const posts = useSelector(userPostSelector);
+  const user = useSelector(userSelector);
+  const posts = useSelector(currentPostSelector);
 
-  useEffect(() => {
-    if ((!loaded && user.id) || (user.id !== userId && user.id)) {
-      (async () => {
-        try {
-          await dispatch(getUserPosts(user.id));
-        } finally {
-          setLoaded(true);
-          setUserId(user.id);
-        }
-      })();
-    }
-  }, [dispatch, loaded, user]);
-
-  useEffect(() => {
+    useEffect(() => {
     if (!updated && Object.keys(posts)[0]) {
       (async () => {
         await Object.keys(posts).forEach(async (postId) => {
@@ -44,7 +29,7 @@ function PostBoard() {
 
   return (
     <div className="user-posts-outer">
-      <h2 className="user-posts-header">{`${user.username}'s Posts`}</h2>
+      <h2 className="user-posts-header">Your Posts</h2>
       { postComponents ? <div className="user-post-inner">{postComponents}</div> : <p>This user has not posted</p>}
     </div>
   );
