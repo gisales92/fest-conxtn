@@ -128,6 +128,39 @@
 }
 
 .user-post-inner {
-  height: 50vh;
+  height: 70vh;
   overflow-y: scroll;
+}
+
+.user-reply-info {
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+.user-reply.event-name {
+  font-weight: 600;
+}
+
+.user-reply.event-name:hover {
+  cursor: pointer;
+}
+
+.user-reply-main {
+  padding-left: 15px;
+}
+
+.reply-outer.user {
+  margin: 10px 5px;
+  box-sizing: border-box;
+
+}
+
+.user-replies-inner {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.user-posts-header,
+.user-replies-header {
+  border-bottom: 1px solid #000000;
 }

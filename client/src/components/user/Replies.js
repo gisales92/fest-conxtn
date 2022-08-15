@@ -25,12 +25,19 @@ function Replies() {
           await dispatch(getUserReplies(user.id));
         } finally {
           setLoaded(true);
-          setUserId(user.id)
+          setUserId(user.id);
         }
       })();
     }
   }, [dispatch, loaded, user]);
 
-  return <div className="user-events-outer">{replyComponents}</div>;
+  return (
+    <div className="user-replies-outer">
+      <h2 className="user-replies-header">{`${user.username}'s Replies`}</h2>
+      {replyComponents ? (
+        <div className="user-replies-inner">{replyComponents}</div>
+      ) : null}
+    </div>
+  );
 }
 export default Replies;
