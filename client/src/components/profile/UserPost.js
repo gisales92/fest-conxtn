@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { postRepliesSelector } from "../../store/replies";
 import UserPostReply from "./UserPostReplies";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
-import { focusPost } from "../../store/posts";
+import { focusPost, removePost } from "../../store/posts";
 import { EDIT_POST_MODAL } from "../modals/EditPostModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -66,6 +66,12 @@ const UserPost = ({ post }) => {
     dispatch(showModal(EDIT_POST_MODAL));
   };
 
+  const handleDeleteClick = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(removePost(post.id));
+  };
+
   return (
     <div className="post-outer">
       <div className="post-inner">
@@ -81,7 +87,7 @@ const UserPost = ({ post }) => {
           </div>
           <div className="profile-post-actions">
           <span className="post-action" onClick={handleEditClick}><FontAwesomeIcon icon={faPen} />{" "}Edit Post</span>
-          <span className="post-action"><FontAwesomeIcon icon={faXmark} />{" "}Delete Post</span>
+          <span className="post-action" onClick={handleDeleteClick}><FontAwesomeIcon icon={faXmark} />{" "}Delete Post</span>
           </div>
         </div>
         <div className="post-main">
