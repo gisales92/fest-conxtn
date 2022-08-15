@@ -84,3 +84,21 @@
 .user-events-header {
   border-bottom: 1px solid #000000;
 }
+
+.user-genres-outer {
+  display: flex;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border-top: 1px solid #ffffff;
+}
+
+.user-genres-label {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.genre-box.user {
+  padding: 0 15px;
+}

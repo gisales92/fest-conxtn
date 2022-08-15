@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { otherUserSelector } from "../../store/user";
 import { getUserGenres, userGenresSelector } from "../../store/genres";
 import { fetchGenreEvents } from "../../store/events";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 function Genres() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,7 +34,7 @@ function Genres() {
   ));
 
   useEffect(() => {
-    if ((user.id && !loaded) || ((user.id !== userId) && user.id)) {
+    if ((user.id && !loaded) || (user.id !== userId && user.id)) {
       (async () => {
         await dispatch(getUserGenres(user.id));
         setUserId(user.id);
@@ -42,6 +43,16 @@ function Genres() {
     }
   }, [user, dispatch]);
 
-  return <div className="user-events-outer">{genreBoxes}</div>;
+  return (
+    <div className="user-genres-outer">
+      <div className="user-genres-label">
+        <span>
+          <FontAwesomeIcon icon={faHeart} />
+          {"  "}Likes
+        </span>
+      </div>
+      {genreBoxes}
+    </div>
+  );
 }
 export default Genres;
