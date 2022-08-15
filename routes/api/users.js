@@ -176,6 +176,12 @@ router.get(
         include: {
           model: Reply,
           order: ["createdAt", "DESC"],
+          include: {
+            model: Post,
+            include: {
+              model: Event
+            }
+          },
         },
       });
       const userReplies = user.Replies;
@@ -188,7 +194,7 @@ router.get(
           username: user.username,
           profilePicUrl: user.profilePicUrl,
         };
-        reply.postId = replyObj.postId;
+        reply.post = replyObj.Post;
         reply.body = replyObj.body;
         reply.time = replyObj.createdAt;
         replies.push(reply);

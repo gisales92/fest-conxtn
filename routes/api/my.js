@@ -569,6 +569,12 @@ router.get(
       include: {
         model: Reply,
         order: ["createdAt", "DESC"],
+        include: {
+          model: Post,
+          include: {
+            model: Event
+          }
+        },
       },
     });
     const userReplies = user.Replies;
