@@ -5,6 +5,7 @@ import { postRepliesSelector } from "../../store/replies";
 import UserPostReply from "./UserPostReplies";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
 import { focusPost } from "../../store/posts";
+import { EDIT_POST_MODAL } from "../modals/EditPostModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReply,
@@ -58,6 +59,13 @@ const UserPost = ({ post }) => {
     history.push(`/events/${post.event.url}`);
   };
 
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(focusPost(post));
+    dispatch(showModal(EDIT_POST_MODAL));
+  };
+
   return (
     <div className="post-outer">
       <div className="post-inner">
@@ -72,7 +80,7 @@ const UserPost = ({ post }) => {
             <p className="post-event-name">{post.event.name}</p>
           </div>
           <div className="profile-post-actions">
-          <span className="post-action"><FontAwesomeIcon icon={faPen} />{" "}Edit Post</span>
+          <span className="post-action" onClick={handleEditClick}><FontAwesomeIcon icon={faPen} />{" "}Edit Post</span>
           <span className="post-action"><FontAwesomeIcon icon={faXmark} />{" "}Delete Post</span>
           </div>
         </div>
