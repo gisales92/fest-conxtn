@@ -47,7 +47,7 @@ function PostBoard() {
   return (
     <div className="user-posts-outer">
       <h2 className="user-posts-header">{`${user.username}'s Posts`}</h2>
-      { postComponents ? postComponents : <p>This user has not posted</p>}
+      { postComponents ? <div className="user-post-inner">{postComponents}</div> : <p>This user has not posted</p>}
     </div>
   );
 }

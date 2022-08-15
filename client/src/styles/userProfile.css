@@ -102,3 +102,32 @@
 .genre-box.user {
   padding: 0 15px;
 }
+
+.post-event-info {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.post-event-img {
+  height: 75px;
+  width: 75px;
+  object-fit: cover;
+}
+
+.post-event-name {
+  margin-left: 10px;
+  font-size: 14pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-event-info:hover {
+  cursor: pointer;
+}
+
+.user-post-inner {
+  height: 50vh;
+  overflow-y: scroll;
+}
