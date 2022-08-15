@@ -17,7 +17,7 @@ const EditReplyModal = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const replyId = reply.id;
 
-  const getBodyError = () => (body ? "" : "A post body is required");
+  const getBodyError = () => (body ? "" : "A reply body is required");
 
   useEffect(() => {
     if (hasSubmitted) {
@@ -62,7 +62,7 @@ const EditReplyModal = () => {
       <form onSubmit={onSubmit}>
 
         <div className="form-row">
-          <label htmlFor="body">Post body</label>
+          <label htmlFor="body">Reply body</label>
           <textarea
             name="body"
             placeholder="Your post"

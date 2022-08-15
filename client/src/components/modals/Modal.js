@@ -11,6 +11,7 @@ import EditGenresModal, { EDIT_GENRES_MODAL } from "./EditGenresModal";
 import EditPostModal, { EDIT_POST_MODAL } from "./EditPostModal";
 import EditReplyModal, { EDIT_REPLY_MODAL } from "./EditReplyModal";
 import "../../styles/modals.css";
+import "../../styles/forms.css";
 
 const Modal = () => {
   const dispatch = useDispatch();

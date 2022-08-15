@@ -43,14 +43,14 @@ const EditGenresModal = () => {
     const liked = currentGenres[genreId];
     return (
       <div className="form-row genre" key={genreId}>
-        <p className="form-label">{allGenres[genreId].type}</p>
+        <p className="form-label genre">{allGenres[genreId].type}</p>
         {liked ? (
-          <button className="remove-genre" id={genreId} onClick={handleRemove}>
+          <button className="remove-genre genre-action" id={genreId} onClick={handleRemove}>
             Remove{"  "}
             <FontAwesomeIcon icon={faXmark} />
           </button>
         ) : (
-          <button className="add-genre" id={genreId} onClick={handleLike}>
+          <button className="add-genre genre-action" id={genreId} onClick={handleLike}>
             Like{"  "}
             <FontAwesomeIcon icon={faHeart} />
           </button>
