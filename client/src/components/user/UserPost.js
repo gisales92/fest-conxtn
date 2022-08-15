@@ -22,7 +22,7 @@ const UserPost = ({ post }) => {
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
-      return <Reply reply={replies[key]} key={key} />;
+      return <UserPostReply reply={replies[key]} key={key} />;
     });
   }
 

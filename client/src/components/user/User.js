@@ -4,7 +4,7 @@ import { useRouteMatch } from "react-router-dom";
 import { fetchUser, otherUserSelector } from "../../store/user";
 import Events from "./Events";
 import Genres from "./Genres";
-import Posts from "./PostBoard";
+import PostBoard from "./PostBoard";
 import Replies from "./Replies";
 import "../../styles/userProfile.css";
 
@@ -47,7 +47,7 @@ function User() {
       <div className="user-profile-lower">
         <Genres />
         <Events />
-        <Posts />
+        <PostBoard />
         <Replies />
       </div>
     </div>

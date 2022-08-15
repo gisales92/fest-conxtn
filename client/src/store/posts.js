@@ -9,8 +9,8 @@ export const FOCUS_POST = "posts/FOCUS_POST";
 
 // selectors
 export const eventPostsSelector = (state) => state.posts.event;
-export const userPostSelector = (state) => state.posts.current;
-export const currentPostSelector = (state) => state.posts.user;
+export const userPostSelector = (state) => state.posts.user;
+export const currentPostSelector = (state) => state.posts.current;
 export const focusPostSelector = (state) => state.posts.focus;
 
 // action creators
