@@ -191,3 +191,20 @@
   color: #000000;
   background-color: #ffffff;
 }
+
+.user-post-upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-action {
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.post-action:hover {
+  color: #ffffff;
+  background-color: #000000;
+  cursor: pointer;
+}

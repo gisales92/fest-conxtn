@@ -11,6 +11,8 @@ import {
   faCommentDots,
   faArrowDown,
   faArrowUp,
+  faPen,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { showModal } from "../../store/ui";
 
@@ -68,6 +70,10 @@ const UserPost = ({ post }) => {
               className="post-event-img"
             />
             <p className="post-event-name">{post.event.name}</p>
+          </div>
+          <div className="profile-post-actions">
+          <span className="post-action"><FontAwesomeIcon icon={faPen} />{" "}Edit Post</span>
+          <span className="post-action"><FontAwesomeIcon icon={faXmark} />{" "}Delete Post</span>
           </div>
         </div>
         <div className="post-main">
