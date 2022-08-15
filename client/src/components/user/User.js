@@ -4,7 +4,7 @@ import { useRouteMatch } from "react-router-dom";
 import { fetchUser, otherUserSelector } from "../../store/user";
 import Events from "./Events";
 import Genres from "./Genres";
-import Posts from "./Posts";
+import Posts from "./PostBoard";
 import Replies from "./Replies";
 import "../../styles/userProfile.css";
 

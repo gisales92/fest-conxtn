@@ -85,7 +85,7 @@
   border-bottom: 1px solid #000000;
 }
 
-.user-genres-outer {
+.user-genres-inner {
   display: flex;
   width: 100%;
   background-color: #000000;

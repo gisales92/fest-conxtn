@@ -45,13 +45,17 @@ function Genres() {
 
   return (
     <div className="user-genres-outer">
-      <div className="user-genres-label">
-        <span>
-          <FontAwesomeIcon icon={faHeart} />
-          {"  "}Likes
-        </span>
-      </div>
-      {genreBoxes}
+      {genreBoxes.length ? (
+        <div className="user-genres-inner">
+          <div className="user-genres-label">
+            <span>
+              <FontAwesomeIcon icon={faHeart} />
+              {"  "}Likes
+            </span>
+          </div>
+          {genreBoxes}
+        </div>
+      ) : null}
     </div>
   );
 }
