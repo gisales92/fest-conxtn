@@ -16,6 +16,8 @@ import GenreBar from "./components/events/GenreBar";
 import GenreEventList from "./components/events/GenreEventList";
 import User from "./components/user/User";
 import Profile from "./components/profile/Profile";
+import Footer from "./components/Footer";
+import "./styles/footer.css"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -76,10 +78,10 @@ function App() {
             </ProtectedRoute>
           </Switch>
         ) : (
-          <div className="fill-screen center-content">
-            Loading...
-          </div>
+          <div className="fill-screen center-content">Loading...</div>
         )}
+
+        <Footer />
       </BrowserRouter>
     </div>
   );
