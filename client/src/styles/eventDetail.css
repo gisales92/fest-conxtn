@@ -40,6 +40,7 @@
 
 .event-detail-location {
     display: flex;
+    position: relative;
     justify-content: space-between;
     border-bottom: 1px solid #000000;
 }
@@ -106,7 +107,7 @@
 .create-button.post {
     background-color: #000000;
     color: #ffffff;
-    height: 4vw;
+    padding: 5px 15px;
 
 }
 
@@ -118,4 +119,10 @@
 .event-posts-header {
     font-size: 24pt;
     font-weight: 400;
+}
+
+.event-detail-location-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

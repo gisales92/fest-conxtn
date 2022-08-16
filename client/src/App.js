@@ -14,6 +14,8 @@ import { getAllGenres } from "./store/genres";
 import Modal from "./components/modals/Modal";
 import GenreBar from "./components/events/GenreBar";
 import GenreEventList from "./components/events/GenreEventList";
+import User from "./components/user/User";
+import Profile from "./components/profile/Profile";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +58,10 @@ function App() {
               <SignupPage />
             </Route>
 
+            <Route path="/users/:username" exact={true}>
+              <User />
+            </Route>
+
             <Route path="/events/:url" exact={true}>
               <EventDetail />
             </Route>
@@ -64,6 +70,10 @@ function App() {
               <GenreBar />
               <GenreEventList />
             </Route>
+
+            <ProtectedRoute path="/profile">
+              <Profile />
+            </ProtectedRoute>
           </Switch>
         ) : (
           <div className="fill-screen center-content">

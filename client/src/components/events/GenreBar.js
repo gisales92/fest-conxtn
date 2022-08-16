@@ -16,24 +16,33 @@ const GenreBar = () => {
   });
   const genreName = decodeURIComponent(match?.params.genre);
   const genre = useSelector(genreActions.genreNameSelector(genreName));
+  const match1 = useRouteMatch({
+    path: "/",
+    exact: true,
+  });
 
   useEffect(() => {
-    if (!loaded) {
+    if ((!loaded && genre) || match1) {
       (async () => {
         await dispatch(genreActions.getAllGenres());
+        if (genre) {
+          await dispatch(fetchGenreEvents(genre.id));
+        }
         setLoaded(true);
       })();
     }
-  }, [loaded, dispatch]);
+  }, [loaded, genre, dispatch]);
 
   useEffect(() => {
-    if (loaded && match) {
+    if (loaded) {
       const all = document.querySelectorAll(".genre-box");
       all.forEach((el) => {
         el.classList.remove("active");
       });
-      const el = document.querySelector(`#genre${genre.id}`);
-      el.classList.add("active");
+      if (match) {
+        const el = document.querySelector(`#genre${genre.id}`);
+        el.classList.add("active");
+      }
     }
   }, [genre, loaded, match]);
 

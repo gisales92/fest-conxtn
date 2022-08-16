@@ -569,6 +569,12 @@ router.get(
       include: {
         model: Reply,
         order: ["createdAt", "DESC"],
+        include: {
+          model: Post,
+          include: {
+            model: Event
+          }
+        },
       },
     });
     const userReplies = user.Replies;
@@ -581,7 +587,7 @@ router.get(
         username: user.username,
         profilePicUrl: user.profilePicUrl,
       };
-      reply.postId = replyObj.postId;
+      reply.post = replyObj.Post;
       reply.body = replyObj.body;
       reply.time = replyObj.createdAt;
       replies.push(reply);
@@ -603,7 +609,8 @@ router.put(
 
     // get the reply from database
     const reply = await Reply.findByPk(replyId, {
-      include: [User],
+      include: [User, {model: Post,
+      include: [Event]}],
     });
     if (!reply) {
       res.status(404);
@@ -632,7 +639,7 @@ router.put(
       username: reply.User.username,
       profilePicUrl: reply.User.profilePicUrl,
     };
-    updatedReply.postId = reply.postId;
+    updatedReply.post = reply.Post;
     updatedReply.body = reply.body;
     updatedReply.time = reply.createdAt;
 

@@ -5,12 +5,14 @@ export const SET_CURRENT_REPLIES = "replies/SET_CURRENT_REPLIES";
 export const NEW_REPLY = "replies/NEW_REPLY";
 export const EDIT_REPLY = "replies/EDIT_REPLY";
 export const DELETE_REPLY = "replies/DELETE_REPLY";
+export const FOCUS_REPLY = "replies/FOCUS_REPLY";
 
 // selectors
 export const postRepliesSelector = (postId) => (state) =>
   state.replies.posts[postId];
 export const userRepliesSelector = (state) => state.replies.user;
 export const currentRepliesSelector = (state) => state.replies.current;
+export const focusReplySelector = (state) => state.replies.focus;
 
 // action creators
 // set all replies for a post
@@ -54,6 +56,13 @@ export function deleteReply(replyId) {
   return {
     type: DELETE_REPLY,
     replyId,
+  };
+}
+// set a reply as the focused reply
+export function focusReply(reply) {
+  return {
+    type: FOCUS_REPLY,
+    reply,
   };
 }
 
@@ -142,7 +151,7 @@ export const removeReply = (replyId) => async (dispatch) => {
 
 // reducer
 export default function repliesReducer(
-  state = { posts: {}, current: {}, user: {} },
+  state = { posts: {}, current: {}, user: {}, focus: {} },
   action
 ) {
   const newState = { ...state };
@@ -181,13 +190,15 @@ export default function repliesReducer(
           [action.reply.id]: action.reply,
         };
       }
-
       break;
     case EDIT_REPLY:
       newState.current[action.reply.id] = action.reply;
       break;
     case DELETE_REPLY:
       delete newState.current[action.replyId];
+      break;
+    case FOCUS_REPLY:
+      newState.focus = action.reply;
       break;
     default:
       break;

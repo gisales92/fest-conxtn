@@ -21,8 +21,7 @@ const AuthenticatedNav = () => {
         <span>Log out</span>
         <FontAwesomeIcon icon={faArrowRightToBracket} className="icon" />
       </button>
-{/* Fill in link to user profile URL when that component is completed */}
-      <Link to="/" id="profile-button">
+      <Link to="/profile" id="profile-button">
         <button
         className="nav-button hover-effect"
         >

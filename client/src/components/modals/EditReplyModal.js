@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGIN_MODAL } from "./LoginModal";
-import { showModal, hideModal } from "../../store/ui";
 import { userSelector } from "../../store/session";
-import { createReply } from "../../store/replies";
-import { focusPostSelector } from "../../store/posts";
-import "../../styles/modals.css";
+import { showModal, hideModal } from "../../store/ui";
+import { LOGIN_MODAL } from "./LoginModal";
+import { updateReply, focusReplySelector } from "../../store/replies";
 
-export const NEW_REPLY_MODAL = "ui/modals/NEW_REPLY_MODAL";
+export const EDIT_REPLY_MODAL = "ui/modals/EDIT_REPLY_MODAL";
 
-const NewReplyModal = () => {
-  const [errors, setErrors] = useState([]);
-
-  const [body, setBody] = useState("");
-
-  const [bodyError, setBodyError] = useState("");
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-
+const EditReplyModal = () => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
-  const post = useSelector(focusPostSelector);
+  const reply = useSelector(focusReplySelector);
+  const [errors, setErrors] = useState([]);
+  const [body, setBody] = useState(reply.body);
+  const [bodyError, setBodyError] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const replyId = reply.id;
 
   const getBodyError = () => (body ? "" : "A reply body is required");
 
@@ -48,9 +44,9 @@ const NewReplyModal = () => {
 
     // if there are errors dont make request
     if (!bodyValidationError) {
-      // submit the post
-      const reply = { userId: user.id, postId: post.id, body };
-      const data = await dispatch(createReply(reply));
+      // submit the reply
+      const reply = { replyId, body };
+      const data = await dispatch(updateReply(reply));
       if (data.message) {
         setErrors([data.message]);
       } else {
@@ -61,14 +57,15 @@ const NewReplyModal = () => {
 
   return (
     <div className="new-post-modal">
-      <h1 className="form-header">Reply</h1>
+      <h1 className="form-header">Edit Reply</h1>
 
       <form onSubmit={onSubmit}>
+
         <div className="form-row">
           <label htmlFor="body">Reply body</label>
           <textarea
             name="body"
-            placeholder="Your reply"
+            placeholder="Your post"
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
@@ -90,4 +87,4 @@ const NewReplyModal = () => {
   );
 };
 
-export default NewReplyModal;
+export default EditReplyModal;

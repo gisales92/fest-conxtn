@@ -1,0 +1,210 @@
+.user-profile-upper {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #000000;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.user-profile-img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-profile-name {
+  margin-left: 30px;
+}
+
+.user-profile-lower {
+  width: 80%;
+  margin: auto;
+}
+
+.user-event-list-outer {
+  width: 100%;
+}
+
+.user-event-list-ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 500px;
+  padding-left: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: #f3f3f3;
+}
+
+.user-event-list-ul .event-card {
+  position: relative;
+  width: 500px;
+  height: 100%;
+  min-width: 500px;
+  object-fit: cover;
+  filter: grayscale(70%);
+  transition: all 0.5s linear;
+  box-shadow: 1px 1px 5px #000000;
+  margin-right: 10px;
+}
+
+.user-event-list-ul .event-card:hover {
+  cursor: pointer;
+  filter: grayscale(0);
+}
+
+.user-event-list-ul .event-card-name {
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 5;
+  padding: 15px;
+  padding-left: 2vw;
+  font-size: 16pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  color: #ffffff;
+}
+
+.user-events-header {
+  border-bottom: 1px solid #000000;
+}
+
+.user-genres-inner {
+  display: flex;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border-top: 1px solid #ffffff;
+}
+
+.user-genres-label {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.genre-box.user {
+  padding: 0 15px;
+}
+
+.post-event-info {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.post-event-img {
+  height: 75px;
+  width: 75px;
+  object-fit: cover;
+}
+
+.post-event-name {
+  margin-left: 10px;
+  font-size: 14pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-event-info:hover {
+  cursor: pointer;
+}
+
+.user-post-inner {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.user-reply-info {
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+.user-reply.event-name {
+  font-weight: 600;
+}
+
+.user-reply.event-name:hover {
+  cursor: pointer;
+}
+
+.user-reply-main {
+  padding-left: 15px;
+}
+
+.reply-outer.user {
+  margin: 10px 5px;
+  box-sizing: border-box;
+}
+
+.user-replies-inner {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.user-posts-header,
+.user-replies-header {
+  border-bottom: 1px solid #000000;
+}
+
+.profile-genres-left {
+  display: flex;
+}
+
+.profile-genres-inner {
+  display: flex;
+  justify-content: space-between;
+  background-color: #000000;
+  color: #ffffff;
+  border-top: 1px solid #ffffff;
+}
+
+.profile-genres-right {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.edit-profile-genres {
+  padding: 10px;
+}
+
+.edit-profile-genres:hover {
+  cursor: pointer;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.user-post-upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-action {
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.post-action:hover {
+  color: #ffffff;
+  background-color: #000000;
+  cursor: pointer;
+}

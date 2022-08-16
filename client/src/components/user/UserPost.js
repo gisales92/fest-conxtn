@@ -1,8 +1,8 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { postRepliesSelector } from "../../store/replies";
-import Reply from "./Reply";
+import UserPostReply from "./UserPostReplies";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
 import { focusPost } from "../../store/posts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { showModal } from "../../store/ui";
 
-const EventBoardPost = ({ post }) => {
+const UserPost = ({ post }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const replies = useSelector(postRepliesSelector(post.id));
@@ -22,7 +22,7 @@ const EventBoardPost = ({ post }) => {
   let replyComponents;
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
-      return <Reply reply={replies[key]} key={key} />;
+      return <UserPostReply reply={replies[key]} key={key} />;
     }).sort((a, b) => a.props.reply.time < b.props.reply.time ? -1 : 1);
   }
 
@@ -51,25 +51,24 @@ const EventBoardPost = ({ post }) => {
     dispatch(showModal(NEW_REPLY_MODAL));
   };
 
-  const redirectToUser = (e) => {
+  const redirectToEvent = (e) => {
     e.stopPropagation();
-    history.push(`/users/${post.user.username}`)
-  }
+    history.push(`/events/${post.event.url}`);
+  };
 
   return (
     <div className="post-outer">
       <div className="post-inner">
-        <div className="post-user-info" onClick={redirectToUser}>
-          <img
-            src={
-              post.user.profilePicUrl ||
-              "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
-            }
-            alt="profile-thumb"
-            crossOrigin=""
-            className="post-user-img"
-          />
-          <p className="post-user-name">{post.user.username}</p>
+        <div className="user-post-upper">
+          <div className="post-event-info" onClick={redirectToEvent}>
+            <img
+              src={post.event.mainPicUrl}
+              alt="profile-thumb"
+              crossOrigin=""
+              className="post-event-img"
+            />
+            <p className="post-event-name">{post.event.name}</p>
+          </div>
         </div>
         <div className="post-main">
           <p className="post-title">{post.title}</p>
@@ -112,4 +111,4 @@ const EventBoardPost = ({ post }) => {
   );
 };
 
-export default EventBoardPost;
+export default UserPost;

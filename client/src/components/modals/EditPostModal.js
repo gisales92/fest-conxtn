@@ -3,25 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../store/session";
 import { showModal, hideModal } from "../../store/ui";
 import { LOGIN_MODAL } from "./LoginModal";
-import { createPost } from "../../store/posts";
-import { eventByUrlSelector } from "../../store/events";
+import { updatePost, focusPostSelector } from "../../store/posts";
 
-export const NEW_POST_MODAL = "ui/modals/NEW_POST_MODAL";
+export const EDIT_POST_MODAL = "ui/modals/EDIT_POST_MODAL";
 
-const NewPostModal = () => {
+const EditPostModal = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(userSelector);
+  const post = useSelector(focusPostSelector);
   const [errors, setErrors] = useState([]);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState(post.title);
+  const [body, setBody] = useState(post.body);
   const [titleError, setTitleError] = useState("");
   const [bodyError, setBodyError] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
-
-  const dispatch = useDispatch();
-  const user = useSelector(userSelector);
-  const url = window.location.href;
-  const urlArr = url.split("/");
-  const eventUrl = urlArr[urlArr.length - 1];
-  const event = useSelector(eventByUrlSelector(eventUrl));
+  const postId = post.id;
 
   const getTitleError = () => {
     if (!title) return "A post title is required";
@@ -59,8 +55,8 @@ const NewPostModal = () => {
     // if there are errors dont make request
     if (!titleValidationError && !bodyValidationError) {
       // submit the post
-      const post = { userId: user.id, eventId: event.id, title, body };
-      const data = await dispatch(createPost(post));
+      const post = { postId, title, body };
+      const data = await dispatch(updatePost(post));
       if (data.message) {
         setErrors([data.message]);
       } else {
@@ -71,7 +67,7 @@ const NewPostModal = () => {
 
   return (
     <div className="new-post-modal">
-      <h1 className="form-header">Post</h1>
+      <h1 className="form-header">Edit Post</h1>
 
       <form onSubmit={onSubmit}>
         <div className="form-row">
@@ -114,4 +110,4 @@ const NewPostModal = () => {
   );
 };
 
-export default NewPostModal;
+export default EditPostModal;
