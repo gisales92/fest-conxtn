@@ -1,11 +1,5 @@
 "use strict";
 
-function r(o) {
-  o.createdAt = new Date();
-  o.updatedAt = new Date();
-  return o;
-}
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("Replies", [
