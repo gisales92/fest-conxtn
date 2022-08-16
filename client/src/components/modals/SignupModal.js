@@ -95,7 +95,6 @@ const SignupModal = () => {
       validateConfirmPassword();
 
       // parse backend errors obj
-      console.log("Errors: ", errors);
       if (errors.message) setErrorMsg(errors.message);
       if (errors.errors?.email) setEmailError(errors.errors.email);
       if (errors.errors?.username) setUsernameError(errors.errors.username);
