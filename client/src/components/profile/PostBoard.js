@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userSelector } from "../../store/session";
 import { currentPostSelector } from "../../store/posts";
 import { getPostReplies } from "../../store/replies";
 import UserPost from "./UserPost";
@@ -8,7 +7,6 @@ import UserPost from "./UserPost";
 function PostBoard() {
   const dispatch = useDispatch();
   const [updated, setUpdated] = useState(false);
-  const user = useSelector(userSelector);
   const posts = useSelector(currentPostSelector);
 
     useEffect(() => {

@@ -38,6 +38,7 @@
 .reply-user-info {
   display: flex;
   align-items: center;
+  width: fit-content;
 }
 
 .reply-container {
@@ -114,4 +115,8 @@
   cursor: pointer;
   background-color: #000000;
   color: #ffffff;
+}
+
+.reply-user-info:hover {
+  cursor: pointer;
 }
