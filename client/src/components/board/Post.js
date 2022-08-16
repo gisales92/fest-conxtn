@@ -23,7 +23,7 @@ const EventBoardPost = ({ post }) => {
   if (replies) {
     replyComponents = Object.keys(replies).map((key) => {
       return <Reply reply={replies[key]} key={key} />;
-    }).sort((a, b) => a.props.reply.time > b.props.reply.time ? -1 : 1);
+    }).sort((a, b) => a.props.reply.time < b.props.reply.time ? -1 : 1);
   }
 
   const fixDate = (dateStr) => {
