@@ -27,7 +27,7 @@ function PostBoard() {
   }, [dispatch, loaded, user]);
 
   useEffect(() => {
-    if (!updated && Object.keys(posts)[0]) {
+    if ((!updated && Object.keys(posts)[0]) || (user.id !== userId && user.id)) {
       (async () => {
         await Object.keys(posts).forEach(async (postId) => {
           await dispatch(getPostReplies(postId));
