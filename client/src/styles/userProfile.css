@@ -85,18 +85,27 @@
   border-bottom: 1px solid #000000;
 }
 
-.user-genres-inner {
+.user-genres-outer {
   display: flex;
   width: 100%;
   background-color: #000000;
   color: #ffffff;
   border-top: 1px solid #ffffff;
+  justify-content: space-between;
+}
+
+.user-genres-inner {
+  display: flex;
 }
 
 .user-genres-label {
   display: flex;
   align-items: center;
   padding: 15px;
+}
+
+.user-genres-left {
+  display: flex;
 }
 
 .genre-box.user {
@@ -173,12 +182,12 @@
   justify-content: space-between;
   background-color: #000000;
   color: #ffffff;
-  border-top: 1px solid #ffffff;
 }
 
 .profile-genres-right {
   display: flex;
   align-items: center;
+  justify-self: flex-start;
   margin-right: 15px;
 }
 

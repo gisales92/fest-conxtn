@@ -23,8 +23,8 @@ function Genres() {
 
   const handleEditClick = (e) => {
     e.stopPropagation();
-    dispatch(showModal(EDIT_GENRES_MODAL))
-  }
+    dispatch(showModal(EDIT_GENRES_MODAL));
+  };
 
   const genreBoxes = Object.keys(genres).map((genreId) => (
     <div
@@ -41,25 +41,23 @@ function Genres() {
 
   return (
     <div className="user-genres-outer">
-      {genreBoxes.length ? (
-        <div className="profile-genres-inner">
-          <div className="profile-genres-left">
-            <div className="user-genres-label">
-              <span>
-                <FontAwesomeIcon icon={faHeart} />
-                {"  "}Likes
-              </span>
-            </div>
-            {genreBoxes}
-          </div>
-          <div className="profile-genres-right">
-            <span className="edit-profile-genres" onClick={handleEditClick}>
-              Edit{"  "}
-              <FontAwesomeIcon icon={faPen} />
-            </span>
-          </div>
+      <div className="user-genres-left">
+        <div className="user-genres-label">
+          <span>
+            <FontAwesomeIcon icon={faHeart} />
+            {"  "}Likes
+          </span>
         </div>
-      ) : null}
+        {genreBoxes.length ? (
+          <div className="profile-genres-inner">{genreBoxes}</div>
+        ) : null}
+      </div>
+      <div className="profile-genres-right">
+        <span className="edit-profile-genres" onClick={handleEditClick}>
+          Edit{"  "}
+          <FontAwesomeIcon icon={faPen} />
+        </span>
+      </div>
     </div>
   );
 }
