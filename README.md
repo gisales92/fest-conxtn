@@ -1,4 +1,4 @@
-# Festival Connection
+# Festival Conxtn
 
 ## [Live Link](https://fest-conxtn.herokuapp.com)
 
