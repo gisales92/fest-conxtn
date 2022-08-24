@@ -32,23 +32,25 @@ function User() {
 
   return (
     <div className="user-profile-outer">
-      <div className="user-profile-upper">
-        <img
-          src={
-            user.profilePicUrl ||
-            "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
-          }
-          alt="profile-thumb"
-          crossOrigin=""
-          className="user-profile-img"
-        />
-        <h1 className="user-profile-name">{user.username}</h1>
-      </div>
-      <div className="user-profile-lower">
-        <Genres />
-        <Events />
-        <PostBoard />
-        <Replies />
+      <div className="user-profile-inner">
+        <div className="user-profile-upper">
+          <img
+            src={
+              user.profilePicUrl ||
+              "https://res.cloudinary.com/djsh50cka/image/upload/v1658974926/avatar-1295397_960_720_bwmkov.png"
+            }
+            alt="profile-thumb"
+            crossOrigin=""
+            className="user-profile-img"
+          />
+          <h1 className="user-profile-name">{user.username}</h1>
+        </div>
+        <div className="user-profile-lower">
+          <Genres />
+          <Events />
+          <PostBoard />
+          <Replies />
+        </div>
       </div>
     </div>
   );

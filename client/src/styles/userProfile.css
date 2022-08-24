@@ -1,6 +1,16 @@
-.user-profile-upper {
+.user-profile-outer {
+  width: 100%;
+  min-width: 812.5px;
+}
+
+.user-profile-inner {
   width: 80%;
   margin: auto;
+  min-width: 650px;
+}
+
+.user-profile-upper {
+  width: 100%;
   display: flex;
   align-items: center;
   padding-bottom: 25px;
@@ -23,8 +33,7 @@
 }
 
 .user-profile-lower {
-  width: 80%;
-  margin: auto;
+  width: 100%
 }
 
 .user-event-list-outer {
