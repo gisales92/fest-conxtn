@@ -64,7 +64,7 @@ const RSVPBar = ({ rsvpId }) => {
         Going
       </button>
       <button className="b2 rsvp-bar" onClick={handleClick2}>
-      <FontAwesomeIcon icon={faCheck} />
+        <FontAwesomeIcon icon={faCheck} />
         Interested
       </button>
       {rsvp ? (
