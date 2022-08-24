@@ -1,11 +1,18 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/user";
+import { userSelector } from "../../store/session";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { focusReply, removeReply } from "../../store/replies";
+import { showModal } from "../../store/ui";
+import { EDIT_REPLY_MODAL } from "../modals/EditReplyModal";
 
 const Reply = ({ reply }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector(userSelector);
   const fixDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString(undefined, {
       year: "numeric",
@@ -20,6 +27,19 @@ const Reply = ({ reply }) => {
     await dispatch(fetchUser(reply.user.username));
     history.push(`/users/${reply.user.username}`)
   }
+
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(focusReply(reply));
+    dispatch(showModal(EDIT_REPLY_MODAL));
+  };
+
+  const handleDeleteClick = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(removeReply(reply.id));
+  };
 
   return (
     <div className="reply-outer">
@@ -41,6 +61,10 @@ const Reply = ({ reply }) => {
       <div className="reply-footer">
         <p>{fixDate(reply.time)}</p>
       </div>
+      {user.id && reply.user.id === user.id && <div className="reply-actions">
+      <span className="post-action" onClick={handleEditClick}><FontAwesomeIcon icon={faPen} />{" "}Edit Reply</span>
+          <span className="post-action" onClick={handleDeleteClick}><FontAwesomeIcon icon={faXmark} />{" "}Delete Reply</span>
+      </div>}
     </div>
   );
 };
