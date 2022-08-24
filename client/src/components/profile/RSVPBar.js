@@ -6,10 +6,11 @@ const RSVPBar = ({ props }) => {
   const { rsvpId, event } = props;
   const [rsvp, setRSVP] = useState(rsvpId);
   const dispatch = useDispatch();
+  console.log("EVENT: ", event);
 
   useEffect(() => {
-    const el = document.querySelector(".b1");
-    const el1 = document.querySelector(".b2");
+    const el = document.querySelector(`.${event.url}.b1`);
+    const el1 = document.querySelector(`.${event.url}.b2`);
     if (rsvp === 1) {
       el.classList.add("active");
       el1.classList.remove("active");
@@ -45,10 +46,10 @@ const RSVPBar = ({ props }) => {
       <div className="rsvp-bar-first">
         <span>RSVP:</span>
       </div>
-      <button className="b1 rsvp-bar" onClick={handleClick1}>
+      <button className={`${event.url} b1 rsvp-bar`} onClick={handleClick1}>
         Going
       </button>
-      <button className="b2 rsvp-bar" onClick={handleClick2}>
+      <button className={`${event.url} b2 rsvp-bar`} onClick={handleClick2}>
         Interested
       </button>
       {rsvp ? (
