@@ -1,29 +1,36 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { postRepliesSelector } from "../../store/replies";
 import Reply from "./Reply";
+import { EDIT_POST_MODAL } from "../modals/EditPostModal";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
-import { focusPost } from "../../store/posts";
+import { focusPost, removePost } from "../../store/posts";
+import { userSelector } from "../../store/session";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReply,
   faCommentDots,
   faArrowDown,
   faArrowUp,
+  faXmark,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { showModal } from "../../store/ui";
 
 const EventBoardPost = ({ post }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector(userSelector);
   const replies = useSelector(postRepliesSelector(post.id));
   const [showReplies, setShowReplies] = useState(false);
   let replyComponents;
   if (replies) {
-    replyComponents = Object.keys(replies).map((key) => {
-      return <Reply reply={replies[key]} key={key} />;
-    }).sort((a, b) => a.props.reply.time < b.props.reply.time ? -1 : 1);
+    replyComponents = Object.keys(replies)
+      .map((key) => {
+        return <Reply reply={replies[key]} key={key} />;
+      })
+      .sort((a, b) => (a.props.reply.time < b.props.reply.time ? -1 : 1));
   }
 
   const fixDate = (dateStr) => {
@@ -53,8 +60,21 @@ const EventBoardPost = ({ post }) => {
 
   const redirectToUser = (e) => {
     e.stopPropagation();
-    history.push(`/users/${post.user.username}`)
-  }
+    history.push(`/users/${post.user.username}`);
+  };
+
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(focusPost(post));
+    dispatch(showModal(EDIT_POST_MODAL));
+  };
+
+  const handleDeleteClick = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(removePost(post.id));
+  };
 
   return (
     <div className="post-outer">
@@ -70,6 +90,15 @@ const EventBoardPost = ({ post }) => {
             className="post-user-img"
           />
           <p className="post-user-name">{post.user.username}</p>
+          {console.log(post.userId)}
+         { user.id && user.id === post.user.id && <div className="profile-post-actions">
+            <span className="post-action" onClick={handleEditClick}>
+              <FontAwesomeIcon icon={faPen} /> Edit Post
+            </span>
+            <span className="post-action" onClick={handleDeleteClick}>
+              <FontAwesomeIcon icon={faXmark} /> Delete Post
+            </span>
+          </div>}
         </div>
         <div className="post-main">
           <p className="post-title">{post.title}</p>

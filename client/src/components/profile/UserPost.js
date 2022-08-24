@@ -13,7 +13,7 @@ import {
   faArrowDown,
   faArrowUp,
   faPen,
-  faXmark
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { showModal } from "../../store/ui";
 
@@ -24,9 +24,11 @@ const UserPost = ({ post }) => {
   const [showReplies, setShowReplies] = useState(false);
   let replyComponents;
   if (replies) {
-    replyComponents = Object.keys(replies).map((key) => {
-      return <UserPostReply reply={replies[key]} key={key} />;
-    }).sort((a, b) => a.props.reply.time < b.props.reply.time ? -1 : 1);
+    replyComponents = Object.keys(replies)
+      .map((key) => {
+        return <UserPostReply reply={replies[key]} key={key} />;
+      })
+      .sort((a, b) => (a.props.reply.time < b.props.reply.time ? -1 : 1));
   }
 
   const fixDate = (dateStr) => {
@@ -86,8 +88,12 @@ const UserPost = ({ post }) => {
             <p className="post-event-name">{post.event.name}</p>
           </div>
           <div className="profile-post-actions">
-          <span className="post-action" onClick={handleEditClick}><FontAwesomeIcon icon={faPen} />{" "}Edit Post</span>
-          <span className="post-action" onClick={handleDeleteClick}><FontAwesomeIcon icon={faXmark} />{" "}Delete Post</span>
+            <span className="post-action" onClick={handleEditClick}>
+              <FontAwesomeIcon icon={faPen} /> Edit Post
+            </span>
+            <span className="post-action" onClick={handleDeleteClick}>
+              <FontAwesomeIcon icon={faXmark} /> Delete Post
+            </span>
           </div>
         </div>
         <div className="post-main">
