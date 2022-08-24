@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { userSelector } from "../../store/session";
 import { currentEventSelector } from "../../store/events";
 import EventCard from "../events/EventCard";
+import RSVPBar from "./RSVPBar";
 
 function Events() {
   const user = useSelector(userSelector);
   const events = useSelector(currentEventSelector);
   const goingEventCards = Object.keys(events.going).map((key) => {
-    return <EventCard key={key} event={events.going[key]} />;
+    return (
+      <div className="user-event-item" key={key}><EventCard event={events.going[key]} /><RSVPBar props={{rsvpId: 1, event: events.going[key]}} /></div>
+    );
   });
   const interestedEventCards = Object.keys(events.interested).map((key) => {
     return <EventCard key={key} event={events.interested[key]} />;
