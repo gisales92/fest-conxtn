@@ -193,10 +193,13 @@ export default function repliesReducer(
       break;
     case EDIT_REPLY:
       newState.current[action.reply.id] = action.reply;
-      newState.posts[action.reply.postId][action.reply.id] = action.reply;
+      if (action.reply.post && newState.posts[action.reply.post.id]) {
+        newState.posts[action.reply.post.id][action.reply.id] = action.reply;
+      } else if (action.reply.postId && newState.posts[action.reply.postId]) {
+        newState.posts[action.reply.postId][action.reply.id] = action.reply;
+      }
       break;
     case DELETE_REPLY:
-      console.log("REPLY ACTION: ", action.reply)
       delete newState.current[action.reply.id];
       if (action.reply.post && newState.posts[action.reply.post.id]) {
         delete newState.posts[action.reply.post.id][action.reply.id];
