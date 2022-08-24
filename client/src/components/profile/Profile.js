@@ -23,7 +23,7 @@ function Profile() {
           await dispatch(fetchCurrentEvents());
           await dispatch(getCurrentGenres());
           await dispatch(getCurrentPosts());
-          await dispatch(getCurrentReplies())
+          await dispatch(getCurrentReplies());
         } finally {
           setLoaded(true);
         }

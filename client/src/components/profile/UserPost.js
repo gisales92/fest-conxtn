@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { postRepliesSelector } from "../../store/replies";
+import { getCurrentReplies, postRepliesSelector } from "../../store/replies";
 import UserPostReply from "./UserPostReplies";
 import { NEW_REPLY_MODAL } from "../modals/NewReplyModal";
-import { focusPost, removePost } from "../../store/posts";
+import { focusPost, removePost} from "../../store/posts";
 import { EDIT_POST_MODAL } from "../modals/EditPostModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -71,7 +71,8 @@ const UserPost = ({ post }) => {
   const handleDeleteClick = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    dispatch(removePost(post.id));
+    await dispatch(removePost(post.id));
+    await dispatch(getCurrentReplies());
   };
 
   return (
