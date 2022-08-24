@@ -79,6 +79,7 @@ const EventBoardPost = ({ post }) => {
   return (
     <div className="post-outer">
       <div className="post-inner">
+        <div className="event-post-upper">
         <div className="post-user-info" onClick={redirectToUser}>
           <img
             src={
@@ -90,7 +91,7 @@ const EventBoardPost = ({ post }) => {
             className="post-user-img"
           />
           <p className="post-user-name">{post.user.username}</p>
-          {console.log(post.userId)}
+          </div>
          { user.id && user.id === post.user.id && <div className="profile-post-actions">
             <span className="post-action" onClick={handleEditClick}>
               <FontAwesomeIcon icon={faPen} /> Edit Post
