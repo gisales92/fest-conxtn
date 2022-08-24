@@ -187,9 +187,11 @@ export default function postsReducer(
       break;
     case EDIT_POST:
       newState.current[action.post.id] = action.post;
+      newState.event[action.post.id] = action.post;
       break;
     case DELETE_POST:
       delete newState.current[action.postId];
+      delete newState.event[action.postId];
       break;
     case FOCUS_POST:
       newState.focus = action.post;
