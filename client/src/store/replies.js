@@ -52,10 +52,10 @@ export function editReply(reply) {
   };
 }
 // delete a reply
-export function deleteReply(replyId) {
+export function deleteReply(reply) {
   return {
     type: DELETE_REPLY,
-    replyId,
+    reply,
   };
 }
 // set a reply as the focused reply
@@ -137,13 +137,13 @@ export const updateReply = (reply) => async (dispatch) => {
   return res;
 };
 // delete reply thunk
-export const removeReply = (replyId) => async (dispatch) => {
-  const res = await fetch(`/api/my/replies/${replyId}`, {
+export const removeReply = (reply) => async (dispatch) => {
+  const res = await fetch(`/api/my/replies/${reply.id}`, {
     method: "DELETE",
   });
   if (res.ok) {
     const data = await res.json();
-    dispatch(deleteReply(replyId));
+    dispatch(deleteReply(reply));
     return data;
   }
   return res;
@@ -193,9 +193,16 @@ export default function repliesReducer(
       break;
     case EDIT_REPLY:
       newState.current[action.reply.id] = action.reply;
+      newState.posts[action.reply.postId][action.reply.id] = action.reply;
       break;
     case DELETE_REPLY:
-      delete newState.current[action.replyId];
+      console.log("REPLY ACTION: ", action.reply)
+      delete newState.current[action.reply.id];
+      if (action.reply.post && newState.posts[action.reply.post.id]) {
+        delete newState.posts[action.reply.post.id][action.reply.id];
+      } else if (action.reply.postId && newState.posts[action.reply.postId]) {
+        delete newState.posts[action.reply.postId][action.reply.id];
+      }
       break;
     case FOCUS_REPLY:
       newState.focus = action.reply;

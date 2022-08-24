@@ -38,7 +38,7 @@ const Reply = ({ reply }) => {
   const handleDeleteClick = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    dispatch(removeReply(reply.id));
+    dispatch(removeReply(reply));
   };
 
   return (
