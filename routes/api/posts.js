@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 
-const { Post, Reply, User } = require("../../db/models");
+const { Post, Reply, User, Event } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { validateReply } = require("../../utils/validation");
 
@@ -72,6 +72,8 @@ router.post(
 
     // get user info from the reply's association, then format reply response object
     const user = await reply.getUser();
+    const post1 = await reply.getPost();
+    const event = await Event.findByPk(post1.eventId)
     const filteredReply = {};
     filteredReply.id = reply.id;
     filteredReply.user = {
@@ -79,7 +81,11 @@ router.post(
       username: user.username,
       profilePicUrl: user.profilePicUrl,
     };
-    filteredReply.postId = reply.postId;
+    filteredReply.post = {
+      id: post1.id,
+      title: post1.title,
+      Event: event
+    };
     filteredReply.body = reply.body;
     filteredReply.time = reply.createdAt;
 

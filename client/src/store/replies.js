@@ -183,13 +183,14 @@ export default function repliesReducer(
       newState.current = cReps;
       break;
     case NEW_REPLY:
-      if (newState.posts[action.reply.postId]) {
-        newState.posts[action.reply.postId][action.reply.id] = action.reply;
+      if (newState.posts[action.reply.post.id]) {
+        newState.posts[action.reply.post.id][action.reply.id] = action.reply;
       } else {
-        newState.posts[action.reply.postId] = {
+        newState.posts[action.reply.post.id] = {
           [action.reply.id]: action.reply,
         };
       }
+      newState.current[action.reply.id] = action.reply;
       break;
     case EDIT_REPLY:
       newState.current[action.reply.id] = action.reply;
