@@ -244,6 +244,8 @@
 .user.rsvp-bar.b0 {
   width: 100%;
   border: none;
+  display: flex;
+  justify-content: center;
 }
 
 .user.rsvp-bar-first {

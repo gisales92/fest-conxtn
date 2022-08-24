@@ -26,6 +26,7 @@ const RSVPBar = ({ props }) => {
 
   const handleClick1 = async (e) => {
     e.stopPropagation();
+    if (rsvpId === 1) return
     await dispatch(eventActions.createRSVP({ eventId: event.id, rsvpId: 1 }));
     setRSVP(1);
     await dispatch(eventActions.fetchCurrentEvents());
@@ -33,6 +34,7 @@ const RSVPBar = ({ props }) => {
 
   const handleClick2 = async (e) => {
     e.stopPropagation();
+    if (rsvpId === 2) return
     await dispatch(eventActions.createRSVP({ eventId: event.id, rsvpId: 2 }));
     setRSVP(2);
     await dispatch(eventActions.fetchCurrentEvents());
