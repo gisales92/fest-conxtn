@@ -10,11 +10,19 @@ function Events() {
   const events = useSelector(currentEventSelector);
   const goingEventCards = Object.keys(events.going).map((key) => {
     return (
-      <div className="user-event-item" key={key}><EventCard event={events.going[key]} /><RSVPBar props={{rsvpId: 1, event: events.going[key]}} /></div>
+      <div className="user-event-item" key={key}>
+        <EventCard event={events.going[key]} />
+        <RSVPBar props={{ rsvpId: 1, event: events.going[key] }} />
+      </div>
     );
   });
   const interestedEventCards = Object.keys(events.interested).map((key) => {
-    return <EventCard key={key} event={events.interested[key]} />;
+    return (
+      <div className="user-event-item" key={key}>
+        <EventCard event={events.interested[key]} />
+        <RSVPBar props={{ rsvpId: 2, event: events.interested[key] }} />
+      </div>
+    );
   });
 
   return (

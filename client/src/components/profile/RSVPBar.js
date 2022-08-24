@@ -27,24 +27,27 @@ const RSVPBar = ({ props }) => {
     e.stopPropagation();
     await dispatch(eventActions.createRSVP({ eventId: event.id, rsvpId: 1 }));
     setRSVP(1);
+    await dispatch(eventActions.fetchCurrentEvents());
   };
 
   const handleClick2 = async (e) => {
     e.stopPropagation();
     await dispatch(eventActions.createRSVP({ eventId: event.id, rsvpId: 2 }));
     setRSVP(2);
+    await dispatch(eventActions.fetchCurrentEvents());
   };
 
   const handleClick0 = async (e) => {
     e.stopPropagation();
     await dispatch(eventActions.deleteRSVP(event.id));
     setRSVP(0);
+    await dispatch(eventActions.fetchCurrentEvents());
   };
 
   return (
     <div className="rsvp-bar-outer user">
       <div className="rsvp-bar-first">
-        <span>RSVP:</span>
+        <span>Update RSVP:</span>
       </div>
       <button className={`${event.url} b1 rsvp-bar`} onClick={handleClick1}>
         Going
