@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as eventActions from "../../store/events";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faCheck, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 
 const RSVPBar = ({ props }) => {
   const { rsvpId, event } = props;
@@ -46,16 +48,25 @@ const RSVPBar = ({ props }) => {
   return (
     <div className="rsvp-bar-outer user">
       <div className="rsvp-bar-first user">
-        <span>Update RSVP:</span>
+        <span>Update:</span>
       </div>
-      <button className={`${event.url} b1 rsvp-bar user`} onClick={handleClick1}>
+      <button
+        className={`${event.url} b1 rsvp-bar user`}
+        onClick={handleClick1}
+      >
+        <FontAwesomeIcon icon={faCheckDouble} />
         Going
       </button>
-      <button className={`${event.url} b2 rsvp-bar user`} onClick={handleClick2}>
+      <button
+        className={`${event.url} b2 rsvp-bar user`}
+        onClick={handleClick2}
+      >
+        <FontAwesomeIcon icon={faCheck} />
         Interested
       </button>
       {rsvp ? (
         <button className="b0 rsvp-bar user" onClick={handleClick0}>
+          <FontAwesomeIcon icon={faXmark} />
           Clear
         </button>
       ) : null}
