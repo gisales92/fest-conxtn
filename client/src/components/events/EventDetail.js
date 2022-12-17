@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Map from "./Map";
+// import Map from "./Map";
 import RSVPBar from "./RSVPBar";
 import EventBoard from "../board/EventBoard";
 import * as eventActions from "../../store/events";
@@ -118,7 +118,7 @@ function EventDetail() {
                 <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
               </div>
               <div className="event-detail-location-right">
-                <Map lat={event.lat} lng={event.lng} />
+                {/* <Map lat={event.lat} lng={event.lng} /> */}
               </div>
             </div>
           </div>

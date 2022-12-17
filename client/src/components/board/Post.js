@@ -92,7 +92,7 @@ const EventBoardPost = ({ post }) => {
           />
           <p className="post-user-name">{post.user.username}</p>
           </div>
-         { user.id && user.id === post.user.id && <div className="profile-post-actions">
+         { user && user.id && user.id === post.user.id && <div className="profile-post-actions">
             <span className="post-action" onClick={handleEditClick}>
               <FontAwesomeIcon icon={faPen} /> Edit Post
             </span>
