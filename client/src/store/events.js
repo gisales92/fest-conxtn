@@ -22,6 +22,7 @@ export const eventByIdSelector = (id) => (state) => state.events.all[id];
 export const genreEventsSelector = (state) => state.events.genre;
 export const userEventSelector = (state) => state.events.user;
 export const currentEventSelector = (state) => state.events.current;
+export const eventsByDateSelector = (state) => state.events.all.byDate;
 
 // action creators
 // set all events
@@ -172,9 +173,10 @@ export default function eventsReducer(
 
   switch (action.type) {
     case SET_EVENTS:
-      const events = {};
+      const events = { byDate: [] };
       action.events.forEach((event) => {
         events[event.id] = event;
+        events.byDate.push(event);
       });
       newState.all = events;
       break;

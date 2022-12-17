@@ -13,13 +13,14 @@ router.get(
   "/",
   asyncHandler(async function (req, res, next) {
     const { genreId } = req.query;
-    let options = { include: Genre };
+    let options = { include: Genre, order: ["startDate"], };
     if (typeof genreId !== "undefined") {
       // update options if genreId query parameter has been provided
       const genre = parseInt(genreId);
       options = {
         include: {
           model: Genre,
+          order: ["startDate"],
           where: {
             id: {
               [Op.eq]: genre,
