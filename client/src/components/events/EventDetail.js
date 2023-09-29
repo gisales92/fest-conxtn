@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import Map from "./Map";
+import Map from "./Map";
 import RSVPBar from "./RSVPBar";
 import EventBoard from "../board/EventBoard";
 import * as eventActions from "../../store/events";
@@ -94,22 +94,24 @@ function EventDetail() {
             <div className="event-detail-information">
               <h4 className="event-detail-title">Festival Description</h4>
               <p className="event-detail-description">{event?.description}</p>
-              <h4 className="event-detail-title">Dates</h4>
-              <p className="event-detail-dates">{`${fixDate(
-                event.startDate
-              )} to ${fixDate(event.endDate)}`}</p>
-              <h4 className="event-detail-title">Official Site</h4>
-              <a
-                href={event.link}
-                className="event-detail-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {event.link}
-              </a>
             </div>
             <div className="event-detail-location">
               <div className="event-detail-location-left">
+                <h4 className="event-detail-title">Dates</h4>
+                <p className="event-detail-dates">{`${fixDate(
+                  event.startDate
+                )} to ${fixDate(event.endDate)}`}</p>
+                <h4 className="event-detail-title">Official Site</h4>
+                <a
+                  href={event.link}
+                  className="event-detail-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {event.link}
+                </a>
+              </div>
+              <div className="event-detail-location-right">
                 <h3 className="event-detail-header">Location Information</h3>
                 <h4 className="event-detail-title">Venue</h4>
                 <p className="event-detail-info">{event.venueName}</p>
@@ -117,10 +119,8 @@ function EventDetail() {
                 <p className="event-detail-info">{event.address}</p>
                 <p className="event-detail-info">{`${event.city}, ${event.state} ${event.zipCode}`}</p>
               </div>
-              <div className="event-detail-location-right">
-                {/* <Map lat={event.lat} lng={event.lng} /> */}
-              </div>
             </div>
+              <Map pos={[event.lat, event.lng]} name={event.venueName} />
           </div>
         </div>
       ) : null}

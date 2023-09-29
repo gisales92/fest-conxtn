@@ -61,7 +61,7 @@ const Reply = ({ reply }) => {
       <div className="reply-footer">
         <p>{fixDate(reply.time)}</p>
       </div>
-      {user.id && reply.user.id === user.id && <div className="reply-actions">
+      {user?.id && reply.user.id === user.id && <div className="reply-actions">
       <span className="post-action" onClick={handleEditClick}><FontAwesomeIcon icon={faPen} />{" "}Edit Reply</span>
           <span className="post-action" onClick={handleDeleteClick}><FontAwesomeIcon icon={faXmark} />{" "}Delete Reply</span>
       </div>}
