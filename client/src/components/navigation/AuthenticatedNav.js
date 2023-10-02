@@ -1,16 +1,22 @@
-import React from 'react';
+import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightToBracket,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { logout } from "../../store/session";
 
-
 const AuthenticatedNav = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const onLogout = async (e) => await dispatch(logout());
+  const onLogout = async (e) => {
+        await dispatch(logout());
+        history.push("/")
+  };
 
   return (
     <div className="flex-row nav-links">
@@ -22,9 +28,7 @@ const AuthenticatedNav = () => {
         <FontAwesomeIcon icon={faArrowRightToBracket} className="icon" />
       </button>
       <Link to="/profile" id="profile-button">
-        <button
-        className="nav-button hover-effect"
-        >
+        <button className="nav-button hover-effect">
           <span>Profile</span>
           <FontAwesomeIcon icon={faUser} className="icon" />
         </button>

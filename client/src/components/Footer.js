@@ -28,6 +28,7 @@ const Footer = () => {
               <a
                 href="https://github.com/gisales92/fest-conxtn"
                 target="_blank"
+                rel="noreferrer"
               >
                 Source code
                 <FontAwesomeIcon icon={faCodeBranch} />
@@ -35,6 +36,7 @@ const Footer = () => {
               <a
                 href="https://github.com/gisales92/fest-conxtn/wiki"
                 target="_blank"
+                rel="noreferrer"
               >
                 Project documentation
                 <FontAwesomeIcon icon={faBook} />
@@ -45,13 +47,18 @@ const Footer = () => {
           <li>
             <h1>Greg Isales</h1>
             <div className="footer-links">
-              <a href="https://github.com/gisales92" target="_blank">
+              <a
+                href="https://github.com/gisales92"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Github
                 <FontAwesomeIcon icon={faGithub} />
               </a>
               <a
                 href="https://www.linkedin.com/in/greg-isales33/"
                 target="_blank"
+                rel="noreferrer"
               >
                 LinkedIn
                 <FontAwesomeIcon icon={faLinkedin} />
