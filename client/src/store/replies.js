@@ -154,7 +154,7 @@ export default function repliesReducer(
   state = { posts: {}, current: {}, user: {}, focus: {} },
   action
 ) {
-  const newState = { ...state };
+  const newState = {};
   newState.posts = { ...state.posts };
   newState.current = { ...state.current };
   newState.user = { ...state.user };

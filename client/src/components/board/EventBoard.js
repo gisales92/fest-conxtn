@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as replyActions from "../../store/replies";
 import * as postActions from "../../store/posts";
@@ -6,20 +6,23 @@ import EventBoardPost from "./Post";
 import "../../styles/postReplies.css"
 
 const EventBoard = () => {
-  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const posts = useSelector(postActions.eventPostsSelector);
+  const postReplies = useSelector(state => state.replies?.posts);
 
   useEffect(() => {
-    if (!loaded && Object.keys(posts)[0]) {
+    // fetching replies if we're missing any post Ids as keys in our "replies: posts" slice of state
+    const postIds = Object.keys(posts)
+    const postReplyIds = Object.keys(postReplies)
+    if (!postIds.every((postId)  => postReplyIds.includes(postId))) {
       (async () => {
         await Object.keys(posts).forEach(async (postId) => {
           await dispatch(replyActions.getPostReplies(postId));
         });
-        setLoaded(true);
+
       })();
     }
-  }, [loaded, dispatch, posts]);
+  }, [posts, dispatch, postReplies]);
 
   // sorting the posts with the most recent first when we go to map the components
   const postComponents = Object.keys(posts).map((key) => (
