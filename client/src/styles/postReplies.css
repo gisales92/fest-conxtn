@@ -67,11 +67,6 @@
   padding: 10px;
 }
 
-.event-board-outer {
-  overflow-y: scroll;
-  height: 70vh;
-}
-
 .reply-footer {
   display: flex;
   justify-content: flex-end;
@@ -94,6 +89,10 @@
   justify-content: space-between;
 }
 
+.post-footer span, .post-footer button {
+  font-size: 16pt;
+}
+
 .post-reply-button {
   background-color: #ffffff;
   border: none;
@@ -108,6 +107,10 @@
 .reply-controller,
 .no-replies {
   text-align: center;
+}
+
+.reply-controller-bar, .reply-controller.hidden {
+  font-size: 16pt;
 }
 
 .reply-controller-bar:hover,

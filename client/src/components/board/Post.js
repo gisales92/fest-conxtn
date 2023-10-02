@@ -44,11 +44,7 @@ const EventBoardPost = ({ post }) => {
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (!showReplies) {
-      setShowReplies(true);
-    } else {
-      setShowReplies(false);
-    }
+    setShowReplies(!showReplies)
   };
 
   const handleReplyModal = (e) => {
