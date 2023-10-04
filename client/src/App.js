@@ -29,9 +29,9 @@ function App() {
     if (!loaded) {
       (async () => {
         try {
-          await dispatch(authenticate());
           await dispatch(fetchAllEvents());
           await dispatch(getAllGenres());
+          await dispatch(authenticate());
         } finally {
           setLoaded(true);
         }

@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_GENRES = "genres/SET_GENRES";
 export const SET_USER_GENRES = "genres/SET_USER_GENRES";
@@ -59,21 +61,21 @@ export function removeCurrentGenre(genreId) {
 // thunks
 // fetch all genres thunk
 export const getAllGenres = () => async (dispatch) => {
-  const res = await fetch("/api/genres");
+  const res = await csrfFetch("/api/genres");
   const data = await res.json();
   dispatch(setAllGenres(data.genres));
   return data;
 };
 // fetch a user's subscribed genres thunk
 export const getUserGenres = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}/genres`);
+  const res = await csrfFetch(`/api/users/${userId}/genres`);
   const data = await res.json();
   dispatch(setUserGenres(data.genres));
   return data;
 };
 // fetch the current user's subscribed genres thunk
 export const getCurrentGenres = () => async (dispatch) => {
-  const res = await fetch("/api/my/genres");
+  const res = await csrfFetch("/api/my/genres");
   const data = await res.json();
   dispatch(setCurrentGenres(data.genres));
   return data;
@@ -82,7 +84,7 @@ export const getCurrentGenres = () => async (dispatch) => {
 export const addGenre = (genreId) => async (dispatch, getState) => {
   const state = getState();
   const userId = state.session.user.id;
-  const res = await fetch(`/api/my/genres`, {
+  const res = await csrfFetch(`/api/my/genres`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +103,7 @@ export const addGenre = (genreId) => async (dispatch, getState) => {
 };
 // Remove a genre from the current user's genres thunk
 export const removeGenre = (genreId) => async (dispatch) => {
-  const res = await fetch(`/api/my/genres/${genreId}`, {
+  const res = await csrfFetch(`/api/my/genres/${genreId}`, {
     method: "DELETE",
   });
   if (res.ok) {

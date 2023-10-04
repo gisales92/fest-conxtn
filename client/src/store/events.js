@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_EVENTS = "events/SET_EVENTS";
 export const SET_GENRE_EVENTS = "events/SET_GENRE_EVENTS";
@@ -79,7 +81,7 @@ export function deleteRSVPAction(eventId) {
 // thunks
 // fetch all events thunk
 export const fetchAllEvents = () => async (dispatch) => {
-  const res = await fetch("/api/events");
+  const res = await csrfFetch("/api/events");
   const data = await res.json();
 
   dispatch(setAllEvents(data.events));
@@ -87,7 +89,7 @@ export const fetchAllEvents = () => async (dispatch) => {
 };
 // fetch events of a genre thunk
 export const fetchGenreEvents = (genreId) => async (dispatch) => {
-  const res = await fetch(`/api/events?genreId=${genreId}`);
+  const res = await csrfFetch(`/api/events?genreId=${genreId}`);
   const data = await res.json();
 
   dispatch(setGenreEvents(data.events));
@@ -95,14 +97,14 @@ export const fetchGenreEvents = (genreId) => async (dispatch) => {
 };
 // fetch events for a given user thunk
 export const fetchUserEvents = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}/events`);
+  const res = await csrfFetch(`/api/users/${userId}/events`);
   const data = await res.json();
   dispatch(setUserEvents(data.events));
   return data;
 };
 // fetch events for current user thunk
 export const fetchCurrentEvents = () => async (dispatch) => {
-  const res = await fetch("/api/my/events");
+  const res = await csrfFetch("/api/my/events");
   const data = await res.json();
   dispatch(setCurrentEvents(data.events));
   return data;
@@ -112,7 +114,7 @@ export const createRSVP = (rsvp) => async (dispatch, getState) => {
   const state = getState();
   const userId = state.session.user.id;
   const { eventId, rsvpId } = rsvp;
-  const res = await fetch("/api/my/events", {
+  const res = await csrfFetch("/api/my/events", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -130,7 +132,7 @@ export const createRSVP = (rsvp) => async (dispatch, getState) => {
 // Update RSVP for an event for the current user -- not used
 export const updateRSVP = (rsvp) => async (dispatch) => {
   const { eventId, rsvpId } = rsvp;
-  const res = await fetch(`/api/my/events/${eventId}`, {
+  const res = await csrfFetch(`/api/my/events/${eventId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -146,7 +148,7 @@ export const updateRSVP = (rsvp) => async (dispatch) => {
 
 // Delete RSVP for an event for the current user
 export const deleteRSVP = (eventId) => async (dispatch) => {
-  const res = await fetch(`/api/my/events/${eventId}`, {
+  const res = await csrfFetch(`/api/my/events/${eventId}`, {
     method: "DELETE",
   });
   const data = await res.json();

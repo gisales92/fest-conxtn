@@ -12,9 +12,9 @@ function EventList() {
   const [eventKeys, setEventKeys] = useState([0, 1, 2, 3, 4, 5 ]);
   const events = useSelector(eventsByDateSelector);
   const sessionUser = useSelector(userSelector);
-  const eventCards = eventKeys.map((key) => (
+  const eventCards = events ? eventKeys.map((key) => (
     <EventCard key={key} event={events[key]} />
-  ));
+  )) : null;
 
   const handleScroll = () => {
     if (

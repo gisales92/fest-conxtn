@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_EVENT_POSTS = "posts/SET_EVENT_POSTS";
 export const SET_USER_POSTS = "posts/SET_USER_POSTS";
@@ -67,7 +69,7 @@ export function focusPost(post) {
 // thunks
 // fetch an event's posts thunk
 export const getEventPosts = (eventId) => async (dispatch) => {
-  const res = await fetch(`/api/events/${eventId}/posts`);
+  const res = await csrfFetch(`/api/events/${eventId}/posts`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setEventPosts(data.posts));
@@ -77,7 +79,7 @@ export const getEventPosts = (eventId) => async (dispatch) => {
 };
 // fetch a user's posts thunk
 export const getUserPosts = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}/posts`);
+  const res = await csrfFetch(`/api/users/${userId}/posts`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setUserPosts(data.posts));
@@ -87,7 +89,7 @@ export const getUserPosts = (userId) => async (dispatch) => {
 };
 // fetch the current users's posts thunk
 export const getCurrentPosts = () => async (dispatch) => {
-  const res = await fetch("/api/my/posts");
+  const res = await csrfFetch("/api/my/posts");
   if (res.ok) {
     const data = await res.json();
     dispatch(setCurrentPosts(data.posts));
@@ -98,7 +100,7 @@ export const getCurrentPosts = () => async (dispatch) => {
 // create a new post thunk
 export const createPost = (post) => async (dispatch) => {
   const { userId, eventId, title, body } = post;
-  const res = await fetch(`/api/events/${eventId}/posts`, {
+  const res = await csrfFetch(`/api/events/${eventId}/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -119,7 +121,7 @@ export const createPost = (post) => async (dispatch) => {
 // update a post thunk
 export const updatePost = (post) => async (dispatch) => {
   const { postId, title, body } = post;
-  const res = await fetch(`/api/my/posts/${postId}`, {
+  const res = await csrfFetch(`/api/my/posts/${postId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -138,7 +140,7 @@ export const updatePost = (post) => async (dispatch) => {
 };
 // delete post thunk
 export const removePost = (postId) => async (dispatch) => {
-  const res = await fetch(`/api/my/posts/${postId}`, {
+  const res = await csrfFetch(`/api/my/posts/${postId}`, {
     method: "DELETE",
   });
   if (res.ok) {

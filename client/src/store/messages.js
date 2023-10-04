@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_MESSAGES = "messages/SET_MESSAGES";
 export const READ_MESSAGE = "messages/READ_MESSAGE";
@@ -32,7 +34,7 @@ export function newMessage(message) {
 // thunks
 // fetch all messages thunk
 export const getMessages = () => async (dispatch) => {
-  const res = await fetch("/api/my/messages");
+  const res = await csrfFetch("/api/my/messages");
   if (res.ok) {
     const data = await res.json();
     dispatch(setMessages(data.messages));
@@ -42,7 +44,7 @@ export const getMessages = () => async (dispatch) => {
 };
 // mark a message as read thunk
 export const updateRead = (messageId) => async (dispatch) => {
-  const res = await fetch(`/api/my/messages/${messageId}`);
+  const res = await csrfFetch(`/api/my/messages/${messageId}`);
   if (res.ok) {
     const data = await res.json();
     dispatch(readMessage(data));
@@ -53,7 +55,7 @@ export const updateRead = (messageId) => async (dispatch) => {
 // create a new message thunk
 export const createMessage = (message) => async (dispatch) => {
   const { senderId, recipientId, body } = message;
-  const res = await fetch("/api/my/messages", {
+  const res = await csrfFetch("/api/my/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

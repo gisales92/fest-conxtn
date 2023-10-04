@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_USER = "users/SET_USER";
 
@@ -16,7 +18,7 @@ export function setUser(user) {
 // thunks
 // fetch a user thunk
 export const fetchUser = (username) => async (dispatch) => {
-  const res = await fetch(`/api/users/${username}`);
+  const res = await csrfFetch(`/api/users/${username}`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setUser(data));

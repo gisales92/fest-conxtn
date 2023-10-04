@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 export const SET_POST_REPLIES = "replies/SET_POST_REPLIES";
 export const SET_USER_REPLIES = "replies/SET_USER_REPLIES";
@@ -69,7 +71,7 @@ export function focusReply(reply) {
 // thunks
 // fetch all replies to a post thunk
 export const getPostReplies = (postId) => async (dispatch) => {
-  const res = await fetch(`/api/posts/${postId}/replies`);
+  const res = await csrfFetch(`/api/posts/${postId}/replies`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setPostReplies(data.replies, postId));
@@ -79,7 +81,7 @@ export const getPostReplies = (postId) => async (dispatch) => {
 };
 // fetch all of a user's replies thunk
 export const getUserReplies = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/${userId}/replies`);
+  const res = await csrfFetch(`/api/users/${userId}/replies`);
   if (res.ok) {
     const data = await res.json();
     dispatch(setUserReplies(data.replies));
@@ -89,7 +91,7 @@ export const getUserReplies = (userId) => async (dispatch) => {
 };
 // fetch the current user's replies thunk
 export const getCurrentReplies = () => async (dispatch) => {
-  const res = await fetch("/api/my/replies");
+  const res = await csrfFetch("/api/my/replies");
   if (res.ok) {
     const data = await res.json();
     dispatch(setCurrentReplies(data.replies));
@@ -100,7 +102,7 @@ export const getCurrentReplies = () => async (dispatch) => {
 // create a new reply thunk
 export const createReply = (reply) => async (dispatch) => {
   const { userId, postId, body } = reply;
-  const res = await fetch(`/api/posts/${postId}/replies`, {
+  const res = await csrfFetch(`/api/posts/${postId}/replies`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -120,7 +122,7 @@ export const createReply = (reply) => async (dispatch) => {
 // edit a reply thunk
 export const updateReply = (reply) => async (dispatch) => {
   const { replyId, body } = reply;
-  const res = await fetch(`/api/my/replies/${replyId}`, {
+  const res = await csrfFetch(`/api/my/replies/${replyId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -138,7 +140,7 @@ export const updateReply = (reply) => async (dispatch) => {
 };
 // delete reply thunk
 export const removeReply = (reply) => async (dispatch) => {
-  const res = await fetch(`/api/my/replies/${reply.id}`, {
+  const res = await csrfFetch(`/api/my/replies/${reply.id}`, {
     method: "DELETE",
   });
   if (res.ok) {
