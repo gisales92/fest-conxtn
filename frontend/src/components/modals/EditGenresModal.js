@@ -31,12 +31,12 @@ const EditGenresModal = () => {
 
   const handleLike = async (e) => {
     e.stopPropagation();
-    await dispatch(addGenre(e.target.id));
+    await dispatch(addGenre(e.currentTarget.id));
   };
 
   const handleRemove = async (e) => {
     e.stopPropagation();
-    await dispatch(removeGenre(e.target.id));
+    await dispatch(removeGenre(e.currentTarget.id));
   };
 
   const genreRows = allGenreKeys.map((genreId) => {
